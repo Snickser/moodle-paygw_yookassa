@@ -38,7 +38,7 @@
     }
 
 }}
-<form id="yookassa-method-select" action="{{url}}/payment/gateway/yookassa/pay.php" class="yookassa-form" method="POST">
+<form id="yookassa-method-select" action="{{url}}/payment/gateway/yookassa/pay.php" class="yookassa-form" method="GET">
     <div class="cost-display">
         <div style="text-align: center;">
 
@@ -60,7 +60,7 @@ size="7" step="0.01">
 <p><h4>{{# str }} enrolperiod, enrol {{/ str}} ({{enrolperiod_desc}}): {{enrolperiod}}</h4></p>
 {{/enrolperiod}}
 
-<img src="{{{image}}}" alt="yookassa" height="60">
+<img src="{{{image}}}" alt="yookassa" height="40">
 
         </div>
     </div>
@@ -82,7 +82,7 @@ size="7" step="0.01">
 
 {{#skipmode}}
 <p>{{# str }} skipmode_text, paygw_yookassa {{/ str}}</p>
-<button type="submit" id="skipmode" name="skipmode" value="1" class="btn btn-secondary btn-paygw-skipmode" id="yookassa-modal-submit-btn">{{# str }} skippaymentbutton, paygw_yookassa {{/ str }}</button>
+<button type="submit" id="skipmode" class="btn btn-secondary btn-paygw-skipmode" id="yookassa-modal-submit-btn">{{# str }} skippaymentbutton, paygw_yookassa {{/ str }}</button>
 {{/skipmode}}
 
 {{^skipmode}}
