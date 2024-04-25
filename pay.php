@@ -190,5 +190,4 @@ redirect($confirmationurl);
 
 /*
 Culture=" . current_language() . "&
-Email=" . urlencode($USER->email) . "&
 */
