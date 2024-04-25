@@ -164,7 +164,7 @@ $payment = $client->createPayment(
             ],
             'confirmation' => [
                 'type' => 'redirect',
-                'return_url' => $url,
+                'return_url' => $CFG->wwwroot . "/payment/gateway/yookassa/return.php",
             ],
             'capture' => true,
             'description' => $description,
