@@ -114,7 +114,6 @@ $url = helper::get_success_url($component, $paymentarea, $itemid);
 
 // Check passwordmode or skipmode
 if (!empty($password) || $skipmode) {
-
     $success = false;
     if ($config->skipmode) {
         $success = true;
@@ -163,6 +162,11 @@ $payment = $client->createPayment(
                 'value' => $cost,
                 'currency' => $currency,
             ],
+            'receipt' => [
+                'customer' => [
+                    'email' => $USER->email,
+                ],
+            ],
             'confirmation' => [
                 'type' => 'redirect',
                 'return_url' => $CFG->wwwroot . "/payment/gateway/yookassa/return.php?ID=" . $transactionid,
@@ -173,7 +177,7 @@ $payment = $client->createPayment(
     uniqid($transactionid, true)
 );
 
-//file_put_contents("/tmp/xxxx", $payment."\n", FILE_APPEND);
+// file_put_contents("/tmp/xxxx", $payment."\n", FILE_APPEND);
 
 $data = new stdClass();
 $data->id = $transactionid;
@@ -188,4 +192,3 @@ redirect($confirmationurl);
 Culture=" . current_language() . "&
 Email=" . urlencode($USER->email) . "&
 */
-
