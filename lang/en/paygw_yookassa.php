@@ -21,10 +21,10 @@
  * @copyright  2024 Alex Orlov <snickser@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['pluginname'] = 'yookassa payment';
+$string['pluginname'] = 'YooKassa payment';
 $string['pluginname_desc'] = 'The yookassa plugin allows you to receive payments via yookassa.';
-$string['gatewaydescription'] = 'yookassa is an authorised payment gateway provider for processing credit card transactions.';
-$string['gatewayname'] = 'yookassa';
+$string['gatewaydescription'] = 'YooKassa is an authorised payment gateway provider for processing credit card transactions.';
+$string['gatewayname'] = 'YooKassa';
 $string['callback_url'] = 'Callback URL:';
 $string['callback_help'] = 'Copy this and put it in URLs at your yookassa account.';
 $string['payment_success'] = 'Payment Successful';
