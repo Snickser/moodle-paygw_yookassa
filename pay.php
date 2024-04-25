@@ -172,11 +172,19 @@ $payment = $client->createPayment(
     uniqid($transactionid, true)
 );
 
-$confirmationUrl = $payment->getConfirmation()->getConfirmationUrl();
+//file_put_contents("/tmp/xxxx", $payment."\n", FILE_APPEND);
 
-redirect($confirmationUrl);
+$data = new stdClass();
+$data->id = $transactionid;
+$data->orderid = $payment->id;
+$DB->update_record('paygw_yookassa', $data);
+
+$confirmationurl = $payment->getConfirmation()->getConfirmationUrl();
+
+redirect($confirmationurl);
 
 /*
 Culture=" . current_language() . "&
 Email=" . urlencode($USER->email) . "&
 */
+
