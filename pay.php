@@ -27,6 +27,9 @@ use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
 
+require('/opt/yookassa-sdk-php/vendor/autoload.php');
+use YooKassa\Client;
+
 require_login();
 
 global $CFG, $USER, $DB;
@@ -151,8 +154,6 @@ if (!empty($password) || $skipmode) {
     die; // Never
 }
 
-require(__DIR__ . '/yookassa-sdk-php/vendor/autoload.php');
-use YooKassa\Client;
 
 $client = new Client();
 $client->setAuth($config->shopid, $config->apikey);
