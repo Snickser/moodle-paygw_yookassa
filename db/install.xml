@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="payment/gateway/yookassa/db" VERSION="20240327" COMMENT="XMLDB file for Moodle payment/gateway/yookassa"
+<XMLDB PATH="payment/gateway/yookassa/db" VERSION="20240425" COMMENT="XMLDB file for Moodle payment/gateway/yookassa"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
@@ -7,6 +7,7 @@
     <TABLE NAME="paygw_yookassa" COMMENT="List of successful yookassa transactions.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="orderid"     TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="userid"       TYPE="int" LENGTH="10" UNSIGNED="true" NOTNULL="true" SEQUENCE="false" ENUM="false"/>
         <FIELD NAME="courseid"     TYPE="int" LENGTH="10" UNSIGNED="true" NOTNULL="false" SEQUENCE="false" ENUM="false"/>
         <FIELD NAME="group_names"   TYPE="text" NOTNULL="false" SEQUENCE="false" ENUM="false"/>

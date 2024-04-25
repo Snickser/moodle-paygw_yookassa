@@ -2,11 +2,11 @@
 
 # Yookassa payment gateway plugin for Moodle.
 
-Version 0.1
+Version 0.2
 
 https://yookassa.ru
 
-
+![alt text](https://raw.githubusercontent.com/Snickser/moodle-paygw_yookassa/809333a08256b99ff3a7143ce2fbc0ee9fba6b24/pix/img.svg)
 
 Возможности
 ------------
@@ -30,6 +30,7 @@ INSTALLATION
 Download the latest **paygw_yookassa.zip** and unzip the contents into the **/payment/gateway** directory. Or upload it from Moodle plugins adminnistration interface.<br>
 Then from shell console install yookassa-sdk like:
 ```
+cd /opt
 git clone https://git.yoomoney.ru/scm/sdk/yookassa-sdk-php.git
 cd yookassa-sdk-php
 composer install
