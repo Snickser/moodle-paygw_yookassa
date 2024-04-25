@@ -25,8 +25,7 @@
 
 use core_payment\helper;
 
-require_once(__DIR__ . '/yookassa-sdk-php/lib/autoload.php');
-use YooKassa\Client;
+require_once(__DIR__ . '/yookassa-sdk-php/vendor/autoload.php');
 
 require_once(__DIR__ . '/../../../config.php');
 global $CFG, $USER, $DB;
