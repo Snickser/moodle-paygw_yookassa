@@ -1,0 +1,109 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template paygw_yookassa/method
+
+    Context variables required for this template:
+    * fee - the amount to pay
+    * currency - the currency of this payment
+    * description - what the user paying for
+
+    Example context (json):
+    {
+        "fee": "10.05",
+        "currency": "RUB",
+        "description": "for enrolment in course",
+        "enrolperiod": "1",
+        "enrolperiod_desc": "day"
+        "passwordmode": "1"
+        "skipmode": "1"
+        "suggested": "100"
+        "group": "Test"
+        "maxcost": "10"
+        "fixdesc": "1"
+    }
+
+}}
+<form id="yookassa-method-select" action="{{url}}/payment/gateway/yookassa/pay.php" class="yookassa-form" method="POST">
+    <div class="cost-display">
+        <div style="text-align: center;">
+
+{{^fixdesc}}
+<p>{{# str }} abouttopay, paygw_yookassa {{/ str}} "{{description}}"</p>
+{{/fixdesc}}
+
+<p>{{# str }} paymore, paygw_yookassa {{/ str}}</p>
+
+            <h3>{{# str }} cost {{/ str}}:
+
+<input type="number" id="costself" name="costself" min="{{fee}}" {{#maxcost}}max="{{maxcost}}"{{/maxcost}}
+value="{{#suggest}}{{suggest}}{{/suggest}}{{^suggest}}{{fee}}{{/suggest}}"
+size="7" step="0.01">
+
+ {{currency}}</h3>
+
+{{#enrolperiod}}
+<p><h4>{{# str }} enrolperiod, enrol {{/ str}} ({{enrolperiod_desc}}): {{enrolperiod}}</h4></p>
+{{/enrolperiod}}
+
+<img src="{{{image}}}" alt="yookassa" height="60">
+
+        </div>
+    </div>
+
+<br>
+
+
+<div style="text-align: center;">
+
+    <p>{{# str }} paymentinstant {{/ str}}</p>
+    <button type="submit" class="btn btn-primary" id="yookassa-modal-submit-btn">{{# str }} sendpaymentbutton, paygw_yookassa {{/ str }}</button>
+    </p><br>
+
+
+{{#usedetails}}
+<details>
+  <summary>{{# str }} usedetails_text, paygw_yookassa {{/ str }}</summary>
+{{/usedetails}}
+
+{{#skipmode}}
+<p>{{# str }} skipmode_text, paygw_yookassa {{/ str}}</p>
+<button type="submit" id="skipmode" name="skipmode" value="1" class="btn btn-secondary btn-paygw-skipmode" id="yookassa-modal-submit-btn">{{# str }} skippaymentbutton, paygw_yookassa {{/ str }}</button>
+{{/skipmode}}
+
+{{^skipmode}}
+{{#passwordmode}}
+<p>{{# str }} password_text, paygw_yookassa {{/ str}} <br>
+{{# str }} password {{/ str}}: <input type="password" id="password" name="password" value="" autocomplete="off">
+</p>
+{{/passwordmode}}
+{{/skipmode}}
+
+{{#usedetails}}
+</details>
+{{/usedetails}}
+
+</div>
+
+    <div class="hidden-inputs">
+        <input type="hidden" class="hidden-inputs" id="component" name="component" value="{{component}}">
+        <input type="hidden" class="hidden-inputs" id="paymentarea" name="paymentarea" value="{{paymentarea}}">
+        <input type="hidden" class="hidden-inputs" id="itemid" name="itemid" value="{{itemid}}">
+        <input type="hidden" class="hidden-inputs" id="description" name="description" value="{{{description}}}">
+    </div>
+
+</form>
