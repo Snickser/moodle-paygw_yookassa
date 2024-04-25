@@ -82,7 +82,7 @@ size="7" step="0.01">
 
 {{#skipmode}}
 <p>{{# str }} skipmode_text, paygw_yookassa {{/ str}}</p>
-<button type="submit" id="skipmode" class="btn btn-secondary btn-paygw-skipmode" id="yookassa-modal-submit-btn">{{# str }} skippaymentbutton, paygw_yookassa {{/ str }}</button>
+<button type="submit" id="skipmode" name="skipmode" value="1" class="btn btn-secondary btn-paygw-skipmode" id="yookassa-modal-submit-btn">{{# str }} skippaymentbutton, paygw_yookassa {{/ str }}</button>
 {{/skipmode}}
 
 {{^skipmode}}

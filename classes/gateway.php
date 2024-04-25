@@ -47,10 +47,10 @@ class gateway extends \core_payment\gateway {
     public static function add_configuration_to_gateway_form(\core_payment\form\account_gateway $form): void {
         $mform = $form->get_mform();
 
-        $mform->addElement('text', 'merchant_login', get_string('merchant_login', 'paygw_yookassa'));
-        $mform->setType('merchant_login', PARAM_TEXT);
+        $mform->addElement('text', 'shopid', get_string('shopid', 'paygw_yookassa'));
+        $mform->setType('shopid', PARAM_TEXT);
 
-        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 24]);
+        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 48]);
         $mform->setType('apikey', PARAM_TEXT);
 
         $mform->addElement(
@@ -125,7 +125,7 @@ class gateway extends \core_payment\gateway {
         array $files,
         array &$errors
     ): void {
-        if ($data->enabled && empty($data->merchant_login)) {
+        if ($data->enabled && empty($data->shopid)) {
             $errors['enabled'] = get_string('gatewaycannotbeenabled', 'payment');
         }
     }
