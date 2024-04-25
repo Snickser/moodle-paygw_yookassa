@@ -6,7 +6,7 @@ Version 0.2
 
 https://yookassa.ru
 
-
+![alt text](https://raw.githubusercontent.com/Snickser/moodle-paygw_yookassa/809333a08256b99ff3a7143ce2fbc0ee9fba6b24/pix/img.svg)
 
 Возможности
 ------------
