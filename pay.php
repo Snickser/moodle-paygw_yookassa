@@ -190,6 +190,7 @@ $payment->confirmation = [
 ];
 $payment->capture = "true";
 $payment->description = $description;
+
 $payment->receipt = [
  "customer" => [
    "email" => $USER->email,
