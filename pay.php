@@ -27,8 +27,10 @@ use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
 
-require('/opt/yookassa-sdk-php/vendor/autoload.php');
-use YooKassa\Client;
+require_once($CFG->libdir . '/filelib.php');
+
+// require('/opt/yookassa-sdk-php/vendor/autoload.php');
+// use YooKassa\Client;
 
 require_login();
 
@@ -153,7 +155,7 @@ if (!empty($password) || $skipmode) {
     die; // Never
 }
 
-
+/*
 $client = new Client();
 $client->setAuth($config->shopid, $config->apikey);
 $payment = $client->createPayment(
@@ -177,17 +179,65 @@ $payment = $client->createPayment(
     uniqid($transactionid, true)
 );
 
-// file_put_contents("/tmp/xxxx", $payment."\n", FILE_APPEND);
+$confirmationurl = $payment->getConfirmation()->getConfirmationUrl();
+
+*/
+
+$payment = new stdClass();
+$payment = [
+            'amount' => [
+                'value' => $cost,
+                'currency' => $currency,
+            ],
+/*            'receipt' => [
+                'customer' => [
+                    'email' => $USER->email,
+                ],
+                'items' => [
+                   "quantity" => 1,
+                   "price" => [
+                        "amount" => $cost,
+                   ],
+                   "tax" => 1,
+                   "text" => $description,
+                ]
+            ],
+*/
+            'confirmation' => [
+                'type' => 'redirect',
+                'return_url' => $CFG->wwwroot . "/payment/gateway/yookassa/return.php?ID=" . $transactionid,
+            ],
+            'capture' => true,
+            'description' => $description,
+        ];
+
+$curlhandler = curl_init();
+curl_setopt($curlhandler, CURLOPT_HTTPHEADER, [
+    'Idempotence-Key: ' . uniqid($transactionid, true),
+    'Accept: application/json',
+    'Content-Type: application/json',
+    ]);
+curl_setopt_array($curlhandler, [
+     CURLOPT_URL => 'https://api.yookassa.ru/v3/payments',
+     CURLOPT_RETURNTRANSFER => true,
+     CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
+     CURLOPT_USERPWD => $config->shopid . ':' . $config->apikey,
+]);
+$jsondata = json_encode($payment);
+curl_setopt($curlhandler, CURLOPT_POST, true);
+curl_setopt($curlhandler, CURLOPT_POSTFIELDS, $jsondata);
+
+$jsonresponse = curl_exec($curlhandler);
+
+$response = json_decode($jsonresponse);
+
+// file_put_contents("/tmp/xxxx", serialize($response)."\n", FILE_APPEND);
 
 $data = new stdClass();
 $data->id = $transactionid;
-$data->orderid = $payment->id;
+$data->orderid = $response->id;
 $DB->update_record('paygw_yookassa', $data);
 
-$confirmationurl = $payment->getConfirmation()->getConfirmationUrl();
+$confirmationurl = $response->confirmation->confirmation_url;
 
 redirect($confirmationurl);
-
-/*
-Culture=" . current_language() . "&
-*/
