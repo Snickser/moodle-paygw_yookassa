@@ -186,7 +186,7 @@ $payment = new stdClass();
 $payment->amount = [ "value" => $cost, "currency" => $currency ];
 $payment->confirmation = [
   "type" => "redirect",
-  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $transactionid
+  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $transactionid,
 ];
 $payment->capture = "true";
 $payment->description = $description;
@@ -220,7 +220,7 @@ curl_setopt_array($curlhandler, [
      CURLOPT_RETURNTRANSFER => true,
      CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
      CURLOPT_USERPWD => $config->shopid . ':' . $config->apikey,
-]);
+     ]);
 $jsondata = json_encode($payment);
 curl_setopt($curlhandler, CURLOPT_POST, true);
 curl_setopt($curlhandler, CURLOPT_POSTFIELDS, $jsondata);
@@ -235,6 +235,7 @@ $confirmationurl = $response->confirmation->confirmation_url;
 
 if (empty($confirmationurl)) {
     redirect($url, get_string('payment_error', 'paygw_yookassa'), 0, 'error');
+    die;
 }
 
 $data = new stdClass();
