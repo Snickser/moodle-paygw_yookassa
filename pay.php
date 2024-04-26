@@ -26,7 +26,6 @@
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
-
 require_once($CFG->libdir . '/filelib.php');
 
 // require('/opt/yookassa-sdk-php/vendor/autoload.php');
@@ -184,32 +183,30 @@ $confirmationurl = $payment->getConfirmation()->getConfirmationUrl();
 */
 
 $payment = new stdClass();
-$payment = [
-            'amount' => [
-                'value' => $cost,
-                'currency' => $currency,
-            ],
-/*            'receipt' => [
-                'customer' => [
-                    'email' => $USER->email,
-                ],
-                'items' => [
-                   "quantity" => 1,
-                   "price" => [
-                        "amount" => $cost,
-                   ],
-                   "tax" => 1,
-                   "text" => $description,
-                ]
-            ],
-*/
-            'confirmation' => [
-                'type' => 'redirect',
-                'return_url' => $CFG->wwwroot . "/payment/gateway/yookassa/return.php?ID=" . $transactionid,
-            ],
-            'capture' => true,
-            'description' => $description,
-        ];
+$payment->amount = [ "value" => $cost, "currency" => $currency ];
+$payment->confirmation = [
+  "type" => "redirect",
+  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $transactionid
+];
+$payment->capture = "true";
+$payment->description = $description;
+$payment->receipt = [
+ "customer" => [
+   "email" => $USER->email,
+ ],
+ "items" => [
+   [
+    "description" => $description,
+    "quantity" => 1,
+    "amount" => [
+       "value" => $cost,
+       "currency" => $currency,
+    ],
+    "vat_code" => 1,
+    "payment_mode" => "full_payment",
+   ],
+ ],
+];
 
 $curlhandler = curl_init();
 curl_setopt($curlhandler, CURLOPT_HTTPHEADER, [
@@ -233,11 +230,15 @@ $response = json_decode($jsonresponse);
 
 // file_put_contents("/tmp/xxxx", serialize($response)."\n", FILE_APPEND);
 
+$confirmationurl = $response->confirmation->confirmation_url;
+
+if (empty($confirmationurl)) {
+    redirect($url, get_string('payment_error', 'paygw_yookassa'), 0, 'error');
+}
+
 $data = new stdClass();
 $data->id = $transactionid;
 $data->orderid = $response->id;
 $DB->update_record('paygw_yookassa', $data);
-
-$confirmationurl = $response->confirmation->confirmation_url;
 
 redirect($confirmationurl);
