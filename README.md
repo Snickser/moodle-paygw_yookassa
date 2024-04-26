@@ -1,6 +1,6 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/snickser) support me with a donation.
 
-# Yookassa payment gateway plugin for Moodle.
+# YooKassa payment gateway plugin for Moodle.
 
 Version 0.2
 
