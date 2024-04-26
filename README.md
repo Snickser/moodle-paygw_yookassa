@@ -1,6 +1,6 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/snickser) support me with a donation.
 
-# Yookassa payment gateway plugin for Moodle.
+# YooKassa payment gateway plugin for Moodle.
 
 Version 0.2
 
@@ -14,7 +14,7 @@ https://yookassa.ru
 + Сохраняет в базе номер курса и название группы студента.
 + Можно указать рекомендуемую цену.
 + Можно ограничить максимальную цену.
-+ Отображание продолжительности обучения (для enrol_fee и mod_gwpaymets), если она установлена.
++ Отображение продолжительности обучения (для enrol_fee и mod_gwpaymets), если она установлена.
 
 
 Рекомендации
