@@ -190,7 +190,11 @@ $payment->confirmation = [
 ];
 $payment->capture = "true";
 $payment->description = $description;
-
+if (!empty($config->paymentmethod)) {
+    $payment->payment_method_data = [
+	"type" => $config->paymentmethod,
+    ];
+}
 $payment->receipt = [
  "customer" => [
    "email" => $USER->email,
@@ -236,7 +240,8 @@ $response = json_decode($jsonresponse);
 $confirmationurl = $response->confirmation->confirmation_url;
 
 if (empty($confirmationurl)) {
-    redirect($url, get_string('payment_error', 'paygw_yookassa'), 0, 'error');
+    $error = $response->description;
+    redirect($url, get_string('payment_error', 'paygw_yookassa')." ($error)", 0, 'error');
 }
 
 $data = new stdClass();

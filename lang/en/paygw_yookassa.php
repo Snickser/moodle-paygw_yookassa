@@ -66,3 +66,11 @@ $string['taxsystemcode_help'] = 'Type of tax system for generating checks:<br>
 4 - Single tax on imputed income (UTII)<br>
 5 - Unified Agricultural Tax (UST)<br>
 6 - Patent taxation system';
+
+/* Payment systems */
+$string['paymentmethod'] = 'Payment method';
+$string['paymentmethod_help'] = 'Sets the default payment method. Make sure the method you choose is supported by your store.';
+$string['yookassa'] = 'YooKassa';
+$string['wallet'] = 'YooMoney wallet';
+$string['plastic'] = 'VISA, MasterCard, MIR';
+$string['sbp'] = 'SBP (QR-code)';

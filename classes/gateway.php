@@ -87,6 +87,21 @@ class gateway extends \core_payment\gateway {
         $mform->setType('vatcode', PARAM_INT);
         $mform->addHelpButton('vatcode', 'vatcode', 'paygw_yookassa');
 
+	$options = [
+		'' => get_string('yookassa', 'paygw_yookassa'),
+		'bank_card' => get_string('plastic', 'paygw_yookassa'),
+		'yoo_money' => get_string('wallet', 'paygw_yookassa'),
+		'sbp' => get_string('sbp', 'paygw_yookassa'),
+	];
+	$mform->addElement(
+		'select',
+		'paymentmethod',
+		get_string('paymentmethod', 'paygw_yookassa'),
+		$options,
+	);
+        $mform->setType('paymentmethod', PARAM_TEXT);
+        $mform->addHelpButton('paymentmethod', 'paymentmethod', 'paygw_yookassa');
+
         $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('fixdesc', PARAM_TEXT);
         $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
