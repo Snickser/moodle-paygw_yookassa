@@ -203,10 +203,12 @@ $payment->receipt = [
        "value" => $cost,
        "currency" => $currency,
     ],
-    "vat_code" => 1,
+    "vat_code" => $config->vatcode,
+    "payment_subject" => "payment",
     "payment_mode" => "full_payment",
    ],
  ],
+ "tax_system_code" => $config->taxsystemcode,
 ];
 
 $curlhandler = curl_init();

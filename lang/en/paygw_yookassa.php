@@ -54,6 +54,15 @@ $string['showduration'] = 'Show duration of training';
 $string['usedetails'] = 'Make it collapsible';
 $string['usedetails_help'] = 'Display a button or password in a collapsed block.';
 $string['usedetails_text'] = 'Click here if you are unable to donate.';
-
 $string['internalerror'] = 'An internal error has occurred. Please contact us.';
 $string['privacy:metadata'] = 'The yookassa plugin does not store any personal data.';
+$string['vatcode'] = 'VAT rate';
+$string['vatcode_help'] = 'VAT rate according to YooKass documentation.';
+$string['taxsystemcode'] = 'Tax type';
+$string['taxsystemcode_help'] = 'Type of tax system for generating checks:<br>
+1 - General taxation system<br>
+2 - Simplified (STS, income)<br>
+3 - Simplified (STS, income minus expenses)<br>
+4 - Single tax on imputed income (UTII)<br>
+5 - Unified Agricultural Tax (UST)<br>
+6 - Patent taxation system';

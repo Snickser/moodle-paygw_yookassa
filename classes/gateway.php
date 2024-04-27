@@ -53,6 +53,47 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 48]);
         $mform->setType('apikey', PARAM_TEXT);
 
+	$options = [
+		1 => 1,
+		2 => 2,
+		3 => 3,
+		4 => 4,
+		5 => 5,
+		6 => 6,
+	];
+	$mform->addElement(
+		'select',
+		'taxsystemcode',
+		get_string('taxsystemcode', 'paygw_yookassa'),
+		$options
+	);
+        $mform->setType('taxsystemcode', PARAM_INT);
+        $mform->addHelpButton('taxsystemcode', 'taxsystemcode', 'paygw_yookassa');
+
+	$options = [
+		1 => get_string('no'),
+		2 => "0%",
+		3 => "10%",
+		4 => "20%",
+		5 => "10/110",
+		6 => "20/120",
+	];
+	$mform->addElement(
+		'select',
+		'vatcode',
+		get_string('vatcode', 'paygw_yookassa'),
+		$options,
+	);
+        $mform->setType('vatcode', PARAM_INT);
+        $mform->addHelpButton('vatcode', 'vatcode', 'paygw_yookassa');
+
+        $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
+        $mform->setType('fixdesc', PARAM_TEXT);
+        $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+        $mform->addHelpButton('fixdesc', 'fixdesc', 'paygw_yookassa');
+
+	$mform->addElement('static');
+
         $mform->addElement(
             'advcheckbox',
             'skipmode',
@@ -86,11 +127,6 @@ class gateway extends \core_payment\gateway {
         $mform->setType('usedetails', PARAM_INT);
         $mform->addHelpButton('usedetails', 'usedetails', 'paygw_yookassa');
 
-        $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
-        $mform->setType('fixdesc', PARAM_TEXT);
-        $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $mform->addHelpButton('fixdesc', 'fixdesc', 'paygw_yookassa');
-
         $mform->addElement(
             'advcheckbox',
             'showduration',
@@ -105,6 +141,7 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('text', 'maxcost', get_string('maxcost', 'paygw_yookassa'), ['size' => 10]);
         $mform->setType('maxcost', PARAM_TEXT);
 
+	$mform->addElement('static');
         global $CFG;
         $mform->addElement('html', '<span class="label-callback">' . get_string('callback_url', 'paygw_yookassa') . '</span><br>');
         $mform->addElement('html', '<span class="callback_url">' . $CFG->wwwroot . '/payment/gateway/yookassa/callback.php</span><br>');
