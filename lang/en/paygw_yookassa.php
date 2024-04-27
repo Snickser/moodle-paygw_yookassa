@@ -69,8 +69,8 @@ $string['taxsystemcode_help'] = 'Type of tax system for generating checks:<br>
 
 /* Payment systems */
 $string['paymentmethod'] = 'Payment method';
-$string['paymentmethod_help'] = 'Sets the default payment method. Make sure the method you choose is supported by your store.';
-$string['yookassa'] = 'YooKassa';
+$string['paymentmethod_help'] = 'Sets the payment method. Make sure the method you choose is supported by your store.';
+$string['yookassa'] = 'YooKassa (all methods)';
 $string['wallet'] = 'YooMoney wallet';
 $string['plastic'] = 'VISA, MasterCard, MIR';
 $string['sbp'] = 'SBP (QR-code)';
