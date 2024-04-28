@@ -26,10 +26,6 @@
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
-require_once($CFG->libdir . '/filelib.php');
-
-// require('/opt/yookassa-sdk-php/vendor/autoload.php');
-// use YooKassa\Client;
 
 require_login();
 
@@ -155,6 +151,9 @@ if (!empty($password) || $skipmode) {
 }
 
 /*
+require('/opt/yookassa-sdk-php/vendor/autoload.php');
+use YooKassa\Client;
+
 $client = new Client();
 $client->setAuth($config->shopid, $config->apikey);
 $payment = $client->createPayment(
@@ -186,13 +185,13 @@ $payment = new stdClass();
 $payment->amount = [ "value" => $cost, "currency" => $currency ];
 $payment->confirmation = [
   "type" => "redirect",
-  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $transactionid
+  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $transactionid,
 ];
 $payment->capture = "true";
 $payment->description = $description;
 if (!empty($config->paymentmethod)) {
     $payment->payment_method_data = [
-	"type" => $config->paymentmethod,
+    "type" => $config->paymentmethod,
     ];
 }
 $payment->receipt = [
@@ -241,7 +240,7 @@ $confirmationurl = $response->confirmation->confirmation_url;
 
 if (empty($confirmationurl)) {
     $error = $response->description;
-    redirect($url, get_string('payment_error', 'paygw_yookassa')." ($error)", 0, 'error');
+    redirect($url, get_string('payment_error', 'paygw_yookassa') . " ($error)", 0, 'error');
 }
 
 $data = new stdClass();

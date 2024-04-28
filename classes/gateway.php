@@ -53,52 +53,52 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 48]);
         $mform->setType('apikey', PARAM_TEXT);
 
-	$options = [
-		1 => 1,
-		2 => 2,
-		3 => 3,
-		4 => 4,
-		5 => 5,
-		6 => 6,
-	];
-	$mform->addElement(
-		'select',
-		'taxsystemcode',
-		get_string('taxsystemcode', 'paygw_yookassa'),
-		$options
-	);
+        $options = [
+        1 => 1,
+        2 => 2,
+        3 => 3,
+        4 => 4,
+        5 => 5,
+        6 => 6,
+        ];
+        $mform->addElement(
+            'select',
+            'taxsystemcode',
+            get_string('taxsystemcode', 'paygw_yookassa'),
+            $options
+        );
         $mform->setType('taxsystemcode', PARAM_INT);
         $mform->addHelpButton('taxsystemcode', 'taxsystemcode', 'paygw_yookassa');
 
-	$options = [
-		1 => get_string('no'),
-		2 => "0%",
-		3 => "10%",
-		4 => "20%",
-		5 => "10/110",
-		6 => "20/120",
-	];
-	$mform->addElement(
-		'select',
-		'vatcode',
-		get_string('vatcode', 'paygw_yookassa'),
-		$options,
-	);
+        $options = [
+        1 => get_string('no'),
+        2 => "0%",
+        3 => "10%",
+        4 => "20%",
+        5 => "10/110",
+        6 => "20/120",
+        ];
+        $mform->addElement(
+            'select',
+            'vatcode',
+            get_string('vatcode', 'paygw_yookassa'),
+            $options,
+        );
         $mform->setType('vatcode', PARAM_INT);
         $mform->addHelpButton('vatcode', 'vatcode', 'paygw_yookassa');
 
-	$options = [
-		'' => get_string('yookassa', 'paygw_yookassa'),
-		'bank_card' => get_string('plastic', 'paygw_yookassa'),
-		'yoo_money' => get_string('wallet', 'paygw_yookassa'),
-		'sbp' => get_string('sbp', 'paygw_yookassa'),
-	];
-	$mform->addElement(
-		'select',
-		'paymentmethod',
-		get_string('paymentmethod', 'paygw_yookassa'),
-		$options,
-	);
+        $options = [
+        '' => get_string('yookassa', 'paygw_yookassa'),
+        'bank_card' => get_string('plastic', 'paygw_yookassa'),
+        'yoo_money' => get_string('wallet', 'paygw_yookassa'),
+        'sbp' => get_string('sbp', 'paygw_yookassa'),
+        ];
+        $mform->addElement(
+            'select',
+            'paymentmethod',
+            get_string('paymentmethod', 'paygw_yookassa'),
+            $options,
+        );
         $mform->setType('paymentmethod', PARAM_TEXT);
         $mform->addHelpButton('paymentmethod', 'paymentmethod', 'paygw_yookassa');
 
@@ -107,7 +107,7 @@ class gateway extends \core_payment\gateway {
         $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('fixdesc', 'fixdesc', 'paygw_yookassa');
 
-	$mform->addElement('static');
+        $mform->addElement('static');
 
         $mform->addElement(
             'advcheckbox',
@@ -156,11 +156,11 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('text', 'maxcost', get_string('maxcost', 'paygw_yookassa'), ['size' => 10]);
         $mform->setType('maxcost', PARAM_TEXT);
 
-	$mform->addElement('static');
         global $CFG;
-        $mform->addElement('html', '<span class="label-callback">' . get_string('callback_url', 'paygw_yookassa') . '</span><br>');
-        $mform->addElement('html', '<span class="callback_url">' . $CFG->wwwroot . '/payment/gateway/yookassa/callback.php</span><br>');
-        $mform->addElement('html', '<span class="label-callback">' . get_string('callback_help', 'paygw_yookassa') . '</span><br><br>');
+        $mform->addElement('html', '<div class="label-callback" style="background: #F2EFE6; padding: 15px;">' .
+                                    get_string('callback_url', 'paygw_yookassa') . '<br>');
+        $mform->addElement('html', $CFG->wwwroot . '/payment/gateway/yookassa/callback.php<br>');
+        $mform->addElement('html', get_string('callback_help', 'paygw_yookassa') . '</div><br>');
     }
 
     /**
