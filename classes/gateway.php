@@ -156,11 +156,11 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('text', 'maxcost', get_string('maxcost', 'paygw_yookassa'), ['size' => 10]);
         $mform->setType('maxcost', PARAM_TEXT);
 
-        $mform->addElement('static');
         global $CFG;
-        $mform->addElement('html', '<span class="label-callback">' . get_string('callback_url', 'paygw_yookassa') . '</span><br>');
-        $mform->addElement('html', '<span class="callback_url">' . $CFG->wwwroot . '/payment/gateway/yookassa/callback.php</span><br>');
-        $mform->addElement('html', '<span class="label-callback">' . get_string('callback_help', 'paygw_yookassa') . '</span><br><br>');
+        $mform->addElement('html', '<div class="label-callback" style="background: #F2EFE6; padding: 15px;">' .
+                                    get_string('callback_url', 'paygw_yookassa') . '<br>');
+        $mform->addElement('html', $CFG->wwwroot . '/payment/gateway/yookassa/callback.php<br>');
+        $mform->addElement('html', get_string('callback_help', 'paygw_yookassa') . '</div><br>');
     }
 
     /**

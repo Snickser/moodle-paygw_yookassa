@@ -26,7 +26,6 @@
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
-require_once($CFG->libdir . '/filelib.php');
 
 require_login();
 
