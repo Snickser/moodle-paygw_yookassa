@@ -25,6 +25,7 @@
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
+require_once($CFG->libdir . '/filelib.php');
 
 require_login();
 
@@ -185,23 +186,22 @@ $payment->receipt = [
  "tax_system_code" => $config->taxsystemcode,
 ];
 
-$curlhandler = curl_init();
-curl_setopt($curlhandler, CURLOPT_HTTPHEADER, [
-    'Idempotence-Key: ' . uniqid($transactionid, true),
-    'Accept: application/json',
-    'Content-Type: application/json',
-    ]);
-curl_setopt_array($curlhandler, [
-     CURLOPT_URL => 'https://api.yookassa.ru/v3/payments',
-     CURLOPT_RETURNTRANSFER => true,
-     CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-     CURLOPT_USERPWD => $config->shopid . ':' . $config->apikey,
-]);
 $jsondata = json_encode($payment);
-curl_setopt($curlhandler, CURLOPT_POST, true);
-curl_setopt($curlhandler, CURLOPT_POSTFIELDS, $jsondata);
 
-$jsonresponse = curl_exec($curlhandler);
+// Make payment.
+$location = 'https://api.yookassa.ru/v3/payments';
+$options = [
+    'CURLOPT_RETURNTRANSFER' => true,
+    'CURLOPT_TIMEOUT' => 30,
+    'CURLOPT_HTTPHEADER' => [
+        'Idempotence-Key: ' . uniqid($paymentid, true),
+        'Content-Type: application/json',
+    ],
+    'CURLOPT_HTTPAUTH' => CURLAUTH_BASIC,
+    'CURLOPT_USERPWD' => $config->shopid . ':' . $config->apikey,
+];
+$curl = new curl();
+$jsonresponse = $curl->post($location, $jsondata, $options);
 
 $response = json_decode($jsonresponse);
 
