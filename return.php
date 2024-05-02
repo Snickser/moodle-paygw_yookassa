@@ -9,19 +9,22 @@ defined('MOODLE_INTERNAL') || die();
 
 require_login();
 
-// file_put_contents("/tmp/xxxx", serialize($_REQUEST)."\n", FILE_APPEND);
-
 $id = required_param('ID', PARAM_INT);
 
-if (!$yookassatx = $DB->get_record('paygw_yookassa', ['id' => $id])) {
+if (!$yookassatx = $DB->get_record('paygw_yookassa', ['paymentid' => $id])) {
     die('FAIL. Not a valid transaction id');
 }
 
-$paymentarea = $yookassatx->paymentarea;
-$component   = $yookassatx->component;
-$itemid      = $yookassatx->itemid;
+if (!$payment = $DB->get_record('payments', ['id' => $yookassatx->paymentid])) {
+    die('FAIL. Not a valid payment.');
+}
+
+$paymentarea = $payment->paymentarea;
+$component   = $payment->component;
+$itemid      = $payment->itemid;
 
 $url = helper::get_success_url($component, $paymentarea, $itemid);
+
 if ($yookassatx->success) {
     redirect($url, get_string('payment_success', 'paygw_yookassa'), 0, 'success');
 } else {

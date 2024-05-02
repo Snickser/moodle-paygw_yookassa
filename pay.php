@@ -149,7 +149,7 @@ $paymentid = helper::save_payment(
     $userid,
     $cost,
     $payable->get_currency(),
-    'cryptocloud'
+    'yookassa'
 );
 
 // Make invoice.
