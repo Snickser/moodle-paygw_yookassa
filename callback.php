@@ -35,8 +35,6 @@ $data = json_decode($source, false);
 $invoiceid  = $data->object->id;
 $outsumm    = $data->object->amount->value;
 
-// file_put_contents("/tmp/yyyyy", serialize($data) . "\n", FILE_APPEND);
-
 if ($data->event !== 'payment.succeeded') {
     die('FAIL. Payment not successed');
 }
@@ -54,9 +52,8 @@ $itemid      = $payment->itemid;
 $paymentid   = $payment->id;
 $userid      = $payment->userid;
 
-// Get config
+// Get config.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
-
 
 // Use the same rounding of floats as on the paygw form.
 $cost = number_format($payment->amount, 2, '.', '');
@@ -70,7 +67,7 @@ if ($payment->currency == 'RUB') {
 
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
-// Write to DB
+// Write to DB.
 $yookassatx->success = 1;
 if (!$DB->update_record('paygw_yookassa', $yookassatx)) {
     die('FAIL. Update db error.');

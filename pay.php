@@ -22,7 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
@@ -52,17 +51,17 @@ $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surc
 // TODO: Check if currency is IDR. If not, then something went really wrong in config.
 $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
 
-// Check self cost
+// Check self cost.
 if (!empty($costself)) {
     $cost = $costself;
 }
-// Check maxcost
+// Check maxcost.
 if ($config->maxcost && $cost > $config->maxcost) {
     $cost = $config->maxcost;
 }
 $cost = number_format($cost, 2, '.', '');
 
-// Get course and groups for user
+// Get course and groups for user.
 if ($component == "enrol_fee") {
     $cs = $DB->get_record('enrol', ['id' => $itemid]);
     $cs->course = $cs->courseid;
@@ -90,7 +89,7 @@ if (!empty($cs->course)) {
     $courseid = '';
 }
 
-// Write tx to db
+// Write tx to DB.
 $paygwdata = new stdClass();
 $paygwdata->courseid = $courseid;
 $paygwdata->groupnames = $groupnames;
@@ -99,23 +98,23 @@ if (!$transactionid = $DB->insert_record('paygw_yookassa', $paygwdata)) {
 }
 $paygwdata->id = $transactionid;
 
-// Build redirect
+// Build redirect.
 $url = helper::get_success_url($component, $paymentarea, $itemid);
 
-// Check passwordmode or skipmode
+// Check passwordmode or skipmode.
 if (!empty($password) || $skipmode) {
     $success = false;
     if ($config->skipmode) {
         $success = true;
     } else if ($config->passwordmode && !empty($config->password)) {
-        // Check password
+        // Check password.
         if ($password === $config->password) {
             $success = true;
         }
     }
 
     if ($success) {
-        // Make fake pay
+        // Make fake pay.
         $paymentid = helper::save_payment(
             $payable->get_account_id(),
             $component,
@@ -128,7 +127,7 @@ if (!empty($password) || $skipmode) {
         );
         helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
-        // Write to DB
+        // Write to DB.
         $paygwdata->success = 2;
         $paygwdata->paymentid = $paymentid;
         $DB->update_record('paygw_yookassa', $paygwdata);
@@ -137,7 +136,7 @@ if (!empty($password) || $skipmode) {
     } else {
         redirect($url, get_string('password_error', 'paygw_yookassa'), 0, 'error');
     }
-    die; // Never
+    die; // Never.
 }
 
 // Save payment.
