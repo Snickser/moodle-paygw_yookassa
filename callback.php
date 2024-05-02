@@ -32,65 +32,42 @@ defined('MOODLE_INTERNAL') || die();
 $source = file_get_contents('php://input');
 $data = json_decode($source, false);
 
-$orderid  = $data->object->id;
-$outsumm  = $data->object->amount->value;
-
-// file_put_contents("/tmp/yyyyy", serialize($data) . "\n", FILE_APPEND);
+$invoiceid  = $data->object->id;
+$outsumm    = $data->object->amount->value;
 
 if ($data->event !== 'payment.succeeded') {
     die('FAIL. Payment not successed');
 }
 
-if (!$yookassatx = $DB->get_record('paygw_yookassa', ['orderid' => $orderid])) {
+if (!$yookassatx = $DB->get_record('paygw_yookassa', ['invoiceid' => $invoiceid])) {
     die('FAIL. Not a valid transaction id');
 }
 
-if (! $userid = $DB->get_record("user", ["id" => $yookassatx->userid])) {
-    die('FAIL. Not a valid user id.');
+if (!$payment = $DB->get_record('payments', ['id' => $yookassatx->paymentid])) {
+    die('FAIL. Not a valid payment.');
 }
+$component   = $payment->component;
+$paymentarea = $payment->paymentarea;
+$itemid      = $payment->itemid;
+$paymentid   = $payment->id;
+$userid      = $payment->userid;
 
-
-$component   = $yookassatx->component;
-$paymentarea = $yookassatx->paymentarea;
-$itemid      = $yookassatx->itemid;
-$userid      = $yookassatx->userid;
-
-// Get config
+// Get config.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
-$payable = helper::get_payable($component, $paymentarea, $itemid);
-
-// Check that amount paid is the correct amount
-if ((float) $yookassatx->cost <= 0) {
-    $cost = (float) $payable->get_amount();
-} else {
-    $cost = (float) $yookassatx->cost;
-}
 
 // Use the same rounding of floats as on the paygw form.
-$cost = number_format($cost, 2, '.', '');
+$cost = number_format($payment->amount, 2, '.', '');
 $outsumm = number_format($outsumm, 2, '.', '');
 
-if ($yookassatx->currency == 'RUB') {
+if ($payment->currency == 'RUB') {
     if ($outsumm !== $cost) {
         die('FAIL. Amount does not match.');
     }
 }
 
-// Deliver course
-// $fee = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), helper::get_gateway_surcharge('yookassa'));
-$paymentid = helper::save_payment(
-    $payable->get_account_id(),
-    $component,
-    $paymentarea,
-    $itemid,
-    $userid,
-    $cost,
-    $payable->get_currency(),
-    'yookassa'
-);
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
-// Write to DB
+// Write to DB.
 $yookassatx->success = 1;
 if (!$DB->update_record('paygw_yookassa', $yookassatx)) {
     die('FAIL. Update db error.');

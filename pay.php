@@ -22,7 +22,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
@@ -52,17 +51,17 @@ $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surc
 // TODO: Check if currency is IDR. If not, then something went really wrong in config.
 $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
 
-// Check self cost
+// Check self cost.
 if (!empty($costself)) {
     $cost = $costself;
 }
-// Check maxcost
+// Check maxcost.
 if ($config->maxcost && $cost > $config->maxcost) {
     $cost = $config->maxcost;
 }
 $cost = number_format($cost, 2, '.', '');
 
-// Get course and groups for user
+// Get course and groups for user.
 if ($component == "enrol_fee") {
     $cs = $DB->get_record('enrol', ['id' => $itemid]);
     $cs->course = $cs->courseid;
@@ -90,102 +89,74 @@ if (!empty($cs->course)) {
     $courseid = '';
 }
 
-// Write tx to db
+// Write tx to DB.
 $paygwdata = new stdClass();
-$paygwdata->userid = $userid;
-$paygwdata->component = $component;
-$paygwdata->paymentarea = $paymentarea;
-$paygwdata->itemid = $itemid;
-$paygwdata->cost = $cost;
-$paygwdata->currency = $currency;
-$paygwdata->date_created = date("Y-m-d H:i:s");
 $paygwdata->courseid = $courseid;
-$paygwdata->group_names = $groupnames;
-
+$paygwdata->groupnames = $groupnames;
 if (!$transactionid = $DB->insert_record('paygw_yookassa', $paygwdata)) {
     die(get_string('error_txdatabase', 'paygw_yookassa'));
 }
+$paygwdata->id = $transactionid;
 
-// Build redirect
+// Build redirect.
 $url = helper::get_success_url($component, $paymentarea, $itemid);
 
-// Check passwordmode or skipmode
+// Check passwordmode or skipmode.
 if (!empty($password) || $skipmode) {
     $success = false;
     if ($config->skipmode) {
         $success = true;
     } else if ($config->passwordmode && !empty($config->password)) {
-    // Check password
+        // Check password.
         if ($password === $config->password) {
             $success = true;
         }
     }
 
     if ($success) {
-        // Make fake pay
-        $cost = 0;
+        // Make fake pay.
         $paymentid = helper::save_payment(
             $payable->get_account_id(),
             $component,
             $paymentarea,
             $itemid,
             $userid,
-            $cost,
+            0,
             $payable->get_currency(),
             'yookassa'
         );
         helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
-        // Write to DB
-        $data = new stdClass();
-        $data->id = $transactionid;
-        $data->success = 2;
-        $data->cost = 0;
-        $DB->update_record('paygw_yookassa', $data);
+        // Write to DB.
+        $paygwdata->success = 2;
+        $paygwdata->paymentid = $paymentid;
+        $DB->update_record('paygw_yookassa', $paygwdata);
 
         redirect($url, get_string('password_success', 'paygw_yookassa'), 0, 'success');
     } else {
         redirect($url, get_string('password_error', 'paygw_yookassa'), 0, 'error');
     }
-    die; // Never
+    die; // Never.
 }
 
-/*
-require('/opt/yookassa-sdk-php/vendor/autoload.php');
-use YooKassa\Client;
-
-$client = new Client();
-$client->setAuth($config->shopid, $config->apikey);
-$payment = $client->createPayment(
-    [
-            'amount' => [
-                'value' => $cost,
-                'currency' => $currency,
-            ],
-            'receipt' => [
-                'customer' => [
-                    'email' => $USER->email,
-                ],
-            ],
-            'confirmation' => [
-                'type' => 'redirect',
-                'return_url' => $CFG->wwwroot . "/payment/gateway/yookassa/return.php?ID=" . $transactionid,
-            ],
-            'capture' => true,
-            'description' => $description,
-        ],
-    uniqid($transactionid, true)
+// Save payment.
+$paymentid = helper::save_payment(
+    $payable->get_account_id(),
+    $component,
+    $paymentarea,
+    $itemid,
+    $userid,
+    $cost,
+    $payable->get_currency(),
+    'yookassa'
 );
 
-$confirmationurl = $payment->getConfirmation()->getConfirmationUrl();
-
-*/
-
+// Make invoice.
 $payment = new stdClass();
 $payment->amount = [ "value" => $cost, "currency" => $currency ];
 $payment->confirmation = [
   "type" => "redirect",
-  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $transactionid,
+  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $paymentid,
 ];
 $payment->capture = "true";
 $payment->description = $description;
@@ -234,7 +205,9 @@ $jsonresponse = curl_exec($curlhandler);
 
 $response = json_decode($jsonresponse);
 
-// file_put_contents("/tmp/xxxx", serialize($response)."\n", FILE_APPEND);
+if (!isset($response->confirmation)) {
+    redirect($url, get_string('payment_error', 'paygw_yookassa') . " (response error)", 0, 'error');
+}
 
 $confirmationurl = $response->confirmation->confirmation_url;
 
@@ -243,9 +216,9 @@ if (empty($confirmationurl)) {
     redirect($url, get_string('payment_error', 'paygw_yookassa') . " ($error)", 0, 'error');
 }
 
-$data = new stdClass();
-$data->id = $transactionid;
-$data->orderid = $response->id;
-$DB->update_record('paygw_yookassa', $data);
+// Write to DB.
+$paygwdata->paymentid = $paymentid;
+$paygwdata->invoiceid = $response->id;
+$DB->update_record('paygw_yookassa', $paygwdata);
 
 redirect($confirmationurl);
