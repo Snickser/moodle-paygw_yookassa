@@ -193,6 +193,8 @@ $location = 'https://api.yookassa.ru/v3/payments';
 $options = [
     'CURLOPT_RETURNTRANSFER' => true,
     'CURLOPT_TIMEOUT' => 30,
+    'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
+    'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
     'CURLOPT_HTTPHEADER' => [
         'Idempotence-Key: ' . uniqid($paymentid, true),
         'Content-Type: application/json',
