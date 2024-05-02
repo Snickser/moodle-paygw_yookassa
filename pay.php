@@ -92,19 +92,12 @@ if (!empty($cs->course)) {
 
 // Write tx to db
 $paygwdata = new stdClass();
-$paygwdata->userid = $userid;
-$paygwdata->component = $component;
-$paygwdata->paymentarea = $paymentarea;
-$paygwdata->itemid = $itemid;
-$paygwdata->cost = $cost;
-$paygwdata->currency = $currency;
-$paygwdata->date_created = date("Y-m-d H:i:s");
 $paygwdata->courseid = $courseid;
-$paygwdata->group_names = $groupnames;
-
+$paygwdata->groupnames = $groupnames;
 if (!$transactionid = $DB->insert_record('paygw_yookassa', $paygwdata)) {
     die(get_string('error_txdatabase', 'paygw_yookassa'));
 }
+$paygwdata->id = $transactionid;
 
 // Build redirect
 $url = helper::get_success_url($component, $paymentarea, $itemid);
@@ -115,7 +108,7 @@ if (!empty($password) || $skipmode) {
     if ($config->skipmode) {
         $success = true;
     } else if ($config->passwordmode && !empty($config->password)) {
-    // Check password
+        // Check password
         if ($password === $config->password) {
             $success = true;
         }
@@ -123,25 +116,22 @@ if (!empty($password) || $skipmode) {
 
     if ($success) {
         // Make fake pay
-        $cost = 0;
         $paymentid = helper::save_payment(
             $payable->get_account_id(),
             $component,
             $paymentarea,
             $itemid,
             $userid,
-            $cost,
+            0,
             $payable->get_currency(),
             'yookassa'
         );
         helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
         // Write to DB
-        $data = new stdClass();
-        $data->id = $transactionid;
-        $data->success = 2;
-        $data->cost = 0;
-        $DB->update_record('paygw_yookassa', $data);
+        $paygwdata->success = 2;
+        $paygwdata->paymentid = $paymentid;
+        $DB->update_record('paygw_yookassa', $paygwdata);
 
         redirect($url, get_string('password_success', 'paygw_yookassa'), 0, 'success');
     } else {
@@ -150,42 +140,24 @@ if (!empty($password) || $skipmode) {
     die; // Never
 }
 
-/*
-require('/opt/yookassa-sdk-php/vendor/autoload.php');
-use YooKassa\Client;
-
-$client = new Client();
-$client->setAuth($config->shopid, $config->apikey);
-$payment = $client->createPayment(
-    [
-            'amount' => [
-                'value' => $cost,
-                'currency' => $currency,
-            ],
-            'receipt' => [
-                'customer' => [
-                    'email' => $USER->email,
-                ],
-            ],
-            'confirmation' => [
-                'type' => 'redirect',
-                'return_url' => $CFG->wwwroot . "/payment/gateway/yookassa/return.php?ID=" . $transactionid,
-            ],
-            'capture' => true,
-            'description' => $description,
-        ],
-    uniqid($transactionid, true)
+// Save payment.
+$paymentid = helper::save_payment(
+    $payable->get_account_id(),
+    $component,
+    $paymentarea,
+    $itemid,
+    $userid,
+    $cost,
+    $payable->get_currency(),
+    'cryptocloud'
 );
 
-$confirmationurl = $payment->getConfirmation()->getConfirmationUrl();
-
-*/
-
+// Make invoice.
 $payment = new stdClass();
 $payment->amount = [ "value" => $cost, "currency" => $currency ];
 $payment->confirmation = [
   "type" => "redirect",
-  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $transactionid,
+  "return_url" => $CFG->wwwroot . '/payment/gateway/yookassa/return.php?ID=' . $paymentid,
 ];
 $payment->capture = "true";
 $payment->description = $description;
@@ -234,7 +206,9 @@ $jsonresponse = curl_exec($curlhandler);
 
 $response = json_decode($jsonresponse);
 
-// file_put_contents("/tmp/xxxx", serialize($response)."\n", FILE_APPEND);
+if (!isset($response->confirmation)) {
+    redirect($url, get_string('payment_error', 'paygw_yookassa') . " (response error)", 0, 'error');
+}
 
 $confirmationurl = $response->confirmation->confirmation_url;
 
@@ -243,9 +217,9 @@ if (empty($confirmationurl)) {
     redirect($url, get_string('payment_error', 'paygw_yookassa') . " ($error)", 0, 'error');
 }
 
-$data = new stdClass();
-$data->id = $transactionid;
-$data->orderid = $response->id;
-$DB->update_record('paygw_yookassa', $data);
+// Write to DB.
+$paygwdata->paymentid = $paymentid;
+$paygwdata->invoiceid = $response->id;
+$DB->update_record('paygw_yookassa', $paygwdata);
 
 redirect($confirmationurl);
