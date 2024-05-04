@@ -32,6 +32,7 @@ global $CFG, $USER, $DB;
 defined('MOODLE_INTERNAL') || die();
 
 require_login();
+require_sesskey();
 
 $component   = required_param('component', PARAM_ALPHANUMEXT);
 $paymentarea = required_param('paymentarea', PARAM_ALPHANUMEXT);
