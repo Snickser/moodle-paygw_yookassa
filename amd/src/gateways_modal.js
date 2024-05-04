@@ -53,7 +53,8 @@ export const process = (component, paymentArea, itemId, description) => {
     return showModalWithPlaceholder()
         .then(() => {
             location.href = M.cfg.wwwroot + '/payment/gateway/yookassa/method.php?' +
-                'component=' + component +
+                'sesskey=' + M.cfg.sesskey +
+                '&component=' + component +
                 '&paymentarea=' + paymentArea +
                 '&itemid=' + itemId +
                 '&description=' + description;
