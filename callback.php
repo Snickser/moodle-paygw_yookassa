@@ -32,8 +32,8 @@ defined('MOODLE_INTERNAL') || die();
 $source = file_get_contents('php://input');
 $data = json_decode($source, false);
 
-$invoiceid  = $data->object->id;
-$outsumm    = $data->object->amount->value;
+$invoiceid  = clean_param($data->object->id, PARAM_TEXT);
+$outsumm    = clean_param($data->object->amount->value, PARAM_TEXT);
 
 if ($data->event !== 'payment.succeeded') {
     die('FAIL. Payment not successed');
