@@ -72,7 +72,7 @@ $jsonresponse = $curl->get($location, null, $options);
 
 $response = json_decode($jsonresponse, false);
 
-if ($response->status !== 'succeeded' && $response-paid !== true) {
+if ($response->status !== 'succeeded' && $response - paid !== true) {
     die("FAIL. Invoice not paid.");
 }
 
