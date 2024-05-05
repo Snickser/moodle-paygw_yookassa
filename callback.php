@@ -27,6 +27,8 @@ use core_payment\helper;
 require("../../../config.php");
 global $CFG, $USER, $DB;
 
+require_once($CFG->libdir . '/filelib.php');
+
 defined('MOODLE_INTERNAL') || die();
 
 $source = file_get_contents('php://input');
@@ -55,14 +57,23 @@ $userid      = $payment->userid;
 // Get config.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
 
-// Use the same rounding of floats as on the paygw form.
-$cost = number_format($payment->amount, 2, '.', '');
-$outsumm = number_format($outsumm, 2, '.', '');
+// Check payment on site.
+$location = 'https://api.yookassa.ru/v3/payments/' . $invoiceid;
+$options = [
+    'CURLOPT_RETURNTRANSFER' => true,
+    'CURLOPT_TIMEOUT' => 30,
+    'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
+    'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
+    'CURLOPT_HTTPAUTH' => CURLAUTH_BASIC,
+    'CURLOPT_USERPWD' => $config->shopid . ':' . $config->apikey,
+];
+$curl = new curl();
+$jsonresponse = $curl->get($location, null, $options);
 
-if ($payment->currency == 'RUB') {
-    if ($outsumm !== $cost) {
-        die('FAIL. Amount does not match.');
-    }
+$response = json_decode($jsonresponse, false);
+
+if ($response->status !== 'succeeded' && $response - paid !== true) {
+    die("FAIL. Invoice not paid.");
 }
 
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
