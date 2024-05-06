@@ -8,8 +8,8 @@ https://yookassa.ru
 
 ![alt text](https://raw.githubusercontent.com/Snickser/moodle-paygw_yookassa/809333a08256b99ff3a7143ce2fbc0ee9fba6b24/pix/img.svg)
 
-Возможности
-------------
+## Возможности
+
 + Можно использовать пароль или кнопку для обхода платежа.
 + Сохраняет в базе номер курса и название группы студента.
 + Можно указать рекомендуемую цену.
@@ -17,8 +17,8 @@ https://yookassa.ru
 + Отображение продолжительности обучения (для enrol_fee и mod_gwpaymets), если она установлена.
 
 
-Рекомендации
-------------
+## Рекомендации
+
 + Moodle 4.3+
 + Для записи в курс подходит стандарный плагин "Зачисление за оплату" (enrol_fee).
 + Для контрольного задания используйте модуль "[Gateway Payments](https://moodle.org/plugins/mod_gwpayments)" (мои правки [mod_gwpayments](https://github.com/Snickser/moodle-mod_gwpayments/tree/dev)), он правда глючный, но других пока нет.
@@ -29,8 +29,8 @@ https://yookassa.ru
 [![Build Status](https://github.com/Snickser/moodle-paygw_yookassa/actions/workflows/moodle-ci.yml/badge.svg)](https://github.com/Snickser/moodle-paygw_yookassa/actions/workflows/moodle-ci.yml)
 
 
-INSTALLATION
-------------
+## INSTALLATION
+
 Download the latest **paygw_yookassa.zip** and unzip the contents into the **/payment/gateway** directory. Or upload it from Moodle plugins adminnistration interface.<br>
 
 1. Install the plugin
