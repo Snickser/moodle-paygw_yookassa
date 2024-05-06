@@ -34,11 +34,17 @@ defined('MOODLE_INTERNAL') || die();
 $source = file_get_contents('php://input');
 $data = json_decode($source, false);
 
+// Check json.
 if ($data === null) {
     $lasterror = json_last_error_msg();
-    die('FAIL. Invalid json in request: ' . $lasterror);
+    die('Invalid json in request: ' . $lasterror);
 }
 
+if ($data->event !== 'payment.succeeded') {
+    die('FAIL. Payment not successed');
+}
+
+// Check data.
 if (isset($data->object->id)) {
     $invoiceid  = clean_param($data->object->id, PARAM_TEXT);
 } else {
@@ -46,19 +52,17 @@ if (isset($data->object->id)) {
 }
 
 if (isset($data->object->amount->value)) {
-    $outsumm = clean_param($data->object->amount->value, PARAM_TEXT); 
+    $outsumm = clean_param($data->object->amount->value, PARAM_TEXT);
 } else {
     die('FAIL. No amount.');
 }
 
-if ($data->event !== 'payment.succeeded') {
-    die('FAIL. Payment not successed');
-}
-
+// Get paymentid.
 if (!$yookassatx = $DB->get_record('paygw_yookassa', ['invoiceid' => $invoiceid])) {
     die('FAIL. Not a valid transaction id');
 }
 
+// Get payment data.
 if (!$payment = $DB->get_record('payments', ['id' => $yookassatx->paymentid])) {
     die('FAIL. Not a valid payment.');
 }
@@ -90,6 +94,7 @@ if ($response->status !== 'succeeded' || $response->paid !== true) {
     die("FAIL. Invoice not paid.");
 }
 
+// Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 
 // Write to DB.
