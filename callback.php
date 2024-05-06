@@ -39,8 +39,17 @@ if ($data === null) {
     die('FAIL. Invalid json in request: ' . $lasterror);
 }
 
-$invoiceid  = clean_param($data->object->id, PARAM_TEXT);
-$outsumm    = clean_param($data->object->amount->value, PARAM_TEXT);
+if (isset($data->object->id)) {
+    $invoiceid  = clean_param($data->object->id, PARAM_TEXT);
+} else {
+    die('FAIL. No invoiceid.');
+}
+
+if (isset($data->object->amount->value)) {
+    $outsumm = clean_param($data->object->amount->value, PARAM_TEXT); 
+} else {
+    die('FAIL. No amount.');
+}
 
 if ($data->event !== 'payment.succeeded') {
     die('FAIL. Payment not successed');
