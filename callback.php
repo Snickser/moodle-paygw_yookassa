@@ -34,6 +34,11 @@ defined('MOODLE_INTERNAL') || die();
 $source = file_get_contents('php://input');
 $data = json_decode($source, false);
 
+if ($data === null) {
+    $lasterror = json_last_error_msg();
+    throw new coding_exception('Invalid json in request: ' . $lasterror);
+}
+
 $invoiceid  = clean_param($data->object->id, PARAM_TEXT);
 $outsumm    = clean_param($data->object->amount->value, PARAM_TEXT);
 
