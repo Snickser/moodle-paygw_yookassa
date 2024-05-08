@@ -16,8 +16,9 @@
 
 /** Notifications for paygw_yookassa.
  *
- *
  * @package    paygw_yookassa
+ * @copyright  2024 Alex Orlov <snickser@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace paygw_yookassa;
 
@@ -26,6 +27,7 @@ namespace paygw_yookassa;
  * Handle notifications for users about their transactions.
  *
  * @package    paygw_yookassa
+ * @copyright  2024 Alex Orlov <snickser@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class notifications {

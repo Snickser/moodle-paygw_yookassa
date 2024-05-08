@@ -18,6 +18,8 @@
  * Defines message providers for yookassa payment gateway.
  *
  * @package    paygw_yookassa
+ * @copyright  2024 Alex Orlov <snickser@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
