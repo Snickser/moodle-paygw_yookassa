@@ -42,6 +42,7 @@ class notifications {
      * @param float $fee
      * @param int $orderid
      * @param string $description
+     * @param string $type
      * @return int|false
      */
     public static function notify($userid, $fee, $currency, $orderid, $description = '', $type = '') {
