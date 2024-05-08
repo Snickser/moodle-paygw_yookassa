@@ -40,6 +40,7 @@ class notifications {
      *
      * @param int $userid
      * @param float $fee
+     * @param string $currency
      * @param int $orderid
      * @param string $description
      * @param string $type
