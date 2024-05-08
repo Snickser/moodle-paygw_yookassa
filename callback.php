@@ -23,6 +23,7 @@
  */
 
 use core_payment\helper;
+use paygw_yookassa\notifications;
 
 require("../../../config.php");
 global $CFG, $USER, $DB;
@@ -96,6 +97,16 @@ if ($response->status !== 'succeeded' || $response->paid !== true) {
 
 // Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
+
+// Notify user.
+notifications::notify(
+    $userid,
+    $payment->amount,
+    $payment->currency,
+    $paymentid,
+    $response->description,
+    'Success completed'
+);
 
 // Write to DB.
 $yookassatx->success = 1;
