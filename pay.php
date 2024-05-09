@@ -107,8 +107,13 @@ if (!empty($password) || $skipmode) {
     $success = false;
     if ($config->skipmode) {
         $success = true;
+    } else if (isset($cs->password) && !empty($cs->password)) {
+        // Check module password.
+        if ($password === $cs->password) {
+            $success = true;
+        }
     } else if ($config->passwordmode && !empty($config->password)) {
-        // Check password.
+        // Check payment password.
         if ($password === $config->password) {
             $success = true;
         }
@@ -223,5 +228,4 @@ $paygwdata->paymentid = $paymentid;
 $paygwdata->invoiceid = $response->id;
 $DB->update_record('paygw_yookassa', $paygwdata);
 
-// Redirect to bank.
 redirect($confirmationurl);
