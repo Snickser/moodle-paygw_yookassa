@@ -21,42 +21,37 @@
  * @copyright  2024 Alex Orlov <snickser@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['pluginname'] = 'YooKassa payment';
-$string['pluginname_desc'] = 'The yookassa plugin allows you to receive payments via yookassa.';
+$string['abouttopay'] = 'You are about to pay for';
+$string['apikey'] = 'API Key';
+$string['callback_help'] = 'Copy this line and paste it into "HTTP notifications" in the YooKassa store settings, and enable "payment.succeeded" notifications there.';
+$string['callback_url'] = 'Notification URL:';
+$string['fixdesc'] = 'Fixed payment comment';
+$string['fixdesc_help'] = 'This setting sets a fixed comment for all payments.';
 $string['gatewaydescription'] = 'YooKassa is an authorised payment gateway provider for processing credit card transactions.';
 $string['gatewayname'] = 'YooKassa';
-$string['callback_url'] = 'Notification URL:';
-$string['callback_help'] = 'Copy this line and paste it into "HTTP notifications" in the YooKassa store settings, and enable "payment.succeeded" notifications there.';
-$string['payment_success'] = 'Payment Successful';
-$string['payment_error'] = 'Payment Error';
-$string['password_success'] = 'Paymemt password accepted';
-$string['password_error'] = 'Invalid payment password';
-$string['paymore'] = 'If you want to donate more, simply enter your amount instead of the indicated amount.';
-$string['sendpaymentbutton'] = 'Send payment via yookassa!';
-$string['skippaymentbutton'] = 'Skip payment :(';
-$string['abouttopay'] = 'You are about to pay for';
-$string['payment'] = 'Donation';
-$string['password'] = 'Password';
-$string['passwordmode'] = 'Password';
-$string['password_help'] = 'Using this password you can bypass the payback process. It can be useful when it is not possible to make a payment.';
-$string['password_text'] = 'If you are unable to make a payment, then ask your curator for a password and enter it.';
-$string['apikey'] = 'API Key';
-$string['shopid'] = 'ShopID';
+$string['internalerror'] = 'An internal error has occurred. Please contact us.';
 $string['istestmode'] = 'Test mode';
-$string['suggest'] = 'Suggested cost';
 $string['maxcost'] = 'Maximium cost';
+$string['password'] = 'Password';
+$string['password_error'] = 'Invalid payment password';
+$string['password_help'] = 'Using this password you can bypass the payback process. It can be useful when it is not possible to make a payment.';
+$string['password_success'] = 'Paymemt password accepted';
+$string['password_text'] = 'If you are unable to make a payment, then ask your curator for a password and enter it.';
+$string['passwordmode'] = 'Password';
+$string['payment'] = 'Donation';
+$string['payment_error'] = 'Payment Error';
+$string['payment_success'] = 'Payment Successful';
+$string['paymore'] = 'If you want to donate more, simply enter your amount instead of the indicated amount.';
+$string['pluginname'] = 'YooKassa payment';
+$string['pluginname_desc'] = 'The yookassa plugin allows you to receive payments via yookassa.';
+$string['sendpaymentbutton'] = 'Send payment via yookassa!';
+$string['shopid'] = 'ShopID';
+$string['showduration'] = 'Show duration of training';
 $string['skipmode'] = 'Can skip payment';
 $string['skipmode_help'] = 'This setting allows a payment bypass button, which can be useful in public courses with optional payment.';
 $string['skipmode_text'] = 'If you are not able to make a donation through the payment system, you can click on this button.';
-$string['fixdesc'] = 'Fixed payment comment';
-$string['fixdesc_help'] = 'This setting sets a fixed comment for all payments.';
-$string['showduration'] = 'Show duration of training';
-$string['usedetails'] = 'Make it collapsible';
-$string['usedetails_help'] = 'Display a button or password in a collapsed block.';
-$string['usedetails_text'] = 'Click here if you are unable to donate.';
-$string['internalerror'] = 'An internal error has occurred. Please contact us.';
-$string['vatcode'] = 'VAT rate';
-$string['vatcode_help'] = 'VAT rate according to YooKass documentation.';
+$string['skippaymentbutton'] = 'Skip payment :(';
+$string['suggest'] = 'Suggested cost';
 $string['taxsystemcode'] = 'Tax type';
 $string['taxsystemcode_help'] = 'Type of tax system for generating checks:<br>
 1 - General taxation system<br>
@@ -65,6 +60,11 @@ $string['taxsystemcode_help'] = 'Type of tax system for generating checks:<br>
 4 - Single tax on imputed income (UTII)<br>
 5 - Unified Agricultural Tax (UST)<br>
 6 - Patent taxation system';
+$string['usedetails'] = 'Make it collapsible';
+$string['usedetails_help'] = 'Display a button or password in a collapsed block.';
+$string['usedetails_text'] = 'Click here if you are unable to donate.';
+$string['vatcode'] = 'VAT rate';
+$string['vatcode_help'] = 'VAT rate according to YooKass documentation.';
 
 /* Payment systems */
 $string['paymentmethod'] = 'Payment method';

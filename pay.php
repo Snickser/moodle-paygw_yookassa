@@ -223,4 +223,5 @@ $paygwdata->paymentid = $paymentid;
 $paygwdata->invoiceid = $response->id;
 $DB->update_record('paygw_yookassa', $paygwdata);
 
+// Redirect to bank.
 redirect($confirmationurl);
