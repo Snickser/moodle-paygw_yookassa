@@ -109,7 +109,11 @@ notifications::notify(
 );
 
 // Write to DB.
-$yookassatx->success = 1;
+if ($response->test == true) {
+    $yookassatx->success = 3;
+} else {
+    $yookassatx->success = 1;
+}
 if (!$DB->update_record('paygw_yookassa', $yookassatx)) {
     die('FAIL. Update db error.');
 } else {
