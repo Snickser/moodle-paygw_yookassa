@@ -34,8 +34,8 @@ defined('MOODLE_INTERNAL') || die();
 require_login();
 require_sesskey();
 
-$component   = required_param('component', PARAM_ALPHANUMEXT);
-$paymentarea = required_param('paymentarea', PARAM_ALPHANUMEXT);
+$component   = required_param('component', PARAM_COMPONENT);
+$paymentarea = required_param('paymentarea', PARAM_AREA);
 $itemid      = required_param('itemid', PARAM_INT);
 $description = required_param('description', PARAM_TEXT);
 
@@ -104,6 +104,7 @@ $templatedata->paymentarea = $paymentarea;
 $templatedata->itemid      = $itemid;
 $templatedata->fee         = $fee;
 $templatedata->currency    = $currency;
+$templatedata->sesskey     = sesskey();
 
 if ($config->showduration) {
     $templatedata->enrolperiod = $enrolperiod;
