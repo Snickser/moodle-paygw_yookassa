@@ -95,6 +95,10 @@ if ($response->status !== 'succeeded' || $response->paid !== true) {
     die("FAIL. Invoice not paid.");
 }
 
+// Update payment.
+$payment->amount = $outsumm;
+$DB->update_record('payments', $payment);
+
 // Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 

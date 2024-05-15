@@ -150,7 +150,7 @@ $paymentid = helper::save_payment(
     $paymentarea,
     $itemid,
     $userid,
-    $cost,
+    0,
     $payable->get_currency(),
     'yookassa'
 );
