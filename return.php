@@ -34,11 +34,11 @@ require_login();
 $id = required_param('ID', PARAM_INT);
 
 if (!$yookassatx = $DB->get_record('paygw_yookassa', ['paymentid' => $id])) {
-    die('FAIL. Not a valid transaction id');
+    throw new Error('FAIL. Not a valid transaction id');
 }
 
 if (!$payment = $DB->get_record('payments', ['id' => $yookassatx->paymentid])) {
-    die('FAIL. Not a valid payment.');
+    throw new Error('FAIL. Not a valid payment.');
 }
 
 $paymentarea = $payment->paymentarea;

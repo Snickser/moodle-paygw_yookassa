@@ -53,7 +53,7 @@ if (isset($data->object->id)) {
 }
 
 if (isset($data->object->amount->value)) {
-    $outsumm = clean_param($data->object->amount->value, PARAM_TEXT);
+    $outsumm = clean_param($data->object->amount->value, PARAM_FLOAT);
 } else {
     die('FAIL. No amount.');
 }

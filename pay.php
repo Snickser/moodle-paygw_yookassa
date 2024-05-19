@@ -93,7 +93,7 @@ $paygwdata = new stdClass();
 $paygwdata->courseid = $courseid;
 $paygwdata->groupnames = $groupnames;
 if (!$transactionid = $DB->insert_record('paygw_yookassa', $paygwdata)) {
-    die(get_string('error_txdatabase', 'paygw_yookassa'));
+    throw new Error(get_string('error_txdatabase', 'paygw_yookassa'));
 }
 $paygwdata->id = $transactionid;
 
@@ -150,7 +150,7 @@ $paymentid = helper::save_payment(
     $paymentarea,
     $itemid,
     $userid,
-    0,
+    $cost,
     $payable->get_currency(),
     'yookassa'
 );
