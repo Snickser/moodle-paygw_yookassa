@@ -39,7 +39,7 @@ $paymentarea = required_param('paymentarea', PARAM_AREA);
 $itemid      = required_param('itemid', PARAM_INT);
 $description = required_param('description', PARAM_TEXT);
 
-$description = json_decode("\"$description\"");
+$description = json_decode('"' . $description . '"');
 
 $params = [
     'component'   => $component,
