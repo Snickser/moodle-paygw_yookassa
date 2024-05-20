@@ -25,12 +25,11 @@
 use core_payment\helper;
 
 require_once(__DIR__ . '/../../../config.php');
+global $CFG, $USER, $DB;
 require_once($CFG->libdir . '/filelib.php');
 
 require_login();
 require_sesskey();
-
-global $CFG, $USER, $DB;
 
 $userid = $USER->id;
 
@@ -54,10 +53,12 @@ $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(
 if (!empty($costself)) {
     $cost = $costself;
 }
+
 // Check maxcost.
 if ($config->maxcost && $cost > $config->maxcost) {
     $cost = $config->maxcost;
 }
+
 $cost = number_format($cost, 2, '.', '');
 
 // Get course and groups for user.
@@ -211,14 +212,16 @@ $jsonresponse = $curl->post($location, $jsondata, $options);
 $response = json_decode($jsonresponse);
 
 if (!isset($response->confirmation)) {
-    redirect($url, get_string('payment_error', 'paygw_yookassa') . " (response error)", 0, 'error');
+    $DB->delete_records('paygw_yookassa', ['id' => $transactionid]);
+    throw new Error(get_string('payment_error', 'paygw_yookassa') . " (response error)");
 }
 
 $confirmationurl = $response->confirmation->confirmation_url;
 
 if (empty($confirmationurl)) {
+    $DB->delete_records('paygw_yookassa', ['id' => $transactionid]);
     $error = $response->description;
-    redirect($url, get_string('payment_error', 'paygw_yookassa') . " ($error)", 0, 'error');
+    throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
 }
 
 // Write to DB.

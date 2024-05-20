@@ -38,7 +38,7 @@ $data = json_decode($source, false);
 // Check json.
 if ($data === null) {
     $lasterror = json_last_error_msg();
-    die('Invalid json in request: ' . $lasterror);
+    die('FAIL. Invalid json in request: ' . $lasterror);
 }
 
 if ($data->event !== 'payment.succeeded') {
@@ -67,6 +67,7 @@ if (!$yookassatx = $DB->get_record('paygw_yookassa', ['invoiceid' => $invoiceid]
 if (!$payment = $DB->get_record('payments', ['id' => $yookassatx->paymentid])) {
     die('FAIL. Not a valid payment.');
 }
+
 $component   = $payment->component;
 $paymentarea = $payment->paymentarea;
 $itemid      = $payment->itemid;
@@ -91,7 +92,7 @@ $jsonresponse = $curl->get($location, null, $options);
 
 $response = json_decode($jsonresponse, false);
 
-if ($response->status !== 'succeeded' || $response->paid !== true) {
+if ($response->status !== 'succeeded' || $response->paid != true) {
     die("FAIL. Invoice not paid.");
 }
 
