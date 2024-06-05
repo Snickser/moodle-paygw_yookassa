@@ -224,6 +224,15 @@ if (empty($confirmationurl)) {
     throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
 }
 
+// Notify user.
+notifications::notify(
+    $userid,
+    $cost,
+    $currency,
+    $confirmationurl,
+    'Invoice created'
+);
+
 // Write to DB.
 $paygwdata->paymentid = $paymentid;
 $paygwdata->invoiceid = $response->id;
