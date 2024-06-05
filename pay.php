@@ -23,6 +23,7 @@
  */
 
 use core_payment\helper;
+use paygw_robokassa\notifications;
 
 require_once(__DIR__ . '/../../../config.php');
 global $CFG, $USER, $DB;
