@@ -23,6 +23,7 @@
  */
 
 use core_payment\helper;
+use paygw_yookassa\notifications;
 
 require_once(__DIR__ . '/../../../config.php');
 global $CFG, $USER, $DB;
@@ -223,6 +224,15 @@ if (empty($confirmationurl)) {
     $error = $response->description;
     throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
 }
+
+// Notify user.
+notifications::notify(
+    $userid,
+    $cost,
+    $currency,
+    $confirmationurl,
+    'Invoice created'
+);
 
 // Write to DB.
 $paygwdata->paymentid = $paymentid;

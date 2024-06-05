@@ -98,6 +98,7 @@ if ($response->status !== 'succeeded' || $response->paid != true) {
 
 // Update payment.
 $payment->amount = $outsumm;
+$payment->timemodified = time();
 $DB->update_record('payments', $payment);
 
 // Deliver order.
@@ -109,7 +110,6 @@ notifications::notify(
     $payment->amount,
     $payment->currency,
     $paymentid,
-    $response->description,
     'Success completed'
 );
 

@@ -42,11 +42,10 @@ class notifications {
      * @param float $fee
      * @param string $currency
      * @param int $orderid
-     * @param string $description
      * @param string $type
      * @return int|false
      */
-    public static function notify($userid, $fee, $currency, $orderid, $description = '', $type = '') {
+    public static function notify($userid, $fee, $currency, $orderid, $type = '') {
         global $DB;
 
         // Get the user object for messaging and fullname.
@@ -57,12 +56,12 @@ class notifications {
 
         // Set the object wiht all informations to notify the user.
         $a = (object)[
-            'fee'      => $fee, // The original cost.
-            'currency' => $currency,
-            'description'   => $description,
-            'orderid'  => $orderid,
-            'fullname' => fullname($user),
+            'fee'       => $fee, // The original cost.
+            'currency'  => $currency,
+            'orderid'   => $orderid,
             'firstname' => $user->firstname,
+            'fullname'  => fullname($user),
+            'localizedcost' => \core_payment\helper::get_cost_as_string($fee, $currency),
         ];
 
         $message = new \core\message\message();
@@ -74,6 +73,9 @@ class notifications {
         switch ($type) {
             case 'Success completed':
                 $messagebody = get_string('message_success_completed', 'paygw_yookassa', $a);
+                break;
+            case 'Invoice created':
+                $messagebody = get_string('message_invoice_created', 'paygw_yookassa', $a);
                 break;
         }
 
