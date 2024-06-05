@@ -110,7 +110,6 @@ notifications::notify(
     $payment->amount,
     $payment->currency,
     $paymentid,
-    $response->description,
     'Success completed'
 );
 
