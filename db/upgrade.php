@@ -58,7 +58,7 @@ function xmldb_paygw_yookassa_upgrade($oldversion) {
 
     if ($oldversion < 2024070303) {
         $table = new xmldb_table('paygw_yookassa');
-        $field = new xmldb_field('reccurent', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'groupnames');
+        $field = new xmldb_field('recurrent', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'groupnames');
         // Conditionally launch add field id.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
