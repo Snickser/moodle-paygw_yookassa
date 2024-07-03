@@ -94,6 +94,6 @@ Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfull
 You can pay it within an hour.';
 $string['messageprovider:payment_receipt'] = 'Payment receipt';
 
-$string['reccurent'] = 'Enable recurring payments';
-$string['reccurent_help'] = 'Enable recurring payments';
-$string['reccurentperiod'] = 'Recurring payment frequency';
+$string['recurrent'] = 'Enable recurring payments';
+$string['recurrent_help'] = 'Enable recurring payments';
+$string['recurrentperiod'] = 'Recurring payment frequency';

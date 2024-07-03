@@ -107,12 +107,12 @@ class gateway extends \core_payment\gateway {
 
         $mform->addElement(
             'advcheckbox',
-            'reccurent',
-            get_string('reccurent', 'paygw_yookassa'),
-            get_string('reccurent', 'paygw_yookassa')
+            'recurrent',
+            get_string('recurrent', 'paygw_yookassa'),
+            get_string('recurrent', 'paygw_yookassa')
         );
-        $mform->setType('reccurent', PARAM_INT);
-        $mform->addHelpButton('reccurent', 'reccurent', 'paygw_yookassa');
+        $mform->setType('recurrent', PARAM_INT);
+        $mform->addHelpButton('recurrent', 'recurrent', 'paygw_yookassa');
 
         $options = [
         '0.0035' => get_string('minute'),
@@ -123,12 +123,12 @@ class gateway extends \core_payment\gateway {
         ];
         $mform->addElement(
             'select',
-            'reccurentperiod',
-            get_string('reccurentperiod', 'paygw_yookassa'),
+            'recurrentperiod',
+            get_string('recurrentperiod', 'paygw_yookassa'),
             $options,
         );
-        $mform->setType('reccurentperiod', PARAM_TEXT);
-        $mform->hideIf('reccurentperiod', 'reccurent', "neq", 1);
+        $mform->setType('recurrentperiod', PARAM_TEXT);
+        $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
 
         $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('fixdesc', PARAM_TEXT);

@@ -24,7 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 $tasks = [
     [
-        'classname' => 'paygw_yookassa\task\reccurent_payments',
+        'classname' => 'paygw_yookassa\task\recurrent_payments',
         'blocking' => 0,
         'minute' => '15',
         'hour' => '7',

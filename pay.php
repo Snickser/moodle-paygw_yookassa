@@ -191,7 +191,7 @@ $payment->receipt = [
  "tax_system_code" => $config->taxsystemcode,
 ];
 
-if ($config->reccurent == 1 && $config->reccurentperiod > 0) {
+if ($config->recurrent == 1 && $config->recurrentperiod > 0) {
     $payment->save_payment_method = "true";
 }
 

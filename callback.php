@@ -96,8 +96,8 @@ if ($response->status !== 'succeeded' || $response->paid != true) {
     die("FAIL. Invoice not paid.");
 }
 
-if ($config->reccurent == 1 && $config->reccurentperiod > 0 && $response->payment_method->saved == true) {
-    $yookassatx->reccurent = time() + 86400 * $config->reccurentperiod - 3600;
+if ($config->recurrent == 1 && $config->recurrentperiod > 0 && $response->payment_method->saved == true) {
+    $yookassatx->recurrent = time() + 86400 * $config->recurrentperiod - 3600;
 }
 
 // Update payment.
