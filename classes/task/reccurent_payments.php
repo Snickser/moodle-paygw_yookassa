@@ -135,5 +135,5 @@ class reccurent_payments extends \core\task\scheduled_task {
             }
         }
         mtrace('End');
-    }//end of function execute()
-}// End of class
+    }
+}
