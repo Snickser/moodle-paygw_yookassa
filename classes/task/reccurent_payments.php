@@ -46,9 +46,9 @@ class reccurent_payments extends \core\task\scheduled_task {
         global $DB, $CFG;
         mtrace('Start');
 
-$yookassatx = $DB->get_records('paygw_yookassa', ['success' => 1, 'success' => 3]);
+        $yookassatx = $DB->get_records('paygw_yookassa', ['success' => 1, 'success' => 3]);
 
-echo serialize($yookassatx);
+        echo serialize($yookassatx);
 
 
 
