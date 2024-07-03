@@ -14,7 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/*
+/**
+ * Reccurent payments
+ *
  * @package    paygw_yookassa
  * @copyright  2024 Alex Orlov <snicker@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
