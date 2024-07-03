@@ -127,11 +127,11 @@ class recurrent_payments extends \core\task\scheduled_task {
             $response = json_decode($jsonresponse);
 
             if (($response->status !== 'succeeded' && $response->status !== 'pending') || $response->paid != true) {
+                echo serialize($response)."\n";
                 mtrace("$data->paymentid is not valid");
                 $data->recurrent = 0;
                 $DB->update_record('paygw_yookassa', $data);
             } else {
-                echo serialize($response);
                 mtrace("$data->paymentid order paid successfully");
             }
         }
