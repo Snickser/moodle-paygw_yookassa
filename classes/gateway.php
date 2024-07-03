@@ -105,6 +105,31 @@ class gateway extends \core_payment\gateway {
         $mform->setType('paymentmethod', PARAM_TEXT);
         $mform->addHelpButton('paymentmethod', 'paymentmethod', 'paygw_yookassa');
 
+        $mform->addElement(
+            'advcheckbox',
+            'reccurent',
+            get_string('reccurent', 'paygw_yookassa'),
+            get_string('reccurent', 'paygw_yookassa')
+        );
+        $mform->setType('reccurent', PARAM_INT);
+        $mform->addHelpButton('reccurent', 'reccurent', 'paygw_yookassa');
+
+        $options = [
+        '1' => get_string('day'),
+        '7' => get_string('week'),
+        '30' => get_string('month'),
+        '365' => get_string('year'),
+        ];
+        $mform->addElement(
+            'select',
+            'reccurentperiod',
+            get_string('reccurentperiod', 'paygw_yookassa'),
+            $options,
+        );
+        $mform->setType('reccurentperiod', PARAM_TEXT);
+        $mform->HideIf('reccurentperiod', 'reccurent', "neq", 1);
+
+
         $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('fixdesc', PARAM_TEXT);
         $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');

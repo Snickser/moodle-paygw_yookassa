@@ -93,3 +93,7 @@ $string['message_invoice_created'] = 'Hello {$a->firstname}!
 Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfully created.
 You can pay it within an hour.';
 $string['messageprovider:payment_receipt'] = 'Payment receipt';
+
+$string['reccurent'] = 'Enable recurring payments';
+$string['reccurent_help'] = 'Enable recurring payments';
+$string['reccurentperiod'] = 'Recurring payment frequency';

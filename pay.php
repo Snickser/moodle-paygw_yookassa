@@ -191,6 +191,11 @@ $payment->receipt = [
  "tax_system_code" => $config->taxsystemcode,
 ];
 
+if ($config->reccurent == 1 && $config->reccurentperiod > 0) {
+    $paygwdata->reccurent = time() + 86400 * $config->reccurentperiod;
+    $payment->save_payment_method = "true";
+}
+
 $jsondata = json_encode($payment);
 
 // Make payment.
