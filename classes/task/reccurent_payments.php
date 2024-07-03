@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @package   paygw_yookassa
- * @copyright 2024 Alex Orlov <snickser@gmail.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+/*
+ * @package    paygw_yookassa
+ * @copyright  2024 Alex Orlov <snicker@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace paygw_yookassa\task;
@@ -30,10 +30,16 @@ use paygw_yookassa\notifications;
 require_once($CFG->libdir . '/filelib.php');
 
 /**
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Default tasks.
+ *
+ * @package    paygw_yookassa
+ * @copyright  2024 Alex Orlov <snicker@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class reccurent_payments extends \core\task\scheduled_task {
     /**
+     * Get a descriptive name for this task (shown to admins).
+     *
      * @return string
      */
     public function get_name() {
