@@ -46,13 +46,11 @@ class reccurent_payments extends \core\task\scheduled_task {
         global $DB, $CFG;
         mtrace('Start');
 
-        $yookassatx = $DB->get_records('paygw_yookassa', ['success' => 1, 'success' => 3]);
+        $ctime = time();
+        $yookassatx = $DB->get_records_sql('SELECT * FROM {paygw_yookassa} WHERE (success=1 OR success=3) ' .
+                  'AND reccurent>0 AND reccurent < ?', [ $ctime ]);
 
         foreach ($yookassatx as $data) {
-            if ((int)$data->reccurent > time() || (int)$data->reccurent == 0) {
-                continue;
-            }
-
             // To avoid abuse.
             sleep(1);
 
