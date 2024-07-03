@@ -115,6 +115,7 @@ class gateway extends \core_payment\gateway {
         $mform->addHelpButton('reccurent', 'reccurent', 'paygw_yookassa');
 
         $options = [
+        '0.0035' => get_string('minute'),
         '1' => get_string('day'),
         '7' => get_string('week'),
         '30' => get_string('month'),
