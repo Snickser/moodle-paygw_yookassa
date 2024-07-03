@@ -131,6 +131,7 @@ class recurrent_payments extends \core\task\scheduled_task {
                 $data->recurrent = 0;
                 $DB->update_record('paygw_yookassa', $data);
             } else {
+        	echo serialize($response);
                 mtrace("$data->paymentid order paid successfully");
             }
         }
