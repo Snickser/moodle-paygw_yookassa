@@ -49,9 +49,12 @@ class reccurent_payments extends \core\task\scheduled_task {
         $yookassatx = $DB->get_records('paygw_yookassa', ['success' => 1, 'success' => 3]);
 
         foreach ($yookassatx as $data) {
-            if ((int)$data->reccurent < time() || (int)$data->reccurent == 0) {
+            if ((int)$data->reccurent > time() || (int)$data->reccurent == 0) {
                 continue;
             }
+
+            // To avoid abuse.
+            sleep(1);
 
             // Get payment data.
             if (!$payment = $DB->get_record('payments', ['id' => $data->paymentid])) {
@@ -67,42 +70,64 @@ class reccurent_payments extends \core\task\scheduled_task {
             // Get config.
             $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
 
+            // Make invoice.
+            $invoice = new \stdClass();
+            $invoice->amount = [ "value" => $payment->amount, "currency" => $payment->currency ];
+            $invoice->capture = "true";
+            $invoice->payment_method_id = $data->invoiceid;
+            $invoice->description = "Reccurent payment " . $data->paymentid;
 
-// Make invoice.
-$invoice = new \stdClass();
-$invoice->amount = [ "value" => $payment->amount, "currency" => $payment->currency ];
-$invoice->capture = "true";
-$invoice->payment_method_id = $data->invoiceid;
-$invoice->description = "test";
+            $user = \core_user::get_user($userid);
 
-$jsondata = json_encode($invoice);
+            $invoice->receipt = [
+              "customer" => [
+                "email" => $user->email,
+              ],
+              "items" => [
+                [
+                  "description" => $invoice->description,
+                  "quantity" => 1,
+                  "amount" => [
+                    "value" => $payment->amount,
+                    "currency" => $payment->currency,
+                  ],
+                  "vat_code" => $config->vatcode,
+                  "payment_subject" => "payment",
+                  "payment_mode" => "full_payment",
+                ],
+              ],
+              "tax_system_code" => $config->taxsystemcode,
+            ];
 
-sleep(1);
+            $jsondata = json_encode($invoice);
 
-// Make payment.
-$location = 'https://api.yookassa.ru/v3/payments';
-$options = [
-    'CURLOPT_RETURNTRANSFER' => true,
-    'CURLOPT_TIMEOUT' => 30,
-    'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
-    'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
-    'CURLOPT_HTTPHEADER' => [
-        'Idempotence-Key: ' . uniqid($data->paymentid, true),
-        'Content-Type: application/json',
-    ],
-    'CURLOPT_HTTPAUTH' => CURLAUTH_BASIC,
-    'CURLOPT_USERPWD' => $config->shopid . ':' . $config->apikey,
-];
-$curl = new \curl();
-$jsonresponse = $curl->post($location, $jsondata, $options);
+            // Make payment.
+            $location = 'https://api.yookassa.ru/v3/payments';
+            $options = [
+              'CURLOPT_RETURNTRANSFER' => true,
+              'CURLOPT_TIMEOUT' => 30,
+              'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
+              'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
+              'CURLOPT_HTTPHEADER' => [
+                'Idempotence-Key: ' . uniqid($data->paymentid, true),
+                'Content-Type: application/json',
+              ],
+              'CURLOPT_HTTPAUTH' => CURLAUTH_BASIC,
+              'CURLOPT_USERPWD' => $config->shopid . ':' . $config->apikey,
+            ];
+            $curl = new \curl();
+            $jsonresponse = $curl->post($location, $jsondata, $options);
 
-$response = json_decode($jsonresponse);
+            $response = json_decode($jsonresponse);
 
-
-
-            echo serialize($response) . "\n";
+            if (($response->status !== 'succeeded' && $response->status !== 'pending') || $response->paid != true) {
+                mtrace("$data->paymentid is not valid");
+                $data->reccurent = 0;
+                $DB->update_record('paygw_yookassa', $data);
+            } else {
+                mtrace("$data->paymentid order paid successfully");
+            }
         }
-
         mtrace('End');
     }//end of function execute()
 }// End of class

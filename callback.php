@@ -97,7 +97,7 @@ if ($response->status !== 'succeeded' || $response->paid != true) {
 }
 
 if ($config->reccurent == 1 && $config->reccurentperiod > 0 && $response->payment_method->saved == true) {
-    $yookassatx->reccurent = time() + 86400 * $config->reccurentperiod;
+    $yookassatx->reccurent = time() + 86400 * $config->reccurentperiod - 3600;
 }
 
 // Update payment.
