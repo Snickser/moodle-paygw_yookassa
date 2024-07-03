@@ -127,8 +127,7 @@ class gateway extends \core_payment\gateway {
             $options,
         );
         $mform->setType('reccurentperiod', PARAM_TEXT);
-        $mform->HideIf('reccurentperiod', 'reccurent', "neq", 1);
-
+        $mform->hideIf('reccurentperiod', 'reccurent', "neq", 1);
 
         $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('fixdesc', PARAM_TEXT);
