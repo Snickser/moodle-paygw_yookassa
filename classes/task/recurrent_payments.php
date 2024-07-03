@@ -135,6 +135,6 @@ class recurrent_payments extends \core\task\scheduled_task {
                 mtrace("$data->paymentid order paid successfully");
             }
         }
-        mtrace('End');
+        mtrace('End.');
     }
 }
