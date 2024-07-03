@@ -64,7 +64,7 @@ function xmldb_paygw_yookassa_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // yookassa savepoint reached.
+        // Yookassa savepoint reached.
         upgrade_plugin_savepoint(true, 2024070303, 'paygw', 'yookassa');
     }
 
