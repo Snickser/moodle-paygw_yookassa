@@ -48,9 +48,60 @@ class reccurent_payments extends \core\task\scheduled_task {
 
         $yookassatx = $DB->get_records('paygw_yookassa', ['success' => 1, 'success' => 3]);
 
-        echo serialize($yookassatx);
+        foreach ($yookassatx as $data) {
+            if ((int)$data->reccurent < time() || (int)$data->reccurent == 0) {
+                continue;
+            }
+
+            // Get payment data.
+            if (!$payment = $DB->get_record('payments', ['id' => $data->paymentid])) {
+                continue;
+            }
+
+            $component   = $payment->component;
+            $paymentarea = $payment->paymentarea;
+            $itemid      = $payment->itemid;
+            $paymentid   = $payment->id;
+            $userid      = $payment->userid;
+
+            // Get config.
+            $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
 
 
+// Make invoice.
+$invoice = new \stdClass();
+$invoice->amount = [ "value" => $payment->amount, "currency" => $payment->currency ];
+$invoice->capture = "true";
+$invoice->payment_method_id = $data->invoiceid;
+$invoice->description = "test";
+
+$jsondata = json_encode($invoice);
+
+sleep(1);
+
+// Make payment.
+$location = 'https://api.yookassa.ru/v3/payments';
+$options = [
+    'CURLOPT_RETURNTRANSFER' => true,
+    'CURLOPT_TIMEOUT' => 30,
+    'CURLOPT_HTTP_VERSION' => CURL_HTTP_VERSION_1_1,
+    'CURLOPT_SSLVERSION' => CURL_SSLVERSION_TLSv1_2,
+    'CURLOPT_HTTPHEADER' => [
+        'Idempotence-Key: ' . uniqid($data->paymentid, true),
+        'Content-Type: application/json',
+    ],
+    'CURLOPT_HTTPAUTH' => CURLAUTH_BASIC,
+    'CURLOPT_USERPWD' => $config->shopid . ':' . $config->apikey,
+];
+$curl = new \curl();
+$jsonresponse = $curl->post($location, $jsondata, $options);
+
+$response = json_decode($jsonresponse);
+
+
+
+            echo serialize($response) . "\n";
+        }
 
         mtrace('End');
     }//end of function execute()

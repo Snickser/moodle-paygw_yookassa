@@ -46,8 +46,8 @@ if ($data->event !== 'payment.succeeded') {
 }
 
 // Check data.
-if (isset($data->object->id)) {
-    $invoiceid  = clean_param($data->object->id, PARAM_ALPHANUMEXT);
+if (isset($data->object->payment_method->id)) {
+    $invoiceid  = clean_param($data->object->payment_method->id, PARAM_ALPHANUMEXT);
 } else {
     die('FAIL. No invoiceid.');
 }
