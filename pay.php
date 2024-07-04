@@ -191,6 +191,10 @@ $payment->receipt = [
  "tax_system_code" => $config->taxsystemcode,
 ];
 
+if ($config->recurrent == 1 && $config->recurrentperiod > 0) {
+    $payment->save_payment_method = "true";
+}
+
 $jsondata = json_encode($payment);
 
 // Make payment.

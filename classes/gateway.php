@@ -105,6 +105,31 @@ class gateway extends \core_payment\gateway {
         $mform->setType('paymentmethod', PARAM_TEXT);
         $mform->addHelpButton('paymentmethod', 'paymentmethod', 'paygw_yookassa');
 
+        $mform->addElement(
+            'advcheckbox',
+            'recurrent',
+            get_string('recurrent', 'paygw_yookassa'),
+            get_string('recurrent', 'paygw_yookassa')
+        );
+        $mform->setType('recurrent', PARAM_INT);
+        $mform->addHelpButton('recurrent', 'recurrent', 'paygw_yookassa');
+
+        $options = [
+        '0.0035' => get_string('minute'),
+        '1' => get_string('day'),
+        '7' => get_string('week'),
+        '30' => get_string('month'),
+        '365' => get_string('year'),
+        ];
+        $mform->addElement(
+            'select',
+            'recurrentperiod',
+            get_string('recurrentperiod', 'paygw_yookassa'),
+            $options,
+        );
+        $mform->setType('recurrentperiod', PARAM_TEXT);
+        $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
+
         $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('fixdesc', PARAM_TEXT);
         $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
@@ -152,6 +177,15 @@ class gateway extends \core_payment\gateway {
             get_string('showduration', 'paygw_yookassa')
         );
         $mform->setType('showduration', PARAM_INT);
+
+        $mform->addElement(
+            'advcheckbox',
+            'fixcost',
+            get_string('fixcost', 'paygw_yookassa'),
+            get_string('fixcost', 'paygw_yookassa')
+        );
+        $mform->setType('fixcost', PARAM_INT);
+        $mform->addHelpButton('fixcost', 'fixcost', 'paygw_yookassa');
 
         $mform->addElement('text', 'suggest', get_string('suggest', 'paygw_yookassa'), ['size' => 10]);
         $mform->setType('suggest', PARAM_TEXT);

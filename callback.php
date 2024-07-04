@@ -46,8 +46,8 @@ if ($data->event !== 'payment.succeeded') {
 }
 
 // Check data.
-if (isset($data->object->id)) {
-    $invoiceid  = clean_param($data->object->id, PARAM_ALPHANUMEXT);
+if (isset($data->object->payment_method->id)) {
+    $invoiceid  = clean_param($data->object->payment_method->id, PARAM_ALPHANUMEXT);
 } else {
     die('FAIL. No invoiceid.');
 }
@@ -94,6 +94,10 @@ $response = json_decode($jsonresponse, false);
 
 if ($response->status !== 'succeeded' || $response->paid != true) {
     die("FAIL. Invoice not paid.");
+}
+
+if ($config->recurrent == 1 && $config->recurrentperiod > 0 && $response->payment_method->saved == true) {
+    $yookassatx->recurrent = time() + 86400 * $config->recurrentperiod;
 }
 
 // Update payment.

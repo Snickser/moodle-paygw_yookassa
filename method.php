@@ -120,6 +120,18 @@ if ($config->suggest < $fee) {
 }
 
 $templatedata->maxcost = $config->maxcost;
+$templatedata->fixcost = $config->fixcost;
+
+if (!$config->fixcost) {
+    if ($config->suggest < $fee) {
+        $templatedata->suggest = $fee;
+    } else {
+        $templatedata->suggest = $config->suggest;
+    }
+} else {
+    $templatedata->localizedcost = \core_payment\helper::get_cost_as_string($fee, $currency);
+}
+
 $templatedata->skipmode = $config->skipmode;
 
 if ($config->skipmode || $config->passwordmode) {
