@@ -54,7 +54,7 @@ class recurrent_payments extends \core\task\scheduled_task {
         global $DB, $CFG;
         mtrace('Start');
 
-        $ctime = time();
+        $ctime = strtotime("today");
         $yookassatx = $DB->get_records_sql('SELECT * FROM {paygw_yookassa} WHERE (success=1 OR success=3) ' .
                   'AND recurrent>0 AND recurrent < ?', [ $ctime ]);
 
@@ -127,7 +127,7 @@ class recurrent_payments extends \core\task\scheduled_task {
             $response = json_decode($jsonresponse);
 
             if (($response->status !== 'succeeded' && $response->status !== 'pending') || $response->paid != true) {
-                echo serialize($response)."\n";
+                echo serialize($response) . "\n";
                 mtrace("$data->paymentid is not valid");
                 $data->recurrent = 0;
                 $DB->update_record('paygw_yookassa', $data);
