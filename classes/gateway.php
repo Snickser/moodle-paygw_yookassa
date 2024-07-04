@@ -181,11 +181,11 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'fixcost',
-            get_string('fixcost', 'paygw_robokassa'),
-            get_string('fixcost', 'paygw_robokassa')
+            get_string('fixcost', 'paygw_yookassa'),
+            get_string('fixcost', 'paygw_yookassa')
         );
         $mform->setType('fixcost', PARAM_INT);
-        $mform->addHelpButton('fixcost', 'fixcost', 'paygw_robokassa');
+        $mform->addHelpButton('fixcost', 'fixcost', 'paygw_yookassa');
 
         $mform->addElement('text', 'suggest', get_string('suggest', 'paygw_yookassa'), ['size' => 10]);
         $mform->setType('suggest', PARAM_TEXT);
