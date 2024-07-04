@@ -37,6 +37,8 @@
         "group": "Test",
         "maxcost": "10",
         "fixdesc": "1"
+        "fixcost": "0",
+        "localizedcost": "1 $"
     }
 
 }}
@@ -51,9 +53,13 @@
 <p>{{# str }} paymore, paygw_yookassa {{/ str}}</p>
 
 <h3>{{# str }} cost {{/ str}}:
- <input type="number" id="costself" name="costself" min="{{fee}}" {{#maxcost}}max="{{maxcost}}"{{/maxcost}}
+{{^fixcost}}
+ <input type="number" id="costself" name="costself"
  value="{{#suggest}}{{suggest}}{{/suggest}}{{^suggest}}{{fee}}{{/suggest}}"
- step="0.01" style="width: 5em;">&nbsp;{{currency}}
+ min="{{fee}}" {{#maxcost}}max="{{maxcost}}"{{/maxcost}} step="0.01"
+ style="width: 5em;">{{^fixcost}}&nbsp;{{currency}}{{/fixcost}}
+{{/fixcost}}
+{{#fixcost}}{{localizedcost}}{{/fixcost}}
 </h3>
 
 {{#enrolperiod}}
