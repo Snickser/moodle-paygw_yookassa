@@ -114,19 +114,7 @@ class gateway extends \core_payment\gateway {
         $mform->setType('recurrent', PARAM_INT);
         $mform->addHelpButton('recurrent', 'recurrent', 'paygw_yookassa');
 
-        $options = [
-        '0.0035' => get_string('minute'),
-        '1' => get_string('day'),
-        '7' => get_string('week'),
-        '30' => get_string('month'),
-        '365' => get_string('year'),
-        ];
-        $mform->addElement(
-            'select',
-            'recurrentperiod',
-            get_string('recurrentperiod', 'paygw_yookassa'),
-            $options,
-        );
+        $mform->addElement('duration', 'recurrentperiod', get_string('recurrentperiod', 'paygw_robokassa'));
         $mform->setType('recurrentperiod', PARAM_TEXT);
         $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
 
