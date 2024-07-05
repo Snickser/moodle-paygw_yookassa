@@ -68,5 +68,17 @@ function xmldb_paygw_yookassa_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2024070303, 'paygw', 'yookassa');
     }
 
+    if ($oldversion < 2024070500) {
+        $table = new xmldb_table('paygw_yookassa');
+        $field = new xmldb_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'success');
+        // Conditionally launch add field id.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Yookassa savepoint reached.
+        upgrade_plugin_savepoint(true, 2024070500, 'paygw', 'yookassa');
+    }
+
     return true;
 }

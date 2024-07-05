@@ -76,6 +76,7 @@ $userid      = $payment->userid;
 
 // Get config.
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
+$payable = helper::get_payable($component, $paymentarea, $itemid);
 
 if ($config->savedebugdata) {
     file_put_contents('/tmp/xxxx', serialize($source) . "\n\n", FILE_APPEND | LOCK_EX);
@@ -102,6 +103,28 @@ if ($response->status !== 'succeeded' || $response->paid != true) {
 
 if ($config->recurrent == 1 && $config->recurrentperiod > 0 && $response->payment_method->saved == true) {
     $yookassatx->recurrent = time() + $config->recurrentperiod;
+    $DB->update_record('paygw_yookassa', $yookassatx);
+    $yookassatx->recurrent = null;
+}
+
+if ($invoiceid !== $data->object->id) {
+    // Save new payment.
+    $newpaymentid = helper::save_payment(
+        $payable->get_account_id(),
+        $component,
+        $paymentarea,
+        $itemid,
+        $userid,
+        $outsumm,
+        $payment->currency,
+        'yookassa'
+    );
+
+    // Make new transaction.
+    $yookassatx->invoiceid = $yookassatx->paymentid;
+    $yookassatx->paymentid = $newpaymentid;
+    $yookassatx->timecreated = time();
+    $yookassatx->id = $DB->insert_record('paygw_yookassa', $yookassatx);
 }
 
 // Update payment.
@@ -115,7 +138,7 @@ helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
 // Notify user.
 notifications::notify(
     $userid,
-    $payment->amount,
+    $outsumm,
     $payment->currency,
     $paymentid,
     'Success completed'
@@ -127,8 +150,7 @@ if ($response->test == true) {
 } else {
     $yookassatx->success = 1;
 }
-if (!$DB->update_record('paygw_yookassa', $yookassatx)) {
-    die('FAIL. Update db error.');
-} else {
-    die("OK");
-}
+
+$DB->update_record('paygw_yookassa', $yookassatx);
+
+die("OK");

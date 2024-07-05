@@ -94,6 +94,7 @@ if (!empty($cs->course)) {
 $paygwdata = new stdClass();
 $paygwdata->courseid = $courseid;
 $paygwdata->groupnames = $groupnames;
+$paygwdata->timecreated = time();
 if (!$transactionid = $DB->insert_record('paygw_yookassa', $paygwdata)) {
     throw new Error(get_string('error_txdatabase', 'paygw_yookassa'));
 }
