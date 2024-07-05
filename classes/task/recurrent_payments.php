@@ -81,7 +81,7 @@ class recurrent_payments extends \core\task\scheduled_task {
             $invoice->amount = [ "value" => $payment->amount, "currency" => $payment->currency ];
             $invoice->capture = "true";
             $invoice->payment_method_id = $data->invoiceid;
-            $invoice->description = "recurrent payment " . $data->paymentid;
+            $invoice->description = "Recurrent payment " . $data->paymentid;
 
             $user = \core_user::get_user($userid);
 

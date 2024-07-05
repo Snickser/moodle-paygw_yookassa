@@ -118,6 +118,15 @@ class gateway extends \core_payment\gateway {
         $mform->setType('recurrentperiod', PARAM_TEXT);
         $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
 
+        $mform->addElement(
+            'advcheckbox',
+            'savedebugdata',
+            get_string('savedebugdata', 'paygw_yookassa'),
+            get_string('savedebugdata', 'paygw_yookassa')
+        );
+        $mform->setType('savedebugdata', PARAM_INT);
+        $mform->addHelpButton('savedebugdata', 'savedebugdata', 'paygw_yookassa');
+
         $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('fixdesc', PARAM_TEXT);
         $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
