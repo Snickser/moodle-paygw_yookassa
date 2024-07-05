@@ -128,11 +128,11 @@ class recurrent_payments extends \core\task\scheduled_task {
 
             if (($response->status !== 'succeeded' && $response->status !== 'pending') || $response->paid != true) {
                 echo serialize($response) . "\n";
-                mtrace("$data->paymentid is not valid");
+                mtrace("$data->paymentid ERROR.");
                 $data->recurrent = 0;
                 $DB->update_record('paygw_yookassa', $data);
             } else {
-                mtrace("$data->paymentid order paid successfully");
+                mtrace("$data->paymentid done.");
             }
         }
         mtrace('End.');
