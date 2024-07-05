@@ -80,9 +80,14 @@ $string['plastic'] = 'VISA, MasterCard, МИР';
 $string['sbp'] = 'СБП (QR-код)';
 
 $string['messagesubject'] = 'Уведомление о платеже';
+
 $string['message_success_completed'] = 'Здравствуйте, {$a->firstname}!
 Ваша платёжная транзакция № {$a->orderid} на {$a->localizedcost} успешно завершена. Спасибо за ваше пожертвование.
 Если элемент курса недоступен, обратитесь в техподдержку сайта.';
+
+$string['message_recurrent_completed'] = 'Здравствуйте, {$a->firstname}!
+Регулярный платёж № {$a->orderid} на {$a->localizedcost} создан.';
+
 $string['message_invoice_created'] = 'Здравствуйте, {$a->firstname}!
 Ваша платёжная ссылка {$a->orderid} на {$a->localizedcost} успешно создана.
 Вы можете совершить платёж по ней в течении 10-ти минут.';
@@ -94,3 +99,6 @@ $string['maxcosterror'] = 'Максимальная цена должна быт
 $string['recurrent'] = 'Включить регулярные платежи';
 $string['recurrent_help'] = 'Регулярные (рекуррентные) платежи исполняются по таймеру без участия студента, данные первого платежа сохраняются на стороне банка и используются повторно, с некоторой периодичностью.';
 $string['recurrentperiod'] = 'Периодичность регулярного платежа';
+
+$string['savedebugdata'] = 'Сохранять debug лог';
+$string['savedebugdata_help'] = 'Данные запросов и ответов банка будут сохраняться в /tmp/xxxx';
