@@ -86,7 +86,8 @@ $string['message_success_completed'] = 'Здравствуйте, {$a->firstname
 Если элемент курса недоступен, обратитесь в техподдержку сайта.';
 
 $string['message_recurrent_completed'] = 'Здравствуйте, {$a->firstname}!
-Регулярный платёж № {$a->orderid} на {$a->localizedcost} создан.';
+Регулярный платёж № {$a->orderid} на {$a->localizedcost} создан и передан в банк.
+Отключить регулярные платежи можно в разделе Отчёты о платежах в личном профиле.';
 
 $string['message_invoice_created'] = 'Здравствуйте, {$a->firstname}!
 Ваша платёжная ссылка {$a->orderid} на {$a->localizedcost} успешно создана.
