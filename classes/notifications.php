@@ -74,9 +74,14 @@ class notifications {
             case 'Success completed':
                 $messagebody = get_string('message_success_completed', 'paygw_yookassa', $a);
                 break;
+            case 'Recurrent completed':
+                $messagebody = get_string('message_recurrent_completed', 'paygw_yookassa', $a);
+                break;
             case 'Invoice created':
                 $messagebody = get_string('message_invoice_created', 'paygw_yookassa', $a);
                 break;
+            default:
+                $messagebody = 'null';
         }
 
         $message->fullmessage       = $messagebody;

@@ -86,12 +86,18 @@ $string['privacy:metadata:paygw_yookassa:groupnames'] = 'Group names';
 $string['privacy:metadata:paygw_yookassa:success'] = 'Status';
 
 $string['messagesubject'] = 'Payment notification';
+
 $string['message_success_completed'] = 'Hello {$a->firstname},
 You transaction of payment id {$a->orderid} with cost of {$a->fee} {$a->currency} for "{$a->description}" is successfully completed.
 If the item is not accessable please contact the administrator.';
+
+$string['message_recurrent_completed'] = 'Hello, {$a->firstname}!
+Regular payment No. {$a->orderid} at {$a->localizedcost} is ready for payment.';
+
 $string['message_invoice_created'] = 'Hello {$a->firstname}!
 Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfully created.
 You can pay it within an hour.';
+
 $string['messageprovider:payment_receipt'] = 'Payment receipt';
 
 $string['fixcost'] = 'Fixed price mode';
@@ -101,3 +107,6 @@ $string['maxcosterror'] = 'The maximum price must be higher than the recommended
 $string['recurrent'] = 'Enable recurring payments';
 $string['recurrent_help'] = 'Enable recurring payments';
 $string['recurrentperiod'] = 'Recurring payment frequency';
+
+$string['savedebugdata'] = 'Save debug log';
+$string['savedebugdata_help'] = 'Bank request and response data will be saved in /tmp/xxxx';

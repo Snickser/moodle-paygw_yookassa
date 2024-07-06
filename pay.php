@@ -94,6 +94,7 @@ if (!empty($cs->course)) {
 $paygwdata = new stdClass();
 $paygwdata->courseid = $courseid;
 $paygwdata->groupnames = $groupnames;
+$paygwdata->timecreated = time();
 if (!$transactionid = $DB->insert_record('paygw_yookassa', $paygwdata)) {
     throw new Error(get_string('error_txdatabase', 'paygw_yookassa'));
 }
@@ -216,9 +217,14 @@ $jsonresponse = $curl->post($location, $jsondata, $options);
 
 $response = json_decode($jsonresponse);
 
+if ($config->savedebugdata) {
+    file_put_contents('/tmp/xxxx', serialize($jsonresponse) . "\n\n", FILE_APPEND | LOCK_EX);
+}
+
 if (!isset($response->confirmation)) {
     $DB->delete_records('paygw_yookassa', ['id' => $transactionid]);
-    throw new Error(get_string('payment_error', 'paygw_yookassa') . " (response error)");
+    $error = $response->description;
+    throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
 }
 
 $confirmationurl = $response->confirmation->confirmation_url;
@@ -228,6 +234,9 @@ if (empty($confirmationurl)) {
     $error = $response->description;
     throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
 }
+
+// Set the context of the page.
+$PAGE->set_context(context_system::instance());
 
 // Notify user.
 notifications::notify(
