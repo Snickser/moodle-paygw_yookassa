@@ -104,7 +104,7 @@ if ($response->status !== 'succeeded' || $response->paid != true) {
 if ($config->recurrent == 1 && $config->recurrentperiod > 0 && $response->payment_method->saved == true) {
     $yookassatx->recurrent = time() + $config->recurrentperiod;
     $DB->update_record('paygw_yookassa', $yookassatx);
-    $yookassatx->recurrent = null;
+    unset($yookassatx->recurrent);
 }
 
 if ($invoiceid !== $data->object->id) {
