@@ -235,6 +235,9 @@ if (empty($confirmationurl)) {
     throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
 }
 
+// Set the context of the page.
+$PAGE->set_context(context_system::instance());
+
 // Notify user.
 notifications::notify(
     $userid,
