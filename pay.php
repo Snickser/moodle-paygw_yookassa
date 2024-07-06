@@ -217,9 +217,14 @@ $jsonresponse = $curl->post($location, $jsondata, $options);
 
 $response = json_decode($jsonresponse);
 
+if ($config->savedebugdata) {
+    file_put_contents('/tmp/xxxx', serialize($jsonresponse) . "\n\n", FILE_APPEND | LOCK_EX);
+}
+
 if (!isset($response->confirmation)) {
     $DB->delete_records('paygw_yookassa', ['id' => $transactionid]);
-    throw new Error(get_string('payment_error', 'paygw_yookassa') . " (response error)");
+    $error = $response->description;
+    throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
 }
 
 $confirmationurl = $response->confirmation->confirmation_url;
