@@ -2,7 +2,7 @@
 
 # YooKassa payment gateway plugin for Moodle.
 
-Version 0.12
+Version 1.0
 
 https://yookassa.ru
 
@@ -25,7 +25,7 @@ https://yookassa.ru
 ## Рекомендации
 
 + Moodle 4.3+
-+ Для записи в курс подходит стандарный плагин "Зачисление за оплату" (enrol_fee).
++ Для записи в курс используйте мой пропатченный плагин "Зачисление за оплату" [enrol_fee](https://github.com/Snickser/moodle-enrol_fee/tree/dev).
 + Для контрольного задания используйте пропатченный мной плагин по ссылке [mod_gwpayments](https://github.com/Snickser/moodle-mod_gwpayments/tree/dev).
 + Для ограничения доступности используйте пропатченный мной плагин по ссылке [availability_gwpayments](https://github.com/Snickser/moodle-availability_gwpayments/tree/dev).
 + Плагин просмотра отчётов и отключения регулярных платежей (работает совместно с mod_gwpayments) [report_payments](https://github.com/Snickser/moodle-report_payments/tree/dev).
