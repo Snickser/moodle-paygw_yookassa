@@ -125,12 +125,12 @@ if ($invoiceid !== $data->object->id) {
     $yookassatx->paymentid = $newpaymentid;
     $yookassatx->timecreated = time();
     $yookassatx->id = $DB->insert_record('paygw_yookassa', $yookassatx);
+} else {
+    // Update payment.
+    $payment->amount = $outsumm;
+    $payment->timemodified = time();
+    $DB->update_record('payments', $payment);
 }
-
-// Update payment.
-$payment->amount = $outsumm;
-$payment->timemodified = time();
-$DB->update_record('payments', $payment);
 
 // Deliver order.
 helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
