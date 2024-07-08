@@ -75,6 +75,10 @@ class recurrent_payments extends \core\task\scheduled_task {
 
             // Get config.
             $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
+            $payable = helper::get_payable($component, $paymentarea, $itemid);
+            $surcharge = helper::get_gateway_surcharge('robokassa');// In case user uses surcharge.
+
+            $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
 
             // Make invoice.
             $invoice = new \stdClass();
@@ -133,6 +137,14 @@ class recurrent_payments extends \core\task\scheduled_task {
                 $DB->update_record('paygw_yookassa', $data);
             } else {
                 mtrace("$data->paymentid done.");
+                // Notify user.
+                notifications::notify(
+                    $userid,
+                    $cost,
+                    $payment->currency,
+                    $data->paymentid,
+                    'Recurrent completed'
+                );
             }
         }
         mtrace('End');

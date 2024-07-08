@@ -130,17 +130,18 @@ if ($invoiceid !== $data->object->id) {
     $payment->amount = $outsumm;
     $payment->timemodified = time();
     $DB->update_record('payments', $payment);
+    $newpaymentid = $payment->paymentid;
 }
 
 // Deliver order.
-helper::deliver_order($component, $paymentarea, $itemid, $paymentid, $userid);
+helper::deliver_order($component, $paymentarea, $itemid, $newpaymentid, $userid);
 
 // Notify user.
 notifications::notify(
     $userid,
     $outsumm,
     $payment->currency,
-    $paymentid,
+    $newpaymentid,
     'Success completed'
 );
 
