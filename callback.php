@@ -130,7 +130,7 @@ if ($invoiceid !== $data->object->id) {
     $payment->amount = $outsumm;
     $payment->timemodified = time();
     $DB->update_record('payments', $payment);
-    $newpaymentid = $payment->paymentid;
+    $newpaymentid = $paymentid;
 }
 
 // Deliver order.
