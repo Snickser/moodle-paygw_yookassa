@@ -54,7 +54,7 @@ class recurrent_payments extends \core\task\scheduled_task {
         global $DB, $CFG;
         mtrace('Start');
 
-        $ctime = strtotime("today");
+        $ctime = strtotime("+1hour");
         $yookassatx = $DB->get_records_sql('SELECT * FROM {paygw_yookassa} WHERE (success=1 OR success=3) ' .
                   'AND recurrent>0 AND recurrent < ?', [ $ctime ]);
 

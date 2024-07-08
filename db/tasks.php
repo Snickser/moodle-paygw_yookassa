@@ -26,10 +26,11 @@ $tasks = [
     [
         'classname' => 'paygw_yookassa\task\recurrent_payments',
         'blocking' => 0,
-        'minute' => '15',
-        'hour' => '7',
+        'minute' => '30',
+        'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
         'month' => '*',
+        'disabled' => 0
     ],
 ];
