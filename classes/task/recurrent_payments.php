@@ -130,12 +130,10 @@ class recurrent_payments extends \core\task\scheduled_task {
 
             $response = json_decode($jsonresponse);
 
-            if (($response->status !== 'succeeded' && $response->status !== 'pending') || $response->paid != true) {
-                echo serialize($response) . "\n";
-                mtrace("$data->paymentid ERROR.");
-                $data->recurrent = 0;
-                $DB->update_record('paygw_yookassa', $data);
-            } else {
+            if (
+                ($response->status == 'succeeded' || $response->status == 'pending') &&
+                $response->paid == true && $response->payment_method->saved == true
+            ) {
                 mtrace("$data->paymentid done.");
                 // Notify user.
                 notifications::notify(
@@ -145,6 +143,11 @@ class recurrent_payments extends \core\task\scheduled_task {
                     $data->paymentid,
                     'Recurrent completed'
                 );
+            } else {
+                echo serialize($response) . "\n";
+                mtrace("$data->paymentid ERROR.");
+                $data->recurrent = 0;
+                $DB->update_record('paygw_yookassa', $data);
             }
         }
         mtrace('End');
