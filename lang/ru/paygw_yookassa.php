@@ -79,7 +79,7 @@ $string['wallet'] = 'ЮMoney кошелёк';
 $string['plastic'] = 'VISA, MasterCard, МИР';
 $string['sbp'] = 'СБП (QR-код)';
 
-$string['messagesubject'] = 'Уведомление о платеже';
+$string['messagesubject'] = 'Уведомление о платеже ({$a})';
 
 $string['message_success_completed'] = 'Здравствуйте, {$a->firstname}!
 Ваша платёжная транзакция № {$a->orderid} на {$a->localizedcost} успешно завершена. Спасибо за ваше пожертвование.
