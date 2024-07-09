@@ -195,6 +195,10 @@ class gateway extends \core_payment\gateway {
                                     get_string('callback_url', 'paygw_yookassa') . '<br>');
         $mform->addElement('html', $CFG->wwwroot . '/payment/gateway/yookassa/callback.php<br>');
         $mform->addElement('html', get_string('callback_help', 'paygw_yookassa') . '</div><br>');
+
+        $header = '<div>Новые версии плагина вы можете найти на
+ <a href=https://github.com/Snickser/moodle-paygw_yookassa>https://github.com/Snickser/moodle-paygw_yookassa</a></div><br>';
+        $mform->addElement('html', $header);
     }
 
     /**

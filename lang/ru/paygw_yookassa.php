@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['abouttopay'] = 'Вы собираетесь пожертвовать на';
 $string['apikey'] = 'API Key';
-$string['callback_help'] = 'Скопируйте эту строку и вставьте в "HTTP-уведомления" в настройках магазина в ЮKassa, и включите там уведомления "payment.succeeded".';
+$string['callback_help'] = 'Скопируйте эту строку и вставьте в "HTTP-уведомления" в настройках магазина в ЮKassa, и включите там уведомления "payment.succeeded" и "payment.canceled".';
 $string['callback_url'] = 'URL для уведомлений:';
 $string['cost'] = 'Стоимость записи';
 $string['currency'] = 'Валюта';
