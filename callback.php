@@ -41,6 +41,10 @@ if ($data === null) {
     die('FAIL. Invalid json in request: ' . $lasterror);
 }
 
+if ($data->event == 'payment.canceled') {
+    die('OK');
+}
+
 if ($data->event !== 'payment.succeeded') {
     die('FAIL. Payment not successed');
 }
