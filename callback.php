@@ -43,8 +43,10 @@ if ($data === null) {
 
 if ($data->event == 'payment.canceled') {
     file_put_contents('/tmp/zzzz', serialize($source) . "\n\n", FILE_APPEND | LOCK_EX);
-    if($newtx = $DB->get_record('paygw_yookassa', ['paymentid' => $data->object->id])){
-        $newtx->paymentid = $data->cancellation_details->reason;
+    $pid = clean_param($data->object->id, PARAM_ALPHANUMEXT);
+    if($newtx = $DB->get_record('paygw_yookassa', ['paymentid' => $pid])){
+        $text = clean_param($data->cancellation_details->reason, PARAM_TEXT);
+        $newtx->paymentid = $text;
         $DB->update_record('paygw_yookassa', $newtx);
     }
     die('OK');
