@@ -87,8 +87,7 @@ $string['message_success_completed'] = 'Здравствуйте, {$a->firstname
 
 $string['message_recurrent_completed'] = 'Здравствуйте, {$a->firstname}!
 Регулярный платёж № {$a->orderid} на {$a->localizedcost} создан и передан в банк.
-Отключить регулярные платежи можно в разделе Отчёты (оплата) в личном профиле.
-Или по ссылке '.$CFG->wwwroot.'/user/profile.php';
+Отключить регулярные платежи можно в разделе Отчёты (оплата) в личном профиле '.$CFG->wwwroot.'/user/profile.php';
 
 $string['message_invoice_created'] = 'Здравствуйте, {$a->firstname}!
 Ваша платёжная ссылка {$a->orderid} на {$a->localizedcost} успешно создана.
