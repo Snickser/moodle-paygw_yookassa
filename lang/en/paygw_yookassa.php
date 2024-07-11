@@ -110,3 +110,5 @@ $string['recurrentperiod'] = 'Recurring payment frequency';
 
 $string['savedebugdata'] = 'Save debug log';
 $string['savedebugdata_help'] = 'Bank request and response data will be saved in /tmp/xxxx';
+
+$string['noreportplugin'] = '<font color=red>The report_payments plugin is not installed, you will not be able to cancel recurring payments.</font>';

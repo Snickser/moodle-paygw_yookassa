@@ -118,6 +118,12 @@ class gateway extends \core_payment\gateway {
         $mform->setType('recurrentperiod', PARAM_TEXT);
         $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
 
+        $plugininfo = \core_plugin_manager::instance()->get_plugin_info('report_payments');
+        if ($plugininfo->versiondisk < 3024070800) {
+            $mform->addElement('static', 'noreport', null, get_string('noreportplugin', 'paygw_yookassa'));
+            $mform->hideIf('noreport', 'recurrent', "neq", 1);
+        }
+
         $mform->addElement(
             'advcheckbox',
             'savedebugdata',
