@@ -84,6 +84,9 @@ class notifications {
             case 'Recurrent error':
                 $messagebody = get_string('message_recurrent_error', 'paygw_yookassa', $a);
                 break;
+            case 'Recurrent notify':
+                $messagebody = get_string('message_recurrent_notify', 'paygw_yookassa', $a);
+                break;
             case 'Invoice created':
                 $messagebody = get_string('message_invoice_created', 'paygw_yookassa', $a);
                 break;
