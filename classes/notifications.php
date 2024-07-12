@@ -46,7 +46,7 @@ class notifications {
      * @return int|false
      */
     public static function notify($userid, $fee, $currency, $orderid, $type = '') {
-        global $DB;
+        global $DB, $CFG;
 
         // Get the user object for messaging and fullname.
         $user = \core_user::get_user($userid);
@@ -61,6 +61,7 @@ class notifications {
             'orderid'   => $orderid,
             'firstname' => $user->firstname,
             'fullname'  => fullname($user),
+            'url'       => $CFG->wwwroot,
             'localizedcost' => \core_payment\helper::get_cost_as_string($fee, $currency),
         ];
 
@@ -74,8 +75,14 @@ class notifications {
             case 'Success completed':
                 $messagebody = get_string('message_success_completed', 'paygw_yookassa', $a);
                 break;
+            case 'Success recurrent':
+                $messagebody = get_string('message_success_recurrent', 'paygw_yookassa', $a);
+                break;
             case 'Recurrent completed':
                 $messagebody = get_string('message_recurrent_completed', 'paygw_yookassa', $a);
+                break;
+            case 'Recurrent error':
+                $messagebody = get_string('message_recurrent_error', 'paygw_yookassa', $a);
                 break;
             case 'Invoice created':
                 $messagebody = get_string('message_invoice_created', 'paygw_yookassa', $a);

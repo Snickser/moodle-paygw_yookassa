@@ -64,6 +64,7 @@ class recurrent_payments extends \core\task\scheduled_task {
 
             // Get payment data.
             if (!$payment = $DB->get_record('payments', ['id' => $data->paymentid])) {
+                mtrace("$data->paymentid not found");
                 continue;
             }
 
@@ -144,10 +145,18 @@ class recurrent_payments extends \core\task\scheduled_task {
                     'Recurrent completed'
                 );
             } else {
-                echo serialize($response) . "\n";
-                mtrace("$data->paymentid ERROR.");
+                echo serialize($jsonresponse) . "\n";
+                mtrace("$data->paymentid error");
                 $data->recurrent = 0;
                 $DB->update_record('paygw_yookassa', $data);
+                // Notify user.
+                notifications::notify(
+                    $userid,
+                    $cost,
+                    $payment->currency,
+                    $data->paymentid,
+                    'Recurrent error'
+                );
             }
         }
         mtrace('End');

@@ -115,6 +115,9 @@ if ($config->recurrent == 1 && $config->recurrentperiod > 0 && $response->paymen
     $yookassatx->recurrent = time() + $config->recurrentperiod;
     $DB->update_record('paygw_yookassa', $yookassatx);
     unset($yookassatx->recurrent);
+    $reasone = 'Success recurrent';
+} else {
+    $reasone = 'Success completed';
 }
 
 if ($invoiceid !== $data->object->id) {
@@ -152,7 +155,7 @@ notifications::notify(
     $outsumm,
     $payment->currency,
     $newpaymentid,
-    'Success completed'
+    $reasone
 );
 
 // Write to DB.
