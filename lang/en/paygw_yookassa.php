@@ -94,6 +94,10 @@ If the item is not accessable please contact the administrator.';
 $string['message_recurrent_completed'] = 'Hello, {$a->firstname}!
 Regular payment No. {$a->orderid} at {$a->localizedcost} is ready for payment.';
 
+$string['message_recurrent_error'] = 'Hello, {$a->firstname}!
+Regular payment No. {$a->orderid} for {$a->localizedcost} completed with an error.
+The subscription has been disabled, please make a new payment to renew your subscription.';
+
 $string['message_invoice_created'] = 'Hello {$a->firstname}!
 Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfully created.
 You can pay it within an hour.';

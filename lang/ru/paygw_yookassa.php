@@ -89,6 +89,10 @@ $string['message_recurrent_completed'] = 'Здравствуйте, {$a->firstna
 Регулярный платёж № {$a->orderid} на {$a->localizedcost} создан и передан в банк.
 Отключить регулярные платежи можно в разделе Отчёты (оплата) в личном профиле '.$CFG->wwwroot.'/user/profile.php';
 
+$string['message_recurrent_error'] = 'Здравствуйте, {$a->firstname}!
+Регулярный платёж № {$a->orderid} на {$a->localizedcost} завершился с ошибкой.
+Подписка была отключена, для возобновления подписки произведите новую оплату.';
+
 $string['message_invoice_created'] = 'Здравствуйте, {$a->firstname}!
 Ваша платёжная ссылка {$a->orderid} на {$a->localizedcost} успешно создана.
 Вы можете совершить платёж по ней в течении часа.';
