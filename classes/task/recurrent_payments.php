@@ -93,7 +93,6 @@ class recurrent_payments extends \core\task\scheduled_task {
             mtrace("$data->paymentid notified");
         }
 
-
         // Stage Two.
         $ctime = strtotime("+1hour");
         $yookassatx = $DB->get_records_sql('SELECT * FROM {paygw_yookassa} WHERE (success=1 OR success=3) ' .
@@ -200,7 +199,6 @@ class recurrent_payments extends \core\task\scheduled_task {
                 );
             }
         }
-
         mtrace('End');
     }
 }
