@@ -122,6 +122,9 @@ $string['recurrent'] = 'Enable recurring payments';
 $string['recurrent_help'] = 'Enable recurring payments';
 $string['recurrentperiod'] = 'Recurring payment frequency';
 
+$string['sendlinkmsg'] = 'Send payment link by email';
+$string['sendlinkmsg_help'] = 'If enabled, a link to the invoice for payment will be sent to the users email.';
+
 $string['savedebugdata'] = 'Save debug log';
 $string['savedebugdata_help'] = 'Bank request and response data will be saved in /tmp/xxxx';
 
