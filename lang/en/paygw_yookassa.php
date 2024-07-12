@@ -103,6 +103,11 @@ $string['message_recurrent_error'] = 'Hello, {$a->firstname}!
 Regular payment No. {$a->orderid} for {$a->localizedcost} completed with an error.
 The subscription has been disabled, please make a new payment to renew your subscription.';
 
+$string['message_recurrent_notify'] = 'Hello, {$a->name}!
+We remind you that the date of regular payment No. {$a->orderid} for {$a->localizedcost} is obtained.
+Please ensure that the specified amount is available in your account, otherwise the subscription will not be renewed.
+You can disable regular payments in the Reports (payments) section in your personal profile {$a->url}/user/profile.php';
+
 $string['message_invoice_created'] = 'Hello {$a->firstname}!
 Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfully created.
 You can pay it within an hour.';
