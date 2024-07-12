@@ -70,6 +70,7 @@ class notifications {
         $message->userfrom  = \core_user::get_noreply_user(); // If the message is 'from' a specific user you can set them here.
         $message->userto    = $user;
         $message->subject   = get_string('messagesubject', 'paygw_yookassa', $type);
+        $message->url       = $CFG->wwwroot;
         switch ($type) {
             case 'Success completed':
                 $messagebody = get_string('message_success_completed', 'paygw_yookassa', $a);

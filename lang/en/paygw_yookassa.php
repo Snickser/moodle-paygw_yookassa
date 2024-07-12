@@ -93,11 +93,11 @@ If the item is not accessable please contact the administrator.';
 
 $string['message_recurrent_completed'] = 'Hello, {$a->firstname}!
 Regular payment No. {$a->orderid} at {$a->localizedcost} is ready for payment.
-You can disable regular payments in the Reports (payment) section in your personal profile '.$CFG->wwwroot.'/user/profile.php';
+You can disable regular payments in the Reports (payment) section in your personal profile {$a->$url}/user/profile.php';
 
 $string['message_success_recurrent'] = 'Hello, {$a->firstname}!
 Your regular payment transaction No. {$a->orderid} for {$a->localizedcost} has been successfully created. Thank you for your donation.
-You can disable regular payments in the Reports (payment) section in your personal profile '.$CFG->wwwroot.'/user/profile.php';
+You can disable regular payments in the Reports (payment) section in your personal profile {$a->$url}/user/profile.php';
 
 $string['message_recurrent_error'] = 'Hello, {$a->firstname}!
 Regular payment No. {$a->orderid} for {$a->localizedcost} completed with an error.
