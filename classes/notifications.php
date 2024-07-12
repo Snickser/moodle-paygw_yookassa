@@ -46,7 +46,7 @@ class notifications {
      * @return int|false
      */
     public static function notify($userid, $fee, $currency, $orderid, $type = '') {
-        global $DB;
+        global $DB, $CFG;
 
         // Get the user object for messaging and fullname.
         $user = \core_user::get_user($userid);
