@@ -77,7 +77,7 @@ class recurrent_payments extends \core\task\scheduled_task {
             // Get config.
             $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
             $payable = helper::get_payable($component, $paymentarea, $itemid);
-            $surcharge = helper::get_gateway_surcharge('robokassa');// In case user uses surcharge.
+            $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surcharge.
             $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
             $user = \core_user::get_user($userid);
 
@@ -117,8 +117,7 @@ class recurrent_payments extends \core\task\scheduled_task {
             // Get config.
             $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
             $payable = helper::get_payable($component, $paymentarea, $itemid);
-            $surcharge = helper::get_gateway_surcharge('robokassa');// In case user uses surcharge.
-
+            $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surcharge.
             $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
 
             // Make invoice.
