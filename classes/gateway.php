@@ -121,8 +121,17 @@ class gateway extends \core_payment\gateway {
         $plugininfo = \core_plugin_manager::instance()->get_plugin_info('report_payments');
         if ($plugininfo->versiondisk < 3024070800) {
             $mform->addElement('static', 'noreport', null, get_string('noreportplugin', 'paygw_yookassa'));
-            $mform->hideIf('noreport', 'recurrent', "neq", 1);
         }
+
+        $mform->addElement(
+            'advcheckbox',
+            'sendlinkmsg',
+            get_string('sendlinkmsg', 'paygw_yookassa'),
+            get_string('sendlinkmsg', 'paygw_yookassa')
+        );
+        $mform->setType('sendlinkmsg', PARAM_INT);
+        $mform->addHelpButton('sendlinkmsg', 'sendlinkmsg', 'paygw_yookassa');
+        $mform->setDefault('sendlinkmsg', 1);
 
         $mform->addElement(
             'advcheckbox',
@@ -130,6 +139,7 @@ class gateway extends \core_payment\gateway {
             get_string('savedebugdata', 'paygw_yookassa'),
             get_string('savedebugdata', 'paygw_yookassa')
         );
+
         $mform->setType('savedebugdata', PARAM_INT);
         $mform->addHelpButton('savedebugdata', 'savedebugdata', 'paygw_yookassa');
 

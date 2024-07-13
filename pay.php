@@ -239,13 +239,15 @@ if (empty($confirmationurl)) {
 $PAGE->set_context(context_system::instance());
 
 // Notify user.
-notifications::notify(
-    $userid,
-    $cost,
-    $currency,
-    $confirmationurl,
-    'Invoice created'
-);
+if ($config->sendlinkmsg || is_siteadmin()) {
+    notifications::notify(
+        $userid,
+        $cost,
+        $currency,
+        $confirmationurl,
+        'Invoice created'
+    );
+}
 
 // Write to DB.
 $paygwdata->paymentid = $paymentid;

@@ -113,11 +113,12 @@ if ($response->status !== 'succeeded' || $response->paid != true) {
 
 if ($config->recurrent == 1 && $config->recurrentperiod > 0 && $response->payment_method->saved == true) {
     $yookassatx->recurrent = time() + $config->recurrentperiod;
+    $nextpay = userdate($yookassatx->recurrent, "%d %B %Y, %I:%M");
     $DB->update_record('paygw_yookassa', $yookassatx);
     unset($yookassatx->recurrent);
-    $reasone = 'Success recurrent';
+    $reason = 'Success recurrent';
 } else {
-    $reasone = 'Success completed';
+    $reason = 'Success completed';
 }
 
 if ($invoiceid !== $data->object->id) {
@@ -155,7 +156,8 @@ notifications::notify(
     $outsumm,
     $payment->currency,
     $newpaymentid,
-    $reasone
+    $reason,
+    $nextpay
 );
 
 // Write to DB.

@@ -43,9 +43,10 @@ class notifications {
      * @param string $currency
      * @param int $orderid
      * @param string $type
+     * @param string $nextpay
      * @return int|false
      */
-    public static function notify($userid, $fee, $currency, $orderid, $type = '') {
+    public static function notify($userid, $fee, $currency, $orderid, $type = '', $nextpay = '') {
         global $DB, $CFG;
 
         // Get the user object for messaging and fullname.
@@ -62,7 +63,8 @@ class notifications {
             'firstname' => $user->firstname,
             'fullname'  => fullname($user),
             'url'       => $CFG->wwwroot,
-            'localizedcost' => \core_payment\helper::get_cost_as_string($fee, $currency),
+        'nextpay'   => $nextpay,
+        'localizedcost' => \core_payment\helper::get_cost_as_string($fee, $currency),
         ];
 
         $message = new \core\message\message();
