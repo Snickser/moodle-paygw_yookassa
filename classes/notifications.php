@@ -62,8 +62,8 @@ class notifications {
             'firstname' => $user->firstname,
             'fullname'  => fullname($user),
             'url'       => $CFG->wwwroot,
-	    'nextpay'   => $nextpay,
-	    'localizedcost' => \core_payment\helper::get_cost_as_string($fee, $currency),
+        'nextpay'   => $nextpay,
+        'localizedcost' => \core_payment\helper::get_cost_as_string($fee, $currency),
         ];
 
         $message = new \core\message\message();
