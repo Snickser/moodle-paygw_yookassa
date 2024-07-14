@@ -122,7 +122,7 @@ class recurrent_payments extends \core\task\scheduled_task {
 
             // Make invoice.
             $invoice = new \stdClass();
-            $invoice->amount = [ "value" => $payment->amount, "currency" => $payment->currency ];
+            $invoice->amount = [ "value" => $cost, "currency" => $payment->currency ];
             $invoice->capture = "true";
             $invoice->payment_method_id = $data->invoiceid;
             $invoice->description = "Recurrent payment " . $data->paymentid;
@@ -138,7 +138,7 @@ class recurrent_payments extends \core\task\scheduled_task {
                   "description" => $invoice->description,
                   "quantity" => 1,
                   "amount" => [
-                    "value" => $payment->amount,
+                    "value" => $cost,
                     "currency" => $payment->currency,
                   ],
                   "vat_code" => $config->vatcode,
@@ -181,7 +181,7 @@ class recurrent_payments extends \core\task\scheduled_task {
                     $cost,
                     $payment->currency,
                     $data->paymentid,
-                    'Recurrent completed'
+                    'Recurrent created'
                 );
             } else {
                 echo serialize($jsonresponse) . "\n";

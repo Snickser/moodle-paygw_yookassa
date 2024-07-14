@@ -91,7 +91,7 @@ $string['message_success_completed'] = 'Hello {$a->firstname},
 You transaction of payment id {$a->orderid} with cost of {$a->fee} {$a->currency} for "{$a->description}" is successfully completed.
 If the item is not accessable please contact the administrator.';
 
-$string['message_recurrent_completed'] = 'Hello, {$a->firstname}!
+$string['message_recurrent_created'] = 'Hello, {$a->firstname}!
 Regular payment No. {$a->orderid} at {$a->localizedcost} is ready for payment.
 You can disable regular payments in the Reports (payment) section in your personal profile {$a->$url}/user/profile.php';
 
