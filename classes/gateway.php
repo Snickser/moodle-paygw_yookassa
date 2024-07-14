@@ -115,7 +115,7 @@ class gateway extends \core_payment\gateway {
         $mform->addHelpButton('recurrent', 'recurrent', 'paygw_yookassa');
 
         $mform->addElement('duration', 'recurrentperiod', get_string('recurrentperiod', 'paygw_yookassa'));
-        $mform->setType('recurrentperiod', PARAM_TEXT);
+        $mform->setType('recurrentperiod', PARAM_INT);
         $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
 
         $options = [
@@ -256,6 +256,9 @@ class gateway extends \core_payment\gateway {
         }
         if (!$data->suggest && $data->recurrentcost == 'suggest' && $data->recurrent) {
             $errors['suggest'] = get_string('suggesterror', 'paygw_yookassa');
+        }
+        if (!$data->recurrentperiod && $data->recurrent) {
+            $errors['recurrentperiod'] = get_string('recurrentperioderror', 'paygw_yookassa');
         }
     }
 }
