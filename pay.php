@@ -218,7 +218,8 @@ $jsonresponse = $curl->post($location, $jsondata, $options);
 $response = json_decode($jsonresponse);
 
 if ($config->savedebugdata) {
-    file_put_contents('/tmp/xxxx', serialize($jsonresponse) . "\n\n", FILE_APPEND | LOCK_EX);
+    file_put_contents($CFG->dataroot . '/payment.log', date("Y-m-d H:i:s") . "\n" .
+    serialize($jsonresponse) . "\n\n", FILE_APPEND | LOCK_EX);
 }
 
 if (!isset($response->confirmation)) {
