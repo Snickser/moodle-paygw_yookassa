@@ -114,7 +114,7 @@ if ($response->status !== 'succeeded' || $response->paid != true) {
 
 if ($config->recurrent == 1 && $config->recurrentperiod > 0 && $response->payment_method->saved == true) {
     $yookassatx->recurrent = time() + $config->recurrentperiod;
-    $nextpay = userdate($yookassatx->recurrent, "%d %B %Y, %I:%M");
+    $nextpay = userdate($yookassatx->recurrent, "%d %B %Y, %k:%M");
     $DB->update_record('paygw_yookassa', $yookassatx);
     unset($yookassatx->recurrent);
     $reason = 'Success recurrent';
