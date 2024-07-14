@@ -54,10 +54,10 @@ class recurrent_payments extends \core\task\scheduled_task {
         global $DB, $CFG;
         mtrace('Start');
 
+        // Stage One.
         $stime = strtotime("+1day");
         $ctime = strtotime("+1day1hour");
 
-        // Stage One.
         $yookassatx = $DB->get_records_sql('SELECT * FROM {paygw_yookassa} WHERE (success=1 OR success=3) ' .
                   'AND recurrent>? AND recurrent<?', [ $stime, $ctime ]);
 
@@ -78,8 +78,18 @@ class recurrent_payments extends \core\task\scheduled_task {
             $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
             $payable = helper::get_payable($component, $paymentarea, $itemid);
             $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surcharge.
-            $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
             $user = \core_user::get_user($userid);
+
+            switch ($config->recurrentcost) {
+                case 'suggest':
+                    $cost = $config->suggest;
+                    break;
+                case 'last':
+                    $cost = $payment->amount;
+                    break;
+                default:
+                    $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
+            }
 
             // Notify user.
             notifications::notify(
