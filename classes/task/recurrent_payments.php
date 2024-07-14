@@ -118,7 +118,17 @@ class recurrent_payments extends \core\task\scheduled_task {
             $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
             $payable = helper::get_payable($component, $paymentarea, $itemid);
             $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surcharge.
-            $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
+
+            switch ($config->recurrentcost) {
+                case 'suggest':
+                    $cost = $config->suggest;
+                    break;
+                case 'last':
+                    $cost = $payment->amount;
+                    break;
+                default:
+                    $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
+            }
 
             // Make invoice.
             $invoice = new \stdClass();

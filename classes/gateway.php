@@ -119,8 +119,8 @@ class gateway extends \core_payment\gateway {
         $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
 
         $options = [
-        'fee' => get_string('recurrentcost1', 'paygw_yookassa'),
-        'last' => get_string('recurrentcost2', 'paygw_yookassa'),
+        'last' => get_string('recurrentcost1', 'paygw_yookassa'),
+        'fee' => get_string('recurrentcost2', 'paygw_yookassa'),
         'suggest' => get_string('recurrentcost3', 'paygw_yookassa'),
         ];
         $mform->addElement(
@@ -131,6 +131,7 @@ class gateway extends \core_payment\gateway {
         );
         $mform->setType('recurrentcost', PARAM_TEXT);
         $mform->addHelpButton('recurrentcost', 'recurrentcost', 'paygw_yookassa');
+        $mform->setDefault('recurrentcost', 'fee');
         $mform->hideIf('recurrentcost', 'recurrent', "neq", 1);
 
         $plugininfo = \core_plugin_manager::instance()->get_plugin_info('report_payments');
