@@ -89,7 +89,8 @@ $config = (object) helper::get_gateway_configuration($component, $paymentarea, $
 $payable = helper::get_payable($component, $paymentarea, $itemid);
 
 if ($config->savedebugdata) {
-    file_put_contents('/tmp/xxxx', serialize($source) . "\n\n", FILE_APPEND | LOCK_EX);
+    file_put_contents($CFG->dataroot . '/payment.log', date("Y-m-d H:i:s") . "\n" .
+    serialize($source) . "\n\n", FILE_APPEND | LOCK_EX);
 }
 
 // Check payment on site.
