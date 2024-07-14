@@ -139,6 +139,7 @@ if ($invoiceid !== $data->object->id) {
     $yookassatx->paymentid = $newpaymentid;
     $yookassatx->timecreated = time();
     $yookassatx->id = $DB->insert_record('paygw_yookassa', $yookassatx);
+    $reason = 'Success completed';
 } else {
     // Update payment.
     $payment->amount = $outsumm;

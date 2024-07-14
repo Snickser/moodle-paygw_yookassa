@@ -118,6 +118,22 @@ class gateway extends \core_payment\gateway {
         $mform->setType('recurrentperiod', PARAM_TEXT);
         $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
 
+        $options = [
+        'last' => get_string('recurrentcost1', 'paygw_yookassa'),
+        'fee' => get_string('recurrentcost2', 'paygw_yookassa'),
+        'suggest' => get_string('recurrentcost3', 'paygw_yookassa'),
+        ];
+        $mform->addElement(
+            'select',
+            'recurrentcost',
+            get_string('recurrentcost', 'paygw_yookassa'),
+            $options,
+        );
+        $mform->setType('recurrentcost', PARAM_TEXT);
+        $mform->addHelpButton('recurrentcost', 'recurrentcost', 'paygw_yookassa');
+        $mform->setDefault('recurrentcost', 'fee');
+        $mform->hideIf('recurrentcost', 'recurrent', "neq", 1);
+
         $plugininfo = \core_plugin_manager::instance()->get_plugin_info('report_payments');
         if ($plugininfo->versiondisk < 3024070800) {
             $mform->addElement('static', 'noreport', null, get_string('noreportplugin', 'paygw_yookassa'));
@@ -234,6 +250,12 @@ class gateway extends \core_payment\gateway {
     ): void {
         if ($data->enabled && empty($data->shopid)) {
             $errors['enabled'] = get_string('gatewaycannotbeenabled', 'payment');
+        }
+        if ($data->maxcost && $data->maxcost < $data->suggest) {
+            $errors['maxcost'] = get_string('maxcosterror', 'paygw_yookassa');
+        }
+        if (!$data->suggest && $data->recurrentcost == 'suggest' && $data->recurrent) {
+            $errors['suggest'] = get_string('suggesterror', 'paygw_yookassa');
         }
     }
 }

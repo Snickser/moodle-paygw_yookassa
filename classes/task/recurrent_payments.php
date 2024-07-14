@@ -118,11 +118,21 @@ class recurrent_payments extends \core\task\scheduled_task {
             $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
             $payable = helper::get_payable($component, $paymentarea, $itemid);
             $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surcharge.
-            $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
+
+            switch ($config->recurrentcost) {
+                case 'suggest':
+                    $cost = $config->suggest;
+                    break;
+                case 'last':
+                    $cost = $payment->amount;
+                    break;
+                default:
+                    $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
+            }
 
             // Make invoice.
             $invoice = new \stdClass();
-            $invoice->amount = [ "value" => $payment->amount, "currency" => $payment->currency ];
+            $invoice->amount = [ "value" => $cost, "currency" => $payment->currency ];
             $invoice->capture = "true";
             $invoice->payment_method_id = $data->invoiceid;
             $invoice->description = "Recurrent payment " . $data->paymentid;
@@ -138,7 +148,7 @@ class recurrent_payments extends \core\task\scheduled_task {
                   "description" => $invoice->description,
                   "quantity" => 1,
                   "amount" => [
-                    "value" => $payment->amount,
+                    "value" => $cost,
                     "currency" => $payment->currency,
                   ],
                   "vat_code" => $config->vatcode,
@@ -181,7 +191,7 @@ class recurrent_payments extends \core\task\scheduled_task {
                     $cost,
                     $payment->currency,
                     $data->paymentid,
-                    'Recurrent completed'
+                    'Recurrent created'
                 );
             } else {
                 echo serialize($jsonresponse) . "\n";

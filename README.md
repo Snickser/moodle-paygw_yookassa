@@ -2,7 +2,7 @@
 
 # YooKassa payment gateway plugin for Moodle.
 
-Version 1.0
+Version 2.1
 
 https://yookassa.ru
 
