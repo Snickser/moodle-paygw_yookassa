@@ -122,6 +122,7 @@ $string['recurrent'] = 'Enable recurring payments';
 $string['recurrent_help'] = 'Enable recurring payments';
 $string['recurrentperiod'] = 'Recurring payment frequency';
 $string['recurrentperioderror'] = 'Specify the frequency. More than once a day - only for tests!';
+$string['recurrentday'] = 'Day of payments';
 
 $string['recurrentcost'] = 'Recurring payment cost';
 $string['recurrentcost_help'] = 'Specify what price to charge when making a recurring payment:<br>
