@@ -124,6 +124,7 @@ class gateway extends \core_payment\gateway {
             get_string('recurrentday', 'paygw_yookassa'),
             $options,
         );
+        $mform->addHelpButton('recurrentday', 'recurrentday', 'paygw_yookassa');
         $mform->setDefault('recurrentday', 1);
         $mform->hideIf('recurrentday', 'recurrent', "neq", 1);
 
@@ -131,6 +132,7 @@ class gateway extends \core_payment\gateway {
         $mform->setType('recurrentperiod', PARAM_INT);
         $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
         $mform->hideIf('recurrentperiod', 'recurrentday', "neq", 0);
+        $mform->addHelpButton('recurrentperiod', 'recurrentperiod', 'paygw_yookassa');
 
         $options = [
         'last' => get_string('recurrentcost1', 'paygw_yookassa'),
