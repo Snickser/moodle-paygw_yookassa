@@ -114,7 +114,7 @@ class gateway extends \core_payment\gateway {
         $mform->setType('recurrent', PARAM_INT);
         $mform->addHelpButton('recurrent', 'recurrent', 'paygw_yookassa');
 
-        $options = [0 => get_string('disable')];
+        $options = [0 => get_string('no')];
         for ($i = 1; $i <= 28; $i++) {
             $options[] = $i;
         }
