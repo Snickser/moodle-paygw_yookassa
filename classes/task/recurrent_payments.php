@@ -52,6 +52,7 @@ class recurrent_payments extends \core\task\scheduled_task {
      */
     public function execute() {
         global $DB, $CFG;
+
         mtrace('Start');
 
         // Stage One.
@@ -104,7 +105,7 @@ class recurrent_payments extends \core\task\scheduled_task {
         }
 
         // Stage Two.
-        $ctime = strtotime("+1hour");
+        $ctime = strtotime(date('d-M-Y H:00',strtotime("+1hour")));
 
         $yookassatx = $DB->get_records_sql('SELECT * FROM {paygw_yookassa} WHERE (success=1 OR success=3) ' .
                   'AND recurrent>0 AND recurrent < ?', [ $ctime ]);
@@ -224,6 +225,7 @@ class recurrent_payments extends \core\task\scheduled_task {
                 );
             }
         }
+
         mtrace('End');
     }
 }
