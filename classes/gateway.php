@@ -52,9 +52,11 @@ class gateway extends \core_payment\gateway {
 
         $mform->addElement('text', 'shopid', get_string('shopid', 'paygw_yookassa'));
         $mform->setType('shopid', PARAM_TEXT);
+        $mform->addRule('shopid', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 48]);
+        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('apikey', PARAM_TEXT);
+        $mform->addRule('apikey', get_string('required'), 'required', null, 'client');
 
         $options = [
         1 => 1,
@@ -114,9 +116,25 @@ class gateway extends \core_payment\gateway {
         $mform->setType('recurrent', PARAM_INT);
         $mform->addHelpButton('recurrent', 'recurrent', 'paygw_yookassa');
 
-        $mform->addElement('duration', 'recurrentperiod', get_string('recurrentperiod', 'paygw_yookassa'));
+        $options = [0 => get_string('no')];
+        for ($i = 1; $i <= 28; $i++) {
+            $options[] = $i;
+        }
+        $mform->addElement(
+            'select',
+            'recurrentday',
+            get_string('recurrentday', 'paygw_yookassa'),
+            $options,
+        );
+        $mform->addHelpButton('recurrentday', 'recurrentday', 'paygw_yookassa');
+        $mform->setDefault('recurrentday', 1);
+        $mform->hideIf('recurrentday', 'recurrent', "neq", 1);
+
+        $mform->addElement('duration', 'recurrentperiod', get_string('recurrentperiod', 'paygw_yookassa'), ['optional' => false]);
         $mform->setType('recurrentperiod', PARAM_INT);
         $mform->hideIf('recurrentperiod', 'recurrent', "neq", 1);
+        $mform->hideIf('recurrentperiod', 'recurrentday', "neq", 0);
+        $mform->addHelpButton('recurrentperiod', 'recurrentperiod', 'paygw_yookassa');
 
         $options = [
         'last' => get_string('recurrentcost1', 'paygw_yookassa'),
@@ -257,7 +275,7 @@ class gateway extends \core_payment\gateway {
         if (!$data->suggest && $data->recurrentcost == 'suggest' && $data->recurrent) {
             $errors['suggest'] = get_string('suggesterror', 'paygw_yookassa');
         }
-        if (!$data->recurrentperiod && $data->recurrent) {
+        if (!$data->recurrentperiod && $data->recurrent && !$data->recurrentday) {
             $errors['recurrentperiod'] = get_string('recurrentperioderror', 'paygw_yookassa');
         }
     }
