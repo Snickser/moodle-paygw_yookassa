@@ -52,9 +52,11 @@ class gateway extends \core_payment\gateway {
 
         $mform->addElement('text', 'shopid', get_string('shopid', 'paygw_yookassa'));
         $mform->setType('shopid', PARAM_TEXT);
+        $mform->addRule('shopid', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 48]);
+        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('apikey', PARAM_TEXT);
+        $mform->addRule('apikey', get_string('required'), 'required', null, 'client');
 
         $options = [
         1 => 1,
