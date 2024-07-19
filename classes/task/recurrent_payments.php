@@ -60,7 +60,7 @@ class recurrent_payments extends \core\task\scheduled_task {
         $ctime = strtotime(date('d-M-Y H:00', strtotime("+1day1hour")));
 
         $yookassatx = $DB->get_records_sql('SELECT * FROM {paygw_yookassa} WHERE (success=1 OR success=3) ' .
-                  'AND recurrent>? AND recurrent<?', [ $stime, $ctime ]);
+                  'AND recurrent>=? AND recurrent<?', [ $stime, $ctime ]);
 
         foreach ($yookassatx as $data) {
             // Get payment data.
