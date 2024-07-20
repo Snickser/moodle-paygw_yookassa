@@ -98,7 +98,8 @@ class recurrent_payments extends \core\task\scheduled_task {
                 $cost,
                 $payment->currency,
                 $data->paymentid,
-                'Recurrent notify'
+                'Recurrent notify',
+                userdate($data->recurrent, "%d %B %k:00"),
             );
 
             mtrace("$data->paymentid notified");
