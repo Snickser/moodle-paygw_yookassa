@@ -56,11 +56,11 @@ class recurrent_payments extends \core\task\scheduled_task {
         mtrace('Start');
 
         // Stage One.
-        $stime = strtotime("+1day");
-        $ctime = strtotime("+1day1hour");
+        $stime = strtotime(date('d-M-Y H:00', strtotime("+1day")));
+        $ctime = strtotime(date('d-M-Y H:00', strtotime("+1day1hour")));
 
         $yookassatx = $DB->get_records_sql('SELECT * FROM {paygw_yookassa} WHERE (success=1 OR success=3) ' .
-                  'AND recurrent>? AND recurrent<?', [ $stime, $ctime ]);
+                  'AND recurrent>=? AND recurrent<?', [ $stime, $ctime ]);
 
         foreach ($yookassatx as $data) {
             // Get payment data.
@@ -98,7 +98,8 @@ class recurrent_payments extends \core\task\scheduled_task {
                 $cost,
                 $payment->currency,
                 $data->paymentid,
-                'Recurrent notify'
+                'Recurrent notify',
+                userdate($data->recurrent, "%d %B %k:00"),
             );
 
             mtrace("$data->paymentid notified");
