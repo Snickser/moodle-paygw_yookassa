@@ -248,7 +248,9 @@ class gateway extends \core_payment\gateway {
 
         $header = '<div>Новые версии плагина вы можете найти на
  <a href=https://github.com/Snickser/moodle-paygw_yookassa>GitHub.com</a><br>
- Пожалуйста, отправьте мне немножко <a href="https://yoomoney.ru/to/410011873430742">доната</a>😊</div>';
+ Пожалуйста, отправьте мне немножко <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">доната</a>😊</div>
+ <iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=143H2JO3LLE.240720"
+ width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
         $mform->addElement('html', $header);
     }
 
