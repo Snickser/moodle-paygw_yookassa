@@ -236,9 +236,11 @@ class gateway extends \core_payment\gateway {
 
         $mform->addElement('text', 'suggest', get_string('suggest', 'paygw_yookassa'), ['size' => 10]);
         $mform->setType('suggest', PARAM_TEXT);
+        $mform->disabledIf('suggest', 'fixcost', "neq", 0);
 
         $mform->addElement('text', 'maxcost', get_string('maxcost', 'paygw_yookassa'), ['size' => 10]);
         $mform->setType('maxcost', PARAM_TEXT);
+        $mform->disabledIf('maxcost', 'fixcost', "neq", 0);
 
         global $CFG;
         $mform->addElement('html', '<div class="label-callback" style="background: pink; padding: 15px;">' .

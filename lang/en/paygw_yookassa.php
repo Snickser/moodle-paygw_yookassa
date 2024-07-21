@@ -23,7 +23,7 @@
  */
 $string['abouttopay'] = 'You are about to pay for';
 $string['apikey'] = 'API Key';
-$string['callback_help'] = 'Copy this line and paste it into "HTTP notifications" in the YooKassa store settings, and enable "payment.succeeded" notifications there.';
+$string['callback_help'] = 'Copy this line and paste it into "HTTP notifications" in the YooKassa store settings, and enable "payment.succeeded" and "payment.canceled" notifications there.';
 $string['callback_url'] = 'Notification URL:';
 $string['fixdesc'] = 'Fixed payment comment';
 $string['fixdesc_help'] = 'This setting sets a fixed comment for all payments.';
