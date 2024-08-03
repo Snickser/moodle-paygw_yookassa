@@ -1,14 +1,11 @@
 # YooKassa payment gateway plugin for Moodle.
 
-Version 2.2
+[![](https://img.shields.io/github/v/release/Snickser/moodle-paygw_yookassa.svg)](https://github.com/Snickser/moodle-paygw_yookassa/releases)
+[![Build Status](https://github.com/Snickser/moodle-paygw_yookassa/actions/workflows/moodle-ci.yml/badge.svg)](https://github.com/Snickser/moodle-paygw_yookassa/actions/workflows/moodle-ci.yml)
 
 https://yookassa.ru
 
 ![alt text](https://raw.githubusercontent.com/Snickser/moodle-paygw_yookassa/809333a08256b99ff3a7143ce2fbc0ee9fba6b24/pix/img.svg)
-
-## Status
-
-[![Build Status](https://github.com/Snickser/moodle-paygw_yookassa/actions/workflows/moodle-ci.yml/badge.svg)](https://github.com/Snickser/moodle-paygw_yookassa/actions/workflows/moodle-ci.yml)
 
 ## Возможности
 
