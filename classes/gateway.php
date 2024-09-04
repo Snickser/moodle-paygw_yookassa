@@ -202,10 +202,8 @@ class gateway extends \core_payment\gateway {
         $mform->setType('passwordmode', PARAM_INT);
         $mform->disabledIf('passwordmode', 'skipmode', "neq", 0);
 
-        $mform->addElement('text', 'password', get_string('password', 'paygw_yookassa'), ['size' => 20]);
+        $mform->addElement('passwordunmask', 'password', get_string('password', 'paygw_yookassa'), ['size' => 20]);
         $mform->setType('password', PARAM_TEXT);
-        $mform->disabledIf('password', 'passwordmode');
-        $mform->disabledIf('password', 'skipmode', "neq", 0);
         $mform->addHelpButton('password', 'password', 'paygw_yookassa');
 
         $mform->addElement(
