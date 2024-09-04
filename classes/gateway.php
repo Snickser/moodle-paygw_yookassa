@@ -110,7 +110,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'recurrent',
-            get_string('recurrent', 'paygw_yookassa'),
             get_string('recurrent', 'paygw_yookassa')
         );
         $mform->setType('recurrent', PARAM_INT);
@@ -160,7 +159,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'sendlinkmsg',
-            get_string('sendlinkmsg', 'paygw_yookassa'),
             get_string('sendlinkmsg', 'paygw_yookassa')
         );
         $mform->setType('sendlinkmsg', PARAM_INT);
@@ -170,7 +168,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'savedebugdata',
-            get_string('savedebugdata', 'paygw_yookassa'),
             get_string('savedebugdata', 'paygw_yookassa')
         );
 
@@ -187,7 +184,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'skipmode',
-            get_string('skipmode', 'paygw_yookassa'),
             get_string('skipmode', 'paygw_yookassa')
         );
         $mform->setType('skipmode', PARAM_INT);
@@ -196,7 +192,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'passwordmode',
-            get_string('passwordmode', 'paygw_yookassa'),
             get_string('passwordmode', 'paygw_yookassa')
         );
         $mform->setType('passwordmode', PARAM_INT);
@@ -209,7 +204,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'usedetails',
-            get_string('usedetails', 'paygw_yookassa'),
             get_string('usedetails', 'paygw_yookassa')
         );
         $mform->setType('usedetails', PARAM_INT);
@@ -218,7 +212,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'showduration',
-            get_string('showduration', 'paygw_yookassa'),
             get_string('showduration', 'paygw_yookassa')
         );
         $mform->setType('showduration', PARAM_INT);
@@ -226,7 +219,6 @@ class gateway extends \core_payment\gateway {
         $mform->addElement(
             'advcheckbox',
             'fixcost',
-            get_string('fixcost', 'paygw_yookassa'),
             get_string('fixcost', 'paygw_yookassa')
         );
         $mform->setType('fixcost', PARAM_INT);
@@ -246,8 +238,11 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('html', $CFG->wwwroot . '/payment/gateway/yookassa/callback.php<br>');
         $mform->addElement('html', get_string('callback_help', 'paygw_yookassa') . '</div><br>');
 
-        $header = '<div>Новые версии плагина вы можете найти на
- <a href=https://github.com/Snickser/moodle-paygw_yookassa>GitHub.com</a><br>
+        $plugininfo = \core_plugin_manager::instance()->get_plugin_info('paygw_yookassa');
+        $header = "<div>Версия плагина: $plugininfo->release ($plugininfo->versiondisk)<br>" .
+        'Новые версии плагина вы можете найти на
+ <a href=https://github.com/Snickser/moodle-paygw_yookassa>GitHub.com</a>
+ <img src="https://img.shields.io/github/v/release/Snickser/moodle-paygw_yookassa.svg"><br>
  Пожалуйста, отправьте мне немножко <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">доната</a>😊</div>
  <iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=143H2JO3LLE.240720"
  width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
