@@ -54,7 +54,7 @@ class gateway extends \core_payment\gateway {
         $mform->setType('shopid', PARAM_TEXT);
         $mform->addRule('shopid', get_string('required'), 'required', null, 'client');
 
-        $mform->addElement('text', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 50]);
+        $mform->addElement('passwordunmask', 'apikey', get_string('apikey', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('apikey', PARAM_TEXT);
         $mform->addRule('apikey', get_string('required'), 'required', null, 'client');
 
@@ -202,10 +202,8 @@ class gateway extends \core_payment\gateway {
         $mform->setType('passwordmode', PARAM_INT);
         $mform->disabledIf('passwordmode', 'skipmode', "neq", 0);
 
-        $mform->addElement('text', 'password', get_string('password', 'paygw_yookassa'), ['size' => 20]);
+        $mform->addElement('passwordunmask', 'password', get_string('password', 'paygw_yookassa'), ['size' => 20]);
         $mform->setType('password', PARAM_TEXT);
-        $mform->disabledIf('password', 'passwordmode');
-        $mform->disabledIf('password', 'skipmode', "neq", 0);
         $mform->addHelpButton('password', 'password', 'paygw_yookassa');
 
         $mform->addElement(
