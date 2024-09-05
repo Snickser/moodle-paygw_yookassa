@@ -145,6 +145,8 @@ if (!empty($config->fixdesc)) {
     $templatedata->description = $description;
 }
 
+$templatedata->recurrent = $config->recurrent;
+
 $templatedata->image = $OUTPUT->image_url('img', 'paygw_yookassa');
 
 echo $OUTPUT->render_from_template('paygw_yookassa/method', $templatedata);
