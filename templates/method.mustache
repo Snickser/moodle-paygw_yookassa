@@ -63,11 +63,6 @@
 {{#fixcost}}{{localizedcost}}{{/fixcost}}
 </h3>
 
-{{#enrolperiod}}
-<h4>{{# str }} enrolperiod, enrol {{/ str}} ({{enrolperiod_desc}}): {{enrolperiod}}</h4>
-{{/enrolperiod}}
-
-
 <br><img src="{{{image}}}" alt="yookassa" height="40">
 
         </div>
@@ -75,6 +70,10 @@
 <br><br>
 
 <div style="text-align: center;">
+
+{{#enrolperiod}}
+<h4>{{# str }} enrolperiod, enrol {{/ str}} ({{enrolperiod_desc}}): {{enrolperiod}}</h4>
+{{/enrolperiod}}
 
 {{#recurrent}}
 <h5>{{# str }} recurrentdesc, paygw_yookassa {{/ str}}</h5>
