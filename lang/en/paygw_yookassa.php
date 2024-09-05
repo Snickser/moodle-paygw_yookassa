@@ -125,6 +125,8 @@ $string['recurrentperiod_help'] = 'It is advisable to specify the frequency no m
 $string['recurrentperioderror'] = 'Specify the frequency';
 $string['recurrentday'] = 'Day of payments';
 $string['recurrentday_help'] = 'Sets the day of the month on which the next debits will occur. If not set, payments will be made according to a cyclic schedule';
+$string['recurrentdesc'] = 'This payment will be recurring! The amount and date of the next payment may change.<br>
+You can disable recurring payments in your Profile in the Reports section "Payment and recurring subscriptions".';
 
 $string['recurrentcost'] = 'Recurring payment cost';
 $string['recurrentcost_help'] = 'Specify what price to charge when making a recurring payment:<br>

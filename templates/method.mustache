@@ -38,6 +38,7 @@
         "maxcost": "10",
         "fixdesc": "1",
         "fixcost": "0",
+        "recurrent": "1",
         "localizedcost": "1 $"
     }
 
@@ -65,6 +66,10 @@
 {{#enrolperiod}}
 <h4>{{# str }} enrolperiod, enrol {{/ str}} ({{enrolperiod_desc}}): {{enrolperiod}}</h4>
 {{/enrolperiod}}
+
+{{#recurrent}}
+<h6>{{# str }} recurrentdesc, paygw_yookassa {{/ str}}</h6>
+{{/recurrent}}
 
 <br>
 <img src="{{{image}}}" alt="yookassa" height="40">
