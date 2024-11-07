@@ -43,7 +43,7 @@
     }
 
 }}
-<form id="yookassa-method-select" action="{{url}}/payment/gateway/yookassa/pay.php" class="yookassa-form" method="POST">
+<form id="yookassa-method-select" action="{{config.wwwroot}}/payment/gateway/yookassa/pay.php" class="yookassa-form" method="POST">
     <div class="cost-display">
         <div style="text-align: center;">
 
@@ -97,6 +97,7 @@
 {{#passwordmode}}
 <p>{{# str }} password_text, paygw_yookassa {{/ str}} <br>
 {{# str }} password {{/ str}}: <input type="password" id="password" name="password" value="" autocomplete="off">
+<button type="submit" class="btn btn-secondary btn-paygw-password">{{# str }} submit {{/ str }}</button>
 </p>
 {{/passwordmode}}
 {{/skipmode}}
