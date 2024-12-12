@@ -239,14 +239,8 @@ class gateway extends \core_payment\gateway {
         $mform->addElement('html', get_string('callback_help', 'paygw_yookassa') . '</div><br>');
 
         $plugininfo = \core_plugin_manager::instance()->get_plugin_info('paygw_yookassa');
-        $header = "<div>Версия плагина: $plugininfo->release ($plugininfo->versiondisk)<br>" .
-        'Новые версии плагина вы можете найти на
- <a href=https://github.com/Snickser/moodle-paygw_yookassa>GitHub.com</a>
- <img src="https://img.shields.io/github/v/release/Snickser/moodle-paygw_yookassa.svg"><br>
- Пожалуйста, отправьте мне немножко <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">доната</a>😊</div>
- <iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=143H2JO3LLE.240720"
- width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
-        $mform->addElement('html', $header);
+        $donate = get_string('donate', 'paygw_yookassa', $plugininfo);
+        $mform->addElement('html', $donate);
     }
 
     /**

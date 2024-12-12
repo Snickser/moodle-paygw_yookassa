@@ -145,3 +145,10 @@ $string['savedebugdata'] = 'Save debug log';
 $string['savedebugdata_help'] = 'Bank request and response data will be saved in {dataroot}/payment.log';
 
 $string['noreportplugin'] = '<font color=red>The report_payments plugin is not installed, you will not be able to cancel recurring payments.</font>';
+
+$string['donate'] = '<div>Plugin version: {$a->release} ({$a->versiondisk})<br>
+You can find new versions of the plugin at <a href=https://github.com/Snickser/moodle-paygw_yookassa>GitHub.com</a>
+<img src="https://img.shields.io/github/v/release/Snickser/moodle-paygw_yookassa.svg"><br>
+Please send me some <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">donate</a>😊</div>
+<iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=143H2JO3LLE.240720"
+width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
