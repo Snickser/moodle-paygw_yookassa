@@ -50,7 +50,7 @@ $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surc
 // TODO: Check if currency is IDR. If not, then something went really wrong in config.
 $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
 
-// Check self cost if not fixcost
+// Check self cost if not fixcost.
 if (!empty($costself) && !$config->fixcost) {
     $cost = $costself;
 }
