@@ -25,12 +25,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
-    $header = 'Новые версии плагина вы можете найти на
- <a href=https://github.com/Snickser/moodle-paygw_robokassa>GitHub.com</a>';
+    $plugininfo = \core_plugin_manager::instance()->get_plugin_info('paygw_yookassa');
+    $donate = get_string('donate', 'paygw_yookassa', $plugininfo);
 
     $settings->add(new admin_setting_heading(
         'paygw_yookassa_settings',
-        $header,
+        $donate,
         get_string('pluginname_desc', 'paygw_yookassa')
     ));
     \core_payment\helper::add_common_gateway_settings($settings, 'paygw_yookassa');

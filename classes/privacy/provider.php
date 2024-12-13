@@ -60,7 +60,7 @@ class provider implements \core_privacy\local\request\data_provider, paygw_provi
             'paygw_yookassa',
             [
                 'invoiceid'  => 'privacy:metadata:paygw_yookassa:invoiceid',
-                'courceid'   => 'privacy:metadata:paygw_yookassa:courceid',
+                'courseid'   => 'privacy:metadata:paygw_yookassa:courseid',
                 'groupnames' => 'privacy:metadata:paygw_yookassa:groupnames',
                 'success'    => 'privacy:metadata:paygw_yookassa:success',
             ],

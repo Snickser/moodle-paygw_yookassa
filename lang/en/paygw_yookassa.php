@@ -66,7 +66,6 @@ $string['usedetails_text'] = 'Click here if you are unable to donate.';
 $string['vatcode'] = 'VAT rate';
 $string['vatcode_help'] = 'VAT rate according to YooKass documentation.';
 
-/* Payment systems */
 $string['paymentmethod'] = 'Payment method';
 $string['paymentmethod_help'] = 'Sets the payment method. Make sure the method you choose is supported by your store.';
 $string['yookassa'] = 'YooKassa (all methods)';
@@ -152,3 +151,5 @@ You can find new versions of the plugin at <a href=https://github.com/Snickser/m
 Please send me some <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">donate</a>😊</div>
 <iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=143H2JO3LLE.240720"
 width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
+
+$string['error_txdatabase'] = 'Error write TX data to database';
