@@ -25,7 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
-
     $plugininfo = \core_plugin_manager::instance()->get_plugin_info('paygw_yookassa');
     $donate = get_string('donate', 'paygw_yookassa', $plugininfo);
 
