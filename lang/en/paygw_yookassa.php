@@ -80,7 +80,7 @@ $string['privacy:metadata:paygw_yookassa:apikey'] = 'ApiKey';
 $string['privacy:metadata:paygw_yookassa:email'] = 'Email';
 $string['privacy:metadata:paygw_yookassa:yookassa_plus'] = 'Send json data';
 $string['privacy:metadata:paygw_yookassa:invoiceid'] = 'Invoice id';
-$string['privacy:metadata:paygw_yookassa:courceid'] = 'Cource id';
+$string['privacy:metadata:paygw_yookassa:courseid'] = 'Course id';
 $string['privacy:metadata:paygw_yookassa:groupnames'] = 'Group names';
 $string['privacy:metadata:paygw_yookassa:success'] = 'Status';
 
