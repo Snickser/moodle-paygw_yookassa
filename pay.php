@@ -50,8 +50,8 @@ $surcharge = helper::get_gateway_surcharge('yookassa');// In case user uses surc
 // TODO: Check if currency is IDR. If not, then something went really wrong in config.
 $cost = helper::get_rounded_cost($payable->get_amount(), $payable->get_currency(), $surcharge);
 
-// Check self cost.
-if (!empty($costself)) {
+// Check self cost if not fixcost.
+if (!empty($costself) && !$config->fixcost) {
     $cost = $costself;
 }
 
@@ -216,11 +216,6 @@ $curl = new curl();
 $jsonresponse = $curl->post($location, $jsondata, $options);
 
 $response = json_decode($jsonresponse);
-
-if ($config->savedebugdata) {
-    file_put_contents($CFG->dataroot . '/payment.log', date("Y-m-d H:i:s") . "\n" .
-    serialize($jsonresponse) . "\n\n", FILE_APPEND | LOCK_EX);
-}
 
 if (!isset($response->confirmation)) {
     $DB->delete_records('paygw_yookassa', ['id' => $transactionid]);

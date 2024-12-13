@@ -88,11 +88,6 @@ $userid      = $payment->userid;
 $config = (object) helper::get_gateway_configuration($component, $paymentarea, $itemid, 'yookassa');
 $payable = helper::get_payable($component, $paymentarea, $itemid);
 
-if ($config->savedebugdata) {
-    file_put_contents($CFG->dataroot . '/payment.log', date("Y-m-d H:i:s") . "\n" .
-    serialize($source) . "\n\n", FILE_APPEND | LOCK_EX);
-}
-
 // Check payment on site.
 $location = 'https://api.yookassa.ru/v3/payments/' . $invoiceid;
 $options = [

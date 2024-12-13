@@ -133,9 +133,6 @@ $string['suggesterror'] = 'Рекомендуемая цена должна бы
 $string['sendlinkmsg'] = 'Отправлять ссылку оплаты на почту';
 $string['sendlinkmsg_help'] = 'Если включено, то ссылка на счёт для оплаты будет отправляться на почту пользователя.';
 
-$string['savedebugdata'] = 'Сохранять debug лог';
-$string['savedebugdata_help'] = 'Данные запросов и ответов банка будут сохраняться в {dataroot}/payment.log';
-
 $string['noreportplugin'] = '<font color=red>Не установлен report_payments плагин, вы не сможете отменить регулярные платежи.</font>';
 
 $string['donate'] = '<div>Версия плагина: {$a->release} ({$a->versiondisk})<br>
