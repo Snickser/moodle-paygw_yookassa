@@ -153,3 +153,5 @@ Please send me some <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">d
 width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
 
 $string['error_txdatabase'] = 'Error write TX data to database';
+$string['error_notvalidtxid'] = 'FAIL. Not a valid transaction id';
+$string['error_notvalidpayment'] = 'FAIL. Not a valid payment';
