@@ -140,9 +140,6 @@ $string['suggesterror'] = 'Suggested price must be for recurring payment enabled
 $string['sendlinkmsg'] = 'Send payment link by email';
 $string['sendlinkmsg_help'] = 'If enabled, a link to the invoice for payment will be sent to the users email.';
 
-$string['savedebugdata'] = 'Save debug log';
-$string['savedebugdata_help'] = 'Bank request and response data will be saved in {dataroot}/payment.log';
-
 $string['noreportplugin'] = '<font color=red>The report_payments plugin is not installed, you will not be able to cancel recurring payments.</font>';
 
 $string['donate'] = '<div>Plugin version: {$a->release} ({$a->versiondisk})<br>

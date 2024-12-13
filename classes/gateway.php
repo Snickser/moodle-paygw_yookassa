@@ -165,16 +165,7 @@ class gateway extends \core_payment\gateway {
         $mform->addHelpButton('sendlinkmsg', 'sendlinkmsg', 'paygw_yookassa');
         $mform->setDefault('sendlinkmsg', 1);
 
-        $mform->addElement(
-            'advcheckbox',
-            'savedebugdata',
-            get_string('savedebugdata', 'paygw_yookassa')
-        );
-
-        $mform->setType('savedebugdata', PARAM_INT);
-        $mform->addHelpButton('savedebugdata', 'savedebugdata', 'paygw_yookassa');
-
-        $mform->addElement('text', 'fixdesc', get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
+        $mform->addElement('text', 'fixdesc',get_string('fixdesc', 'paygw_yookassa'), ['size' => 50]);
         $mform->setType('fixdesc', PARAM_TEXT);
         $mform->addRule('fixdesc', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('fixdesc', 'fixdesc', 'paygw_yookassa');
