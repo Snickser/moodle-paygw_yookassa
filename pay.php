@@ -96,7 +96,7 @@ $paygwdata->courseid = $courseid;
 $paygwdata->groupnames = $groupnames;
 $paygwdata->timecreated = time();
 if (!$transactionid = $DB->insert_record('paygw_yookassa', $paygwdata)) {
-    throw new Error(get_string('error_txdatabase', 'paygw_yookassa'));
+    throw new \moodle_exception(get_string('error_txdatabase', 'paygw_yookassa'), 'paygw_yookassa');
 }
 $paygwdata->id = $transactionid;
 
@@ -225,7 +225,7 @@ if ($config->savedebugdata) {
 if (!isset($response->confirmation)) {
     $DB->delete_records('paygw_yookassa', ['id' => $transactionid]);
     $error = $response->description;
-    throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
+    throw new \moodle_exception(get_string('payment_error', 'paygw_yookassa') . " ($error)", 'paygw_yookassa');
 }
 
 $confirmationurl = $response->confirmation->confirmation_url;
@@ -233,7 +233,7 @@ $confirmationurl = $response->confirmation->confirmation_url;
 if (empty($confirmationurl)) {
     $DB->delete_records('paygw_yookassa', ['id' => $transactionid]);
     $error = $response->description;
-    throw new Error(get_string('payment_error', 'paygw_yookassa') . " ($error)");
+    throw new \moodle_exception(get_string('payment_error', 'paygw_yookassa') . " ($error)", 'paygw_yookassa');
 }
 
 // Set the context of the page.
