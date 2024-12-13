@@ -41,16 +41,6 @@ if ($data === null) {
     die('FAIL. Invalid json in request: ' . $lasterror);
 }
 
-if ($data->event == 'payment.canceled') {
-    $pid = clean_param($data->object->id, PARAM_ALPHANUMEXT);
-    if ($newtx = $DB->get_record('paygw_yookassa', ['invoiceid' => $pid])) {
-        $text = clean_param($data->object->cancellation_details->reason, PARAM_TEXT);
-        $newtx->invoiceid = $text;
-        $DB->update_record('paygw_yookassa', $newtx);
-    }
-    die('OK');
-}
-
 if ($data->event !== 'payment.succeeded') {
     die('FAIL. Payment not successed');
 }
