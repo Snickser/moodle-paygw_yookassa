@@ -103,6 +103,10 @@ $paygwdata->id = $transactionid;
 // Build redirect.
 $url = helper::get_success_url($component, $paymentarea, $itemid);
 
+// Set the context of the page.
+$PAGE->set_url($CFG->wwwroot.$SCRIPT);
+$PAGE->set_context(context_system::instance());
+
 // Check passwordmode or skipmode.
 if (!empty($password) || $skipmode) {
     $success = false;
@@ -230,9 +234,6 @@ if (empty($confirmationurl)) {
     $error = $response->description;
     throw new \moodle_exception(get_string('payment_error', 'paygw_yookassa') . " ($error)", 'paygw_yookassa');
 }
-
-// Set the context of the page.
-$PAGE->set_context(context_system::instance());
 
 // Notify user.
 if ($config->sendlinkmsg || is_siteadmin()) {
