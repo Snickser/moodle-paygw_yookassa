@@ -104,7 +104,7 @@ $paygwdata->id = $transactionid;
 $url = helper::get_success_url($component, $paymentarea, $itemid);
 
 // Set the context of the page.
-$PAGE->set_url($CFG->wwwroot.$SCRIPT);
+$PAGE->set_url($SCRIPT);
 $PAGE->set_context(context_system::instance());
 
 // Check passwordmode or skipmode.
