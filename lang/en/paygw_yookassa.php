@@ -73,7 +73,7 @@ $string['wallet'] = 'YooMoney wallet';
 $string['plastic'] = 'VISA, MasterCard, MIR';
 $string['sbp'] = 'SBP (QR-code)';
 
-$string['privacy:metadata'] = 'The yookassa plugin store some personal data.';
+$string['privacy:metadata'] = 'The YooKassa plugin store some personal data.';
 $string['privacy:metadata:paygw_yookassa:paygw_yookassa'] = 'Store some data';
 $string['privacy:metadata:paygw_yookassa:shopid'] = 'Shopid';
 $string['privacy:metadata:paygw_yookassa:apikey'] = 'ApiKey';
