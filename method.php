@@ -58,8 +58,8 @@ $fee = helper::get_rounded_cost($payable->get_amount(), $currency, $surcharge);
 $enrolperiod = '';
 $enrolperioddesc = '';
 // Check area.
-if ($component == "enrol_fee") {
-    $cs = $DB->get_record('enrol', ['id' => $itemid, 'enrol' => $paymentarea]);
+if ($component == "enrol_yafee") {
+    $cs = $DB->get_record('enrol', ['id' => $itemid, 'enrol' => 'yafee']);
     $enrolperiod = $cs->enrolperiod;
 } else if ($component == "mod_gwpayments") {
     $cs = $DB->get_record('gwpayments', ['id' => $itemid]);
@@ -69,7 +69,7 @@ if ($component == "enrol_fee") {
 if ($enrolperiod > 0) {
     if ($enrolperiod >= 86400 * 7) {
         $enrolperioddesc = get_string('weeks');
-        $enrolperiod = $enrolperiod / (86400 * 7);
+        $enrolperiod = round($enrolperiod / (86400 * 7));
     } else if ($enrolperiod >= 86400) {
         $enrolperioddesc = get_string('days');
         $enrolperiod = round($enrolperiod / 86400);
