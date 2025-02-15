@@ -63,7 +63,7 @@ if ($config->maxcost && $cost > $config->maxcost) {
 $cost = number_format($cost, 2, '.', '');
 
 // Get course and groups for user.
-if ($component == "enrol_fee") {
+if ($component == "enrol_yafee" || $component == "enrol_fee") {
     $cs = $DB->get_record('enrol', ['id' => $itemid]);
     $cs->course = $cs->courseid;
 } else if ($component == "mod_gwpayments") {
