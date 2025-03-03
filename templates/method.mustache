@@ -39,7 +39,8 @@
         "fixdesc": "1",
         "fixcost": "0",
         "recurrent": "1",
-        "localizedcost": "1 $"
+        "localizedcost": "1 $",
+        "uninterrupted": 1
     }
 
 }}
@@ -70,6 +71,10 @@
 <br><br>
 
 <div style="text-align: center;">
+
+{{#uninterrupted}}
+ <h4>{{# str }} uninterrupted_desc, enrol_yafee {{/ str}}</h4>
+{{/uninterrupted}}
 
 {{#enrolperiod}}
 <h4>{{# str }} enrolperiod, enrol {{/ str}} ({{enrolperiod_desc}}): {{enrolperiod}}</h4>
