@@ -60,6 +60,39 @@ if ($config->maxcost && $cost > $config->maxcost) {
     $cost = $config->maxcost;
 }
 
+// Check uninterrupted mode.
+if ($component == "enrol_yafee" && $config->fixcost) {
+    $cs = $DB->get_record('enrol', ['id' => $itemid, 'enrol' => 'yafee']);
+    if ($cs->customint5) {
+        $data = $DB->get_record('user_enrolments', ['userid' => $USER->id, 'enrolid' => $cs->id]);
+        // Prepare month and year.
+        $timeend = time();
+        if (isset($data->timeend)) {
+            $timeend = $data->timeend;
+        }
+        $t1 = getdate($timeend);
+        $t2 = getdate(time());
+        // Check periods.
+        if (isset($data->timeend) && $data->timeend < time()) {
+            if ($cs->enrolperiod) {
+                $price = $cost / $cs->enrolperiod;
+                $delta = ceil((time() - $data->timestart) / $cs->enrolperiod) * $cs->enrolperiod +
+                     $data->timestart - $data->timeend;
+                $cost = $delta * $price;
+                $uninterrupted = true;
+            } else if ($cs->customchar1 == 'month' && $cs->customint7 > 0) {
+                $delta = ($t2['year'] - $t1['year']) * 12 + $t2['mon'] - $t1['mon'] + 1;
+                $cost = $delta * $cost;
+                $uninterrupted = true;
+            } else if ($cs->customchar1 == 'year' && $cs->customint7 > 0) {
+                $delta = ($t2['year'] - $t1['year']) + 1;
+                $cost = $delta * $cost;
+                $uninterrupted = true;
+            }
+        }
+    }
+}
+
 $cost = number_format($cost, 2, '.', '');
 
 // Get course and groups for user.
@@ -196,7 +229,7 @@ $payment->receipt = [
  "tax_system_code" => $config->taxsystemcode,
 ];
 
-if ($config->recurrent == 1 && $config->recurrentperiod > 0) {
+if ($config->recurrent == 1 && ($config->recurrentperiod > 0 || $config->recurrentday > 0)) {
     $payment->save_payment_method = "true";
 }
 
