@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025030300;
+$plugin->version   = 2025030301;
 $plugin->requires  = 2023100900;
 $plugin->component = 'paygw_yookassa';
 $plugin->release   = '2.9';
