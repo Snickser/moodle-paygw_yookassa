@@ -154,3 +154,4 @@ width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no">
 $string['error_txdatabase'] = 'Error write TX data to database';
 $string['error_notvalidtxid'] = 'FAIL. Not a valid transaction id';
 $string['error_notvalidpayment'] = 'FAIL. Not a valid payment';
+$string['uninterrupted_desc'] = 'The price for the course is formed taking into account the missed time of the period you have not paid for.';

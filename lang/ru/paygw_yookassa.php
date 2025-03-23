@@ -145,3 +145,4 @@ BTC 1GFTTPCgRTC8yYL1gU7wBZRfhRNRBdLZsq<br>
 width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
 
 $string['error_txdatabase'] = 'Error write TX data to database';
+$string['uninterrupted_desc'] = 'Цена за курс сформирована с учётом пропущенного времени неоплаченного вами периода.';
