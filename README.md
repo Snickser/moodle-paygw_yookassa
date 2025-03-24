@@ -21,7 +21,7 @@ https://yookassa.ru
 ## Рекомендации
 
 + Moodle 4.3+
-+ Для записи в курс используйте мой пропатченный плагин "Зачисление за оплату" [enrol_yafee](https://github.com/Snickser/moodle-enrol_yafee)
++ Для записи в курс используйте мой плагин "Зачисление за оплату" [enrol_yafee](https://moodle.com/plugins/moodle-enrol_yafee)
 + Для контрольного задания используйте пропатченный мной плагин по ссылке [mod_gwpayments](https://github.com/Snickser/moodle-mod_gwpayments/tree/dev)
 + Для ограничения доступности используйте пропатченный мной плагин по ссылке [availability_gwpayments](https://github.com/Snickser/moodle-availability_gwpayments/tree/dev)
 + Плагин просмотра отчётов и отключения регулярных платежей [report_payments](https://github.com/Snickser/moodle-report_payments/tree/dev)
