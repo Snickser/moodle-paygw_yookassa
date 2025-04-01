@@ -98,8 +98,8 @@ if ($component == "enrol_yafee") {
                     $uninterrupted = true;
                 }
                 if ($plugin->versiondisk < $ver) {
-            	    $fee = helper::get_rounded_cost($fee, $currency, $surcharge);
-            	}
+                    $fee = helper::get_rounded_cost($fee, $currency, $surcharge);
+                }
             }
         }
     }
