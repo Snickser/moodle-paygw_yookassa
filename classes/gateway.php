@@ -82,6 +82,10 @@ class gateway extends \core_payment\gateway {
         4 => "20%",
         5 => "10/110",
         6 => "20/120",
+        7 => "5%",
+        8 => "7%",
+        9 => "5/105",
+        10 => "7/107",
         ];
         $mform->addElement(
             'select',
