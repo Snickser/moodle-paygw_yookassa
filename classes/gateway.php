@@ -119,6 +119,12 @@ class gateway extends \core_payment\gateway {
         $mform->setType('recurrent', PARAM_INT);
         $mform->addHelpButton('recurrent', 'recurrent', 'paygw_yookassa');
 
+        $plugininfo = \core_plugin_manager::instance()->get_plugin_info('report_payments');
+        if ($plugininfo->versiondisk < 3024070800) {
+            $mform->addElement('static', 'noreport', null, get_string('noreportplugin', 'paygw_yookassa'));
+    	    $mform->hideIf('noreport', 'recurrent', "neq", 1);
+        }
+
         $options = [0 => get_string('no')];
         for ($i = 1; $i <= 28; $i++) {
             $options[] = $i;
@@ -154,11 +160,6 @@ class gateway extends \core_payment\gateway {
         $mform->addHelpButton('recurrentcost', 'recurrentcost', 'paygw_yookassa');
         $mform->setDefault('recurrentcost', 'fee');
         $mform->hideIf('recurrentcost', 'recurrent', "neq", 1);
-
-        $plugininfo = \core_plugin_manager::instance()->get_plugin_info('report_payments');
-        if ($plugininfo->versiondisk < 3024070800) {
-            $mform->addElement('static', 'noreport', null, get_string('noreportplugin', 'paygw_yookassa'));
-        }
 
         $mform->addElement(
             'advcheckbox',
