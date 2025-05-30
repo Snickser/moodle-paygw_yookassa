@@ -133,7 +133,7 @@ $string['suggesterror'] = 'Рекомендуемая цена должна бы
 $string['sendlinkmsg'] = 'Отправлять ссылку оплаты на почту';
 $string['sendlinkmsg_help'] = 'Если включено, то ссылка на счёт для оплаты будет отправляться на почту пользователя.';
 
-$string['noreportplugin'] = '<font color=red>Не установлен report_payments плагин, вы не сможете отменить регулярные платежи.</font>';
+$string['noreportplugin'] = '<font color="red">Не установлен <a href="https://github.com/Snickser/moodle-report_payments">report_payments</a> плагин, вы не сможете отменить регулярные платежи.</font>';
 
 $string['donate'] = '<div>Версия плагина: {$a->release} ({$a->versiondisk})<br>
 Новые версии плагина вы можете найти на <a href=https://github.com/Snickser/moodle-paygw_yookassa>GitHub.com</a>
