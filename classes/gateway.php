@@ -122,7 +122,7 @@ class gateway extends \core_payment\gateway {
         $plugininfo = \core_plugin_manager::instance()->get_plugin_info('report_payments');
         if ($plugininfo->versiondisk < 3024070800) {
             $mform->addElement('static', 'noreport', null, get_string('noreportplugin', 'paygw_yookassa'));
-    	    $mform->hideIf('noreport', 'recurrent', "neq", 1);
+            $mform->hideIf('noreport', 'recurrent', "neq", 1);
         }
 
         $options = [0 => get_string('no')];
