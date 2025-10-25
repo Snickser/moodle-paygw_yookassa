@@ -58,7 +58,7 @@ $fee = helper::get_rounded_cost($payable->get_amount(), $currency, $surcharge);
 $enrolperiod = 0;
 $enrolperioddesc = null;
 $uninterrupted = false;
-$enrolperiod = true;
+$showenrolperiod = true;
 $plugin = \core_plugin_manager::instance()->get_plugin_info('enrol_yafee');
 $ver = 2025040100;
 if ($component == "enrol_yafee") {
