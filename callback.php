@@ -25,7 +25,8 @@
 use core_payment\helper;
 use paygw_yookassa\notifications;
 
-require("../../../config.php");
+require("../../../config.php"); // @codingStandardsIgnoreLine
+
 global $CFG, $USER, $DB;
 
 require_once($CFG->libdir . '/filelib.php');
