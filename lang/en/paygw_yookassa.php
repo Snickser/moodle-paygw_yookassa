@@ -25,6 +25,19 @@ $string['abouttopay'] = 'You are about to pay for';
 $string['apikey'] = 'API Key';
 $string['callback_help'] = 'Copy this line and paste it into "HTTP notifications" in the YooKassa store settings, and enable "payment.succeeded" and "payment.canceled" notifications there.';
 $string['callback_url'] = 'Notification URL:';
+$string['donate'] = '<div>Plugin version: {$a->release} ({$a->versiondisk})<br>
+You can find new versions of the plugin at <a href=https://github.com/Snickser/moodle-paygw_yookassa>GitHub.com</a>
+<img src="https://img.shields.io/github/v/release/Snickser/moodle-paygw_yookassa.svg"><br>
+Please send me some <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">donate</a>😊</div>
+TRX TRGMc3b63Lus6ehLasbbHxsb2rHky5LbPe<br>
+BTC 1GFTTPCgRTC8yYL1gU7wBZRfhRNRBdLZsq<br>
+<iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=143H2JO3LLE.240720"
+width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
+$string['error_notvalidpayment'] = 'FAIL. Not a valid payment';
+$string['error_notvalidtxid'] = 'FAIL. Not a valid transaction id';
+$string['error_txdatabase'] = 'Error write TX data to database';
+$string['fixcost'] = 'Fixed price mode';
+$string['fixcost_help'] = 'Disables the ability for students to pay with an arbitrary amount.';
 $string['fixdesc'] = 'Fixed payment comment';
 $string['fixdesc_help'] = 'This setting sets a fixed comment for all payments.';
 $string['gatewaydescription'] = 'YooKassa is an authorised payment gateway provider for processing credit card transactions.';
@@ -32,6 +45,29 @@ $string['gatewayname'] = 'YooKassa';
 $string['internalerror'] = 'An internal error has occurred. Please contact us.';
 $string['istestmode'] = 'Test mode';
 $string['maxcost'] = 'Maximium cost';
+$string['maxcosterror'] = 'The maximum price must be higher than the recommended price';
+$string['message_invoice_created'] = 'Hello {$a->firstname}!
+Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfully created.
+You can pay it within an hour.';
+$string['message_recurrent_created'] = 'Hello, {$a->firstname}!
+Regular payment No. {$a->orderid} at {$a->localizedcost} is ready for payment.
+You can disable regular payments in the Reports (payment) section in your personal profile {$a->$url}/user/profile.php';
+$string['message_recurrent_error'] = 'Hello, {$a->firstname}!
+Regular payment No. {$a->orderid} for {$a->localizedcost} completed with an error.
+The subscription has been disabled, please make a new payment to renew your subscription.';
+$string['message_recurrent_notify'] = 'Hello, {$a->name}!
+We remind you that the date of regular payment No. {$a->orderid} for {$a->localizedcost} is obtained.
+Please ensure that the specified amount is available in your account, otherwise the subscription will not be renewed.
+You can disable regular payments in the Reports (payments) section in your personal profile {$a->url}/user/profile.php';
+$string['message_success_completed'] = 'Hello {$a->firstname},
+You transaction of payment id {$a->orderid} with cost of {$a->fee} {$a->currency} for "{$a->description}" is successfully completed.
+If the item is not accessable please contact the administrator.';
+$string['message_success_recurrent'] = 'Hello, {$a->firstname}!
+Your regular payment transaction No. {$a->orderid} for {$a->localizedcost} has been successfully created. Thank you for your donation.
+You can disable regular payments in the Reports (payment) section in your personal profile {$a->$url}/user/profile.php';
+$string['messageprovider:payment_receipt'] = 'Payment receipt';
+$string['messagesubject'] = 'Payment notification ({$a})';
+$string['noreportplugin'] = '<font color="red">The <a href="https://github.com/Snickser/moodle-report_payments">report_payments</a> plugin is not installed, you will not be able to cancel recurring payments.</font>';
 $string['password'] = 'Password';
 $string['password_error'] = 'Invalid payment password';
 $string['password_help'] = 'Using this password you can bypass the payback process. It can be useful when it is not possible to make a payment.';
@@ -41,9 +77,42 @@ $string['passwordmode'] = 'Password';
 $string['payment'] = 'Donation';
 $string['payment_error'] = 'Payment Error';
 $string['payment_success'] = 'Payment Successful';
+$string['paymentmethod'] = 'Payment method';
+$string['paymentmethod_help'] = 'Sets the payment method. Make sure the method you choose is supported by your store.';
 $string['paymore'] = 'If you want to donate more, simply enter your amount instead of the indicated amount.';
+$string['plastic'] = 'VISA, MasterCard, MIR';
 $string['pluginname'] = 'YooKassa payment';
 $string['pluginname_desc'] = 'The yookassa plugin allows you to receive payments via yookassa.';
+$string['privacy:metadata'] = 'The YooKassa plugin store some personal data.';
+$string['privacy:metadata:paygw_yookassa:apikey'] = 'ApiKey';
+$string['privacy:metadata:paygw_yookassa:courseid'] = 'Course id';
+$string['privacy:metadata:paygw_yookassa:email'] = 'Email';
+$string['privacy:metadata:paygw_yookassa:groupnames'] = 'Group names';
+$string['privacy:metadata:paygw_yookassa:invoiceid'] = 'Invoice id';
+$string['privacy:metadata:paygw_yookassa:paygw_yookassa'] = 'Store some data';
+$string['privacy:metadata:paygw_yookassa:shopid'] = 'Shopid';
+$string['privacy:metadata:paygw_yookassa:success'] = 'Status';
+$string['privacy:metadata:paygw_yookassa:yookassa_plus'] = 'Send json data';
+$string['recurrent'] = 'Enable recurring payments';
+$string['recurrent_help'] = 'Enable recurring payments';
+$string['recurrentcost'] = 'Recurring payment cost';
+$string['recurrentcost1'] = 'Paid';
+$string['recurrentcost2'] = 'Item cost';
+$string['recurrentcost3'] = 'Recommended price';
+$string['recurrentcost_help'] = 'Specify what price to charge when making a recurring payment:<br>
+Paid - the one that was specified by the user when creating a regular payment.<br>
+Item cost - the one specified in the settings of the payment module or course.<br>
+Recommended - taken from the settings of this interface.';
+$string['recurrentday'] = 'Day of payments';
+$string['recurrentday_help'] = 'Sets the day of the month on which the next debits will occur. If not set, payments will be made according to a cyclic schedule';
+$string['recurrentdesc'] = 'This payment will be recurring! The amount and date of the next payment may change.<br>
+You can disable recurring payments in your Profile in the Reports section "Payment and recurring subscriptions".';
+$string['recurrentperiod'] = 'Recurring payment frequency';
+$string['recurrentperiod_help'] = 'It is advisable to specify the frequency no more than once a day. This involves executing the corresponding regular task in the task scheduler. More than once a day - only for tests.';
+$string['recurrentperioderror'] = 'Specify the frequency';
+$string['sbp'] = 'SBP (QR-code)';
+$string['sendlinkmsg'] = 'Send payment link by email';
+$string['sendlinkmsg_help'] = 'If enabled, a link to the invoice for payment will be sent to the users email.';
 $string['sendpaymentbutton'] = 'Send payment via yookassa!';
 $string['shopid'] = 'ShopID';
 $string['showduration'] = 'Show duration of training';
@@ -52,6 +121,7 @@ $string['skipmode_help'] = 'This setting allows a payment bypass button, which c
 $string['skipmode_text'] = 'If you are not able to make a donation through the payment system, you can click on this button.';
 $string['skippaymentbutton'] = 'Skip payment :(';
 $string['suggest'] = 'Suggested cost';
+$string['suggesterror'] = 'Suggested price must be for recurring payment enabled';
 $string['taxsystemcode'] = 'Tax type';
 $string['taxsystemcode_help'] = 'Type of tax system for generating checks:<br>
 1 - General taxation system<br>
@@ -60,98 +130,12 @@ $string['taxsystemcode_help'] = 'Type of tax system for generating checks:<br>
 4 - Single tax on imputed income (UTII)<br>
 5 - Unified Agricultural Tax (UST)<br>
 6 - Patent taxation system';
+$string['uninterrupted_desc'] = 'The price for the course is formed taking into account the missed time of the period you have not paid for.';
 $string['usedetails'] = 'Make it collapsible';
 $string['usedetails_help'] = 'Display a button or password in a collapsed block.';
 $string['usedetails_text'] = 'Click here if you are unable to donate.';
 $string['vatcode'] = 'VAT rate';
 $string['vatcode_help'] = 'VAT rate according to YooKass documentation.';
 
-$string['paymentmethod'] = 'Payment method';
-$string['paymentmethod_help'] = 'Sets the payment method. Make sure the method you choose is supported by your store.';
-$string['yookassa'] = 'YooKassa (all methods)';
 $string['wallet'] = 'YooMoney wallet';
-$string['plastic'] = 'VISA, MasterCard, MIR';
-$string['sbp'] = 'SBP (QR-code)';
-
-$string['privacy:metadata'] = 'The YooKassa plugin store some personal data.';
-$string['privacy:metadata:paygw_yookassa:paygw_yookassa'] = 'Store some data';
-$string['privacy:metadata:paygw_yookassa:shopid'] = 'Shopid';
-$string['privacy:metadata:paygw_yookassa:apikey'] = 'ApiKey';
-$string['privacy:metadata:paygw_yookassa:email'] = 'Email';
-$string['privacy:metadata:paygw_yookassa:yookassa_plus'] = 'Send json data';
-$string['privacy:metadata:paygw_yookassa:invoiceid'] = 'Invoice id';
-$string['privacy:metadata:paygw_yookassa:courseid'] = 'Course id';
-$string['privacy:metadata:paygw_yookassa:groupnames'] = 'Group names';
-$string['privacy:metadata:paygw_yookassa:success'] = 'Status';
-
-$string['messagesubject'] = 'Payment notification ({$a})';
-
-$string['message_success_completed'] = 'Hello {$a->firstname},
-You transaction of payment id {$a->orderid} with cost of {$a->fee} {$a->currency} for "{$a->description}" is successfully completed.
-If the item is not accessable please contact the administrator.';
-
-$string['message_recurrent_created'] = 'Hello, {$a->firstname}!
-Regular payment No. {$a->orderid} at {$a->localizedcost} is ready for payment.
-You can disable regular payments in the Reports (payment) section in your personal profile {$a->$url}/user/profile.php';
-
-$string['message_success_recurrent'] = 'Hello, {$a->firstname}!
-Your regular payment transaction No. {$a->orderid} for {$a->localizedcost} has been successfully created. Thank you for your donation.
-You can disable regular payments in the Reports (payment) section in your personal profile {$a->$url}/user/profile.php';
-
-$string['message_recurrent_error'] = 'Hello, {$a->firstname}!
-Regular payment No. {$a->orderid} for {$a->localizedcost} completed with an error.
-The subscription has been disabled, please make a new payment to renew your subscription.';
-
-$string['message_recurrent_notify'] = 'Hello, {$a->name}!
-We remind you that the date of regular payment No. {$a->orderid} for {$a->localizedcost} is obtained.
-Please ensure that the specified amount is available in your account, otherwise the subscription will not be renewed.
-You can disable regular payments in the Reports (payments) section in your personal profile {$a->url}/user/profile.php';
-
-$string['message_invoice_created'] = 'Hello {$a->firstname}!
-Your payment link {$a->orderid} to {$a->fee} {$a->currency} has been successfully created.
-You can pay it within an hour.';
-
-$string['messageprovider:payment_receipt'] = 'Payment receipt';
-
-$string['fixcost'] = 'Fixed price mode';
-$string['fixcost_help'] = 'Disables the ability for students to pay with an arbitrary amount.';
-$string['maxcosterror'] = 'The maximum price must be higher than the recommended price';
-
-$string['recurrent'] = 'Enable recurring payments';
-$string['recurrent_help'] = 'Enable recurring payments';
-$string['recurrentperiod'] = 'Recurring payment frequency';
-$string['recurrentperiod_help'] = 'It is advisable to specify the frequency no more than once a day. This involves executing the corresponding regular task in the task scheduler. More than once a day - only for tests.';
-$string['recurrentperioderror'] = 'Specify the frequency';
-$string['recurrentday'] = 'Day of payments';
-$string['recurrentday_help'] = 'Sets the day of the month on which the next debits will occur. If not set, payments will be made according to a cyclic schedule';
-$string['recurrentdesc'] = 'This payment will be recurring! The amount and date of the next payment may change.<br>
-You can disable recurring payments in your Profile in the Reports section "Payment and recurring subscriptions".';
-
-$string['recurrentcost'] = 'Recurring payment cost';
-$string['recurrentcost_help'] = 'Specify what price to charge when making a recurring payment:<br>
-Paid - the one that was specified by the user when creating a regular payment.<br>
-Item cost - the one specified in the settings of the payment module or course.<br>
-Recommended - taken from the settings of this interface.';
-$string['recurrentcost1'] = 'Paid';
-$string['recurrentcost2'] = 'Item cost';
-$string['recurrentcost3'] = 'Recommended price';
-$string['suggesterror'] = 'Suggested price must be for recurring payment enabled';
-
-$string['sendlinkmsg'] = 'Send payment link by email';
-$string['sendlinkmsg_help'] = 'If enabled, a link to the invoice for payment will be sent to the users email.';
-
-$string['noreportplugin'] = '<font color="red">The <a href="https://github.com/Snickser/moodle-report_payments">report_payments</a> plugin is not installed, you will not be able to cancel recurring payments.</font>';
-
-$string['donate'] = '<div>Plugin version: {$a->release} ({$a->versiondisk})<br>
-You can find new versions of the plugin at <a href=https://github.com/Snickser/moodle-paygw_yookassa>GitHub.com</a>
-<img src="https://img.shields.io/github/v/release/Snickser/moodle-paygw_yookassa.svg"><br>
-Please send me some <a href="https://yoomoney.ru/fundraise/143H2JO3LLE.240720">donate</a>😊</div>
-TRX TRGMc3b63Lus6ehLasbbHxsb2rHky5LbPe<br>
-BTC 1GFTTPCgRTC8yYL1gU7wBZRfhRNRBdLZsq<br>
-<iframe src="https://yoomoney.ru/quickpay/fundraise/button?billNumber=143H2JO3LLE.240720"
-width="330" height="50" frameborder="0" allowtransparency="true" scrolling="no"></iframe>';
-
-$string['error_txdatabase'] = 'Error write TX data to database';
-$string['error_notvalidtxid'] = 'FAIL. Not a valid transaction id';
-$string['error_notvalidpayment'] = 'FAIL. Not a valid payment';
-$string['uninterrupted_desc'] = 'The price for the course is formed taking into account the missed time of the period you have not paid for.';
+$string['yookassa'] = 'YooKassa (all methods)';
